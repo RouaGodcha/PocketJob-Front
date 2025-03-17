@@ -1,0 +1,407 @@
+<p-dialog
+  #dialog
+  header="{{ 'USERS.EDIT_USER' | translate }}"
+  (onHide)="cancel()"
+  [(visible)]="show"
+  [modal]="true"
+  [style]="{ width: '636px' }"
+  (onShow)="setUser()"
+>
+  <div class="create-client-content clien-area">
+    <form *ngIf="!showSuccess" [formGroup]="updateUserForm">
+      <div class="required-field">
+        {{ "COMMON.REQUIRED" | translate }}
+      </div>
+      <div class="form-area">
+        <h3>{{ "COMMON_PLACEHOLDERS.INFOS" | translate }} :</h3>
+        <div class="input-required-group">
+          <div class="align-row">
+            <div class="form-style-1" style="flex: 1">
+              <label class="input-label" for="firstname">
+                {{ "COMMON.NAME" | translate }} *
+              </label>
+              <input
+                id="firstname"
+                type="text"
+                formControlName="firstname"
+                placeholder="{{ 'COMMON.NAME' | translate }} *"
+              />
+              <span
+                class="error"
+                *ngIf="
+                  attemptSubmission &&
+                  updateUserForm.controls['firstname'].hasError('required')
+                "
+              >
+                {{ "COMMON_REQUIRED.NAME" | translate }}
+              </span>
+              <span
+                class="error"
+                *ngIf="
+                  attemptSubmission &&
+                  updateUserForm?.get('firstname')?.dirty &&
+                  updateUserForm.controls['firstname'].hasError('pattern')
+                "
+              >
+                {{ "COMMON_INVALID.NAME_ONLY_LETTERS" | translate }}
+              </span>
+            </div>
+            <div class="form-style-1" style="flex: 1">
+              <label class="input-label" for="lastname">
+                {{ "COMMON.LASTNAME" | translate }} *
+              </label>
+              <input
+                type="text"
+                id="lastname"
+                formControlName="lastname"
+                placeholder="{{ 'COMMON.LASTNAME' | translate }} *"
+              />
+              <span
+                class="error"
+                *ngIf="
+                  attemptSubmission &&
+                  updateUserForm.controls['lastname'].hasError('required')
+                "
+              >
+                {{ "COMMON_REQUIRED.LASTNAME" | translate }}
+              </span>
+              <span
+                class="error"
+                *ngIf="
+                  attemptSubmission &&
+                  updateUserForm?.get('lastname')?.dirty &&
+                  updateUserForm.controls['lastname'].hasError('pattern')
+                "
+              >
+                {{ "COMMON_INVALID.LASTNAME_ONLY_LETTERS" | translate }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-style-1">
+          <label class="input-label" for="email">
+            {{ "COMMON.EMAIL" | translate }} *
+          </label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="{{ 'COMMON.EMAIL' | translate }} *"
+          />
+          <span
+            class="error"
+            *ngIf="
+              attemptSubmission &&
+              updateUserForm.controls['email'].hasError('required')
+            "
+          >
+            {{ "COMMON_REQUIRED.EMAIL" | translate }}
+          </span>
+          <span
+            class="error"
+            *ngIf="
+              attemptSubmission &&
+              updateUserForm?.get('email')?.dirty &&
+              updateUserForm.controls['email'].hasError('pattern')
+            "
+          >
+            {{ "COMMON_INVALID.EMAIL" | translate }}
+          </span>
+          <span class="error" *ngIf="emailExists">
+            {{ "COMMON_REQUIRED.EMAIL_ALREADY" | translate }}
+          </span>
+        </div>
+        <div class="form-style-1 checkbox">
+          <label class="input-label" for="display_email">
+            {{ "COMMON_PLACEHOLDERS.DISPLAY_EMAIL" | translate }}
+          </label>
+          <input
+            type="checkbox"
+            formControlName="display_email"
+            name="display_email"
+            id="display_email"
+          />
+        </div>
+        <div class="form-style-1">
+          <label class="input-label" for="diplomas">
+            {{ "COMMON.DIPLOMA" | translate }} *
+          </label>
+          <p-dropdown
+            id="diplomas"
+            [options]="diplomas"
+            formControlName="diploma_id"
+            [autoDisplayFirst]="false"
+            placeholder="{{ 'QCMS.DIPLOMA' | translate }} *"
+            optionLabel="name"
+            optionValue="id"
+            [showClear]="false"
+          ></p-dropdown>
+          <span
+            class="error"
+            *ngIf="
+              attemptSubmission &&
+              updateUserForm.controls['diploma_id'].hasError('required')
+            "
+          >
+            Ce champ est obligatoire
+          </span>
+        </div>
+        <div
+          class="graduation-bloc"
+          *ngFor="let grad of graduationsList; let i = index"
+        >
+          <p class="post-number">
+            Diplome #{{ i + 1 }}
+            <span
+              (click)="removeDeplome(i)"
+              *ngIf="graduationsList.length > 1"
+            ></span>
+          </p>
+          <div class="form-style-1">
+            <label class="input-label" for="diplomas">
+              {{ "COMMON_PLACEHOLDERS.SELET_EDUCATION_LEVEL" | translate }}
+            </label>
+            <p-dropdown
+              id="diplomas"
+              [options]="graduationLevel"
+              (onChange)="onGraduationInputChange($event, 'level', i)"
+              [placeholder]="
+                grad.level ? grad.level.name : ('QCMS.DIPLOMA' | translate)
+              "
+              optionLabel="name"
+              optionValue="index"
+              [showClear]="false"
+            ></p-dropdown>
+          </div>
+
+          <div class="align-row">
+            <div class="form-style-1" style="flex: 1">
+              <input
+                (input)="onGraduationInputChange($event, 'university', i)"
+                [value]="grad.university"
+                id="university"
+                type="text"
+                placeholder="{{ 'COMMON_PLACEHOLDERS.SCHOOL' | translate }}"
+              />
+            </div>
+            <div class="form-style-1" style="flex: 1">
+              <p-calendar
+                (onSelect)="onGraduationInputChange($event, 'date', i)"
+                [placeholder]="grad.date.toString()"
+                dateFormat="dd-mm-yy"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="form-style-1">
+            <input
+              [value]="grad.name"
+              (input)="onGraduationInputChange($event, 'name', i)"
+              id="name"
+              type="text"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.DEPLOMA_NAME' | translate }}"
+            />
+          </div>
+        </div>
+        <p class="add-career" (click)="addDeplome()">+ Add Diplome</p>
+
+        <div class="form-style-1">
+          <label class="input-label" for="post">
+            {{ "COMMON_PLACEHOLDERS.POST" | translate }}
+          </label>
+          <input
+            type="text"
+            formControlName="post"
+            placeholder="{{ 'COMMON_PLACEHOLDERS.POST' | translate }}"
+          />
+        </div>
+        <h3>{{ "COMMON_PLACEHOLDERS.STRENGTH_POINTS" | translate }} :</h3>
+        <div class="form-style-1">
+          <label class="input-label">
+            {{ "COMMON_PLACEHOLDERS.STRENGTH" | translate }}
+          </label>
+          <div class="align-col">
+            <input
+              type="text"
+              formControlName="strength1"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.STRENGTH1' | translate }} "
+            />
+            <input
+              type="text"
+              formControlName="strength2"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.STRENGTH2' | translate }} "
+            />
+            <input
+              type="text"
+              formControlName="strength3"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.STRENGTH3' | translate }} "
+            />
+          </div>
+        </div>
+
+        <h3>{{ "COMMON_PLACEHOLDERS.PARCOURS" | translate }} :</h3>
+        <div
+          class="career-block-wrapper"
+          *ngFor="let career of careers; let i = index"
+        >
+          <p class="post-number">
+            POSTE #{{ i + 1 }}
+            <span (click)="removeCareer(i)" *ngIf="careers.length > 1"></span>
+          </p>
+
+          <div class="form-style-1">
+            <input
+              type="text"
+              [value]="career.title"
+              (input)="onInputChange($event, 'title', i)"
+              placeholder="{{
+                'COMMON_PLACEHOLDERS.CAREER_POST_TITLE' | translate
+              }}"
+            />
+          </div>
+
+          <div class="align-row">
+            <div class="form-style-1" style="flex: 1">
+              <p-calendar
+                (onSelect)="onInputChange($event, 'from', i)"
+                [placeholder]="
+                  career.from ?? 'COMMON_PLACEHOLDERS.DATE_DEBUT' | translate
+                "
+                [dateFormat]="'dd-mm-yy'"
+                [maxDate]="career.max ?? null"
+              ></p-calendar>
+            </div>
+            <div class="form-style-1" style="flex: 1">
+              <p-calendar
+                (onSelect)="onInputChange($event, 'to', i)"
+                [placeholder]="
+                  career.to ?? 'COMMON_PLACEHOLDERS.DATE_FIN' | translate
+                "
+                [dateFormat]="'dd-mm-yy'"
+                [minDate]="career.min ?? null"
+              ></p-calendar>
+            </div>
+          </div>
+
+          <div class="post-form-upload">
+            <input
+              class="input-file"
+              (change)="onFileChange($event, i)"
+              type="file"
+              accept="image/*"
+              id="add-post-blog-{{ i }}"
+            />
+            <label class="input-label" for="add-post-blog-{{ i }}">
+              <img
+                *ngIf="imagesUrl[i]"
+                [src]="imagesUrl[i]"
+                alt="image du blog"
+                style="height: 68px"
+              />
+              <span
+                *ngIf="!imagesUrl[i]"
+                [innerHtml]="'COMMON_PLACEHOLDERS.IMPORT_IMAGE' | translate"
+              ></span>
+              <i *ngIf="!imagesUrl[i]" class="upload-icon"></i>
+              <span
+                *ngIf="imagesUrl[i]"
+                class="delete-icon"
+                (click)="removeImage(i, $event)"
+                name="close-circle"
+              ></span>
+            </label>
+          </div>
+        </div>
+
+        <p class="add-career" (click)="addCareer()">+ Add Post</p>
+
+        <h3>{{ "COMMON_PLACEHOLDERS.SOCIAL_MEDIA" | translate }} :</h3>
+        <div class="form-style-1">
+          <div class="align-row">
+            <label for="facebook" class="icon f-b"></label>
+            <input
+              type="text"
+              id="facebook"
+              formControlName="facebook"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.FACEBOOK' | translate }}"
+            />
+          </div>
+        </div>
+        <div class="form-style-1">
+          <div class="align-row">
+            <label for="LINKEDID" class="input-label icon l-i"> </label>
+            <input
+              type="text"
+              id="LINKEDID"
+              formControlName="linkedIn"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.LINKEDID' | translate }}"
+            />
+          </div>
+        </div>
+        <div class="form-style-1">
+          <div class="align-row">
+            <label for="instagram" class="input-label icon insta"> </label>
+            <input
+              id="instagram"
+              type="text"
+              formControlName="instagram"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.INSTAGRAM' | translate }}"
+            />
+          </div>
+        </div>
+        <div class="form-style-1">
+          <div class="align-row">
+            <label for="youtube" class="input-label icon youtube"> </label>
+            <input
+              id="youtube"
+              type="text"
+              formControlName="youtube"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.YOUTUBE' | translate }}"
+            />
+          </div>
+        </div>
+        <div class="form-style-1">
+          <div class="align-row">
+            <label for="tik-tok" class="input-label icon tik-tok"> </label>
+            <input
+              id="tik-tok"
+              type="text"
+              formControlName="tiktok"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.TIKTOK' | translate }}"
+            />
+          </div>
+        </div>
+        <div class="form-style-1">
+          <div class="align-row">
+            <label for="web" class="input-label icon web"> </label>
+            <input
+              id="web"
+              type="text"
+              formControlName="site_web"
+              placeholder="{{ 'COMMON_PLACEHOLDERS.WEB' | translate }}"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="footer_style">
+      <p-button
+        label="Annuler"
+        styleClass="p-button-text btn btn-cancel"
+        (click)="dialog.close($event)"
+      >
+      </p-button>
+      <p-button
+        *ngIf="!showSuccess"
+        [disabled]="loading"
+        [icon]="loading ? 'pi pi-spin pi-spinner' : ''"
+        label="Modifier"
+        styleClass="btn btn-primary"
+        (click)="attemptUpdateUser($event)"
+      >
+      </p-button>
+    </div>
+  </ng-template>
+</p-dialog>

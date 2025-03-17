@@ -1,0 +1,52 @@
+<div class="login-container duerp_bg_page wrapper">
+    <!--formulaire -->
+  <form class="form-signin" [formGroup]="loginForm">
+      <h1>Welcome Admin!</h1>
+    
+    <!-- message d'erreur -->
+    <div class="success-message"
+      *ngIf="(f['password']?.hasError('auth') || f['email']?.hasError('auth')) && dataState === 'email';">
+      <div class="alert alert-danger" role="alert">
+        Email non existant
+      </div>
+    </div>
+    <div class="success-message"
+      *ngIf="(f['password']?.hasError('auth') || f['email']?.hasError('auth')) && dataState === 'password';">
+      <div class="alert alert-danger" role="alert">
+        Identifiants incorrects
+      </div>
+    </div>
+  
+    <div class="form-bloc">
+      <label>Email</label>
+      <input type="text" matInput mat-autosize formControlName="email" placeholder="Email"
+        autocomplete="email" autofocus class="login-form-input" />
+      <span class="error" *ngIf="loginForm?.get('email')?.dirty && f['email'].hasError('pattern')">
+        <p>Email invalide</p>
+      </span>
+      <span class="error" *ngIf="f['email']?.errors?.['required'] && submitted">
+        <p>Le champ email est requis</p>
+      </span>
+    </div>
+    <div class="form-bloc">
+      <label>Mot de passe</label>
+      <input type="password" matInput mat-autosize formControlName="password"
+        placeholder="Mot de passe" autocomplete="current-password" autofocus
+        class="login-form-input" />
+      <span class="error" *ngIf="f['password']?.errors?.['minlength']">
+        <p>Le mot de passe doit comporter au moins 6 caractères</p>
+      </span>
+      <span class="error" *ngIf="f['password']?.errors?.['required'] && submitted">
+        <p>Le champ mot de passe est requis</p>
+      </span>
+    </div>
+    <div>
+      <p><a (click)="forget()">Mot de passe oublié ?</a></p>
+    </div>
+    <div class="form-buttons">
+      <button class="connect-btn" (click)="login()">
+        Se connecter
+      </button>
+    </div>
+  </form>
+</div>

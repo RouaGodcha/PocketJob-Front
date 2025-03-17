@@ -1,0 +1,34 @@
+<header>
+    <a class="logo" routerLink="/admin/dashboard">
+      <img src="../../../assets/img/village-comptable-logo.png" alt="pocketjob-logo">
+    </a>
+    <div class="row-header">
+      <div class="search-area">
+        <!-- <button class="notif-blc"></button> -->
+        <div class="search-blc">
+          <input type="search" class="form-control" placeholder="Chercher">
+        </div>
+      </div><!--.search-area-->
+      <div class="dropdown-blc">
+        <div class="connected-status-area">
+          <span>Connecté</span>
+        </div>
+        <div class="dropdown">
+          <button class="user-icon" (click)="toggleDropdownList()"></button>
+          <div class="dropdown-list" [ngClass]="statusToggleDropdownList ? 'active' : ''">
+            <button class="logout-btn" (click)="logout()">
+              <span class="logout-text">
+                Logout
+              </span>
+            </button>
+            <button class="config-btn" (click)="openSetting()">
+              <span class="config-text">
+                Configurations
+              </span>
+            </button>
+          </div>
+        </div><!--.dropdown-->
+      </div><!--.dropdown-blc-->
+    </div><!--.row-header-->
+  </header>
+  

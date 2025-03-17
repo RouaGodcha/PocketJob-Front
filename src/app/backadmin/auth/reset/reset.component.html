@@ -1,0 +1,39 @@
+<div class="login-container duerp_bg_page">
+    <form class="form-signin" [formGroup]="resetPasswordForm">
+      <div class="img-login"></div>
+      
+      
+      <div class="success-message" *ngIf="f['code'].hasError('auth') && f['email'].hasError('auth')">
+        <div class="alert alert-danger" role="alert">Erreur de vérification</div>
+      </div>
+  
+      <div class="form-bloc">
+        <label>Email</label>
+        <input type="text" matInput mat-autosize formControlName="email" placeholder="Email" autocomplete="email" autofocus class="login-form-input" />
+      </div>
+  
+      <div class="form-bloc">
+        <label>Code de vérification</label>
+        <input type="text" matInput mat-autosize formControlName="code" placeholder="xxxx-xxx-xxxx" autofocus class="login-form-input" />
+      </div>
+  
+      <div class="form-bloc">
+        <label>Mot de passe</label>
+        <input type="password" matInput mat-autosize formControlName="password" placeholder="Mot de passe" autocomplete="current-password" autofocus class="login-form-input" />
+      </div>
+  
+      <div class="form-bloc">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" matInput mat-autosize formControlName="password_confirmation" placeholder="Confirmer le mot de passe" autocomplete="current-password" autofocus class="login-form-input" />
+      </div>
+  
+      <div>
+        <p><a (click)="forget()">Je n'ai pas reçu l'email</a></p>
+      </div>
+  
+      <div class="form-buttons">
+        <button class="connect-btn" (click)="resetPassword()">Envoyer</button>
+      </div>
+    </form>
+  </div>
+  

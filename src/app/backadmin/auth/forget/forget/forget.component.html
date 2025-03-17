@@ -1,0 +1,28 @@
+<div class="login-container duerp_bg_page">
+    <form class="form-signin" [formGroup]="forgetPasswordForm">
+      <div class="img-login">
+      </div>
+      <div class="success-message" *ngIf="f['email'].hasError('auth')">
+        <div class="alert alert-danger" role="alert">
+          Vérification de l'email échouée.
+        </div>
+      </div>
+      <div class="form-bloc">
+        <label>Email</label>
+        <input type="text" matInput mat-autosize formControlName="email" placeholder="Email"
+          autocomplete="email" autofocus class="login-form-input" />
+        <span class="error" *ngIf="forgetPasswordForm?.get('email')?.dirty  && f['email'].hasError('pattern')  ">
+          <p>Veuillez entrer un email valide.</p>
+        </span>
+        <span class="error" *ngIf="f['email']?.errors?.['required'] && submitted">
+          <p>L'email est requis.</p>
+        </span>
+      </div>
+      <div class="form-buttons">
+        <button class="connect-btn" (click)="forgetPassword()">
+          Envoyer
+        </button>
+      </div>
+    </form>
+  </div>
+  
