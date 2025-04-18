@@ -1,6 +1,6 @@
 <header>
-    <a class="logo" routerLink="/admin/dashboard">
-      <img src="../../../assets/img/village-comptable-logo.png" alt="pocketjob-logo">
+    <a class="logo" routerLink="/dashboard">
+      <img src="../../../assets/img/" alt="pocketjob-logo">
     </a>
     <div class="row-header">
       <div class="search-area">
@@ -16,9 +16,9 @@
         <div class="dropdown">
           <button class="user-icon" (click)="toggleDropdownList()"></button>
           <div class="dropdown-list" [ngClass]="statusToggleDropdownList ? 'active' : ''">
-            <button class="logout-btn" (click)="logout()">
+            <button class="logout-btn" (click)="logout()"  >
               <span class="logout-text">
-                Logout
+               Déconnexion 
               </span>
             </button>
             <button class="config-btn" (click)="openSetting()">

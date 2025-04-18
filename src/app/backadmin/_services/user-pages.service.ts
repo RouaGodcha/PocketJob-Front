@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class UserPagesService {
 
-  private apiUrl = `${environment.apiUrl}/backoffice`;
+  private apiUrl = `${environment.apiUrl}`;
   constructor(
     private http: HttpClient
   ) { }

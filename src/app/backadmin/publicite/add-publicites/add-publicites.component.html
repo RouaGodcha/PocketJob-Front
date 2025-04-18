@@ -1,0 +1,44 @@
+<div class="container add-publicite-form">
+    <div class="modal-header">
+      <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="cancel()"></a>
+      <h1 class="title">Ajouter une publicité</h1>
+      <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
+    </div>
+  
+    <form [formGroup]="publiciteForm" (ngSubmit)="onSubmit()" class="form-area">
+      <div class="form-style-1">
+        <input type="text" placeholder="Nom de la publicité *" formControlName="nom" />
+      </div>
+  
+      <div class="form-style-1">
+        <p-calendar formControlName="date_debut" dateFormat="dd/mm/yy" showIcon placeholder="Date de début"></p-calendar>
+      </div>
+  
+      <div class="form-style-1">
+        <p-calendar formControlName="date_fin" dateFormat="dd/mm/yy" showIcon placeholder="Date de fin"></p-calendar>
+      </div>
+  
+      <div class="form-style-1">
+        <p-dropdown [options]="statusOptions" formControlName="statut" placeholder="Choisir le statut"></p-dropdown>
+      </div>
+  
+      <div class="form-style-1">
+        <div *ngIf="imageUrl" class="gallerie">
+          <img class="img-thumbnail" [src]="imageUrl" alt="Publicité image" />
+          <i class="pi pi-times" (click)="removeImage()"></i>
+        </div>
+        <input type="file" (change)="onImageSelected($event)" />
+      </div>
+
+  
+      <div class="form-style-1">
+        <textarea formControlName="description" rows="3" placeholder="Description"></textarea>
+      </div>
+  
+      <div class="add-partner-modal-buttons">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+        <button type="submit" class="btn btn-primary" [disabled]="publiciteForm.invalid">Ajouter</button>
+      </div>
+    </form>
+  </div>
+  

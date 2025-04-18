@@ -1,0 +1,105 @@
+<div class="list-orders-item-area add-chapter">
+    <div class="introduction-area p-d-flex p-jc-between">
+        <div class="big-title-blc">
+            <h1 class="big-title title-align-center">
+                <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" 
+                (click)="backToList()"></a>
+                Ajouter une offre de travail
+            </h1>
+        </div>
+    </div>
+    <div class="table-area">
+        <form [formGroup]="editModuleForm">
+            <div class="row">
+                <div class="col-lg-4 pe-md-0">
+                    <div class="card form-area bg-white part-one">
+                        <div class="card-body">
+                            <div class="form-style-1">
+                                <label class="form-label">Diplôme</label>
+                                <p-dropdown [options]="diplomas" formControlName="diploma_id" [autoDisplayFirst]="false"
+                                    placeholder="Sélectionner un diplôme *" optionLabel="name" optionValue="id"
+                                    [showClear]="false"></p-dropdown>
+                                <span class="error"
+                                    *ngIf="editModuleForm.controls['diploma_id'].hasError('required') && isSubmitted">
+                                    Champ obligatoire !
+                                </span>
+                            </div>
+                            <div class="form-style-1">
+                                <label class="form-label">Coefficient</label>
+                                <input type="number" placeholder="Coefficient *" formControlName="coefficient">
+                                <span class="error"
+                                    *ngIf="editModuleForm.controls['coefficient'].hasError('required') && isSubmitted">
+                                    Champ obligatoire !
+                                </span>
+                            </div>
+                            <div class="form-style-1">
+                                <label class="form-label">Couleur</label>
+                                <div class="color-picker">
+                                    <p-colorPicker formControlName="color" ></p-colorPicker>
+                                </div>
+                                <span class="error"
+                                    *ngIf="editModuleForm.controls['color'].hasError('required') && isSubmitted">
+                                    Champ obligatoire !
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card form-area bg-white">
+                        <div class="card-body">
+                            <div class="form-style-1">
+                                <label class="form-label">Image</label>
+                            </div>
+                            <div class="form-style-1" *ngIf="imageUrl">
+                                <div class="gallerie">
+                                    <div class="gallerie__item">
+                                        <img class="img-image" [src]="imageUrl" alt="image du module">
+                                        <i class="pi pi-times" (click)="removeImage()"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-style-1">
+                                <input id="image" type="file" placeholder="Image" class="input-file image"
+                                    accept="image/png, image/jpeg" (change)="uploadImage($event)">
+                                <label for="image" *ngIf="editModuleForm.controls['image'].value">
+                                    {{editModuleForm.controls['image'].value.name}}
+                                </label>
+                                <label for="image" *ngIf="!editModuleForm.controls['image'].value">
+                                    Image
+                                </label>
+                                <span class="error"
+                                    *ngIf="editModuleForm.controls['image'].hasError('required') && isSubmitted">
+                                    Champ obligatoire !
+                                </span>
+                            </div>
+                            <div class="form-style-1">
+                                <label class="form-label">Titre</label>
+                                <input type="text" placeholder="Titre *" formControlName="name">
+                                <span class="error"
+                                    *ngIf="editModuleForm.controls['name'].hasError('required') && isSubmitted">
+                                    Champ obligatoire !
+                                </span>
+                            </div>
+                            <div class="form-style-1">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Description" formControlName="description">
+                                </textarea>
+                                <span class="error"
+                                    *ngIf="editModuleForm.controls['description']?.hasError('required') && isSubmitted">
+                                    Champ obligatoire !
+                                </span>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <p-button [disabled]="loadingAdd" [icon]="loadingAdd ? 'pi pi-spin pi-spinner' : ''"
+                                    label="Modifier" styleClass="btn btn-primary submit"
+                                    (onClick)="submitForm()">
+                                </p-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

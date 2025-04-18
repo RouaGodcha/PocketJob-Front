@@ -1,0 +1,290 @@
+<div class="list-ordrs-item-area">
+    <div class="introduction-area">
+        <div class="p-d-flex p-jc-between">
+            <h1>
+                Listes des Nouveauté 
+            </h1>
+            <div class="btns-group two-btns" style="text-align: end">
+                <a
+                    class="btn-primary"
+                    routerLink="/dashboard/all-news/newposte/add-poste"
+                    pButton
+                    pRipple
+                    icon="pi pi-plus"
+                > Ajouter </a>
+                <a
+                    class="btn-primary"
+                    routerLink="/dashboard/all-news/newposte/update-poste"
+                    pButton
+                    pRipple
+                    icon="pi pi-plus"
+                > modifer </a>
+                <a
+                    class="btn-primary"
+                    routerLink="/dashboard/all-news/newposte/news-details"
+                    pButton
+                    pRipple
+                    icon="pi pi-plus"
+                > details</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-area news_table">
+        <div class="card">
+            <div class="card-body">
+                <p-table
+                [value]="tableData" 
+                responsiveLayout="stack"
+                [breakpoint]="'960px'" 
+                [first]="first" 
+                [paginator]="true"
+                [lazy]="true"
+                [rows]="per_page"
+                [rowsPerPageOptions]="[1,5,10,20]" 
+                [totalRecords]="total"
+                [showCurrentPageReport]="true" (onLazyLoad)="lazyLoad($event)"
+                currentPageReportTemplate="
+                    Affichage de {first} à {last} sur {totalRecords} entrées"
+      >
+      
+      <ng-template pTemplate="caption">
+        <div class="form-area btn-div">
+            <div class="p-input-icon-let ml-auto frm-style-1 mb-4">
+                <button
+                pButton
+                class="btn btn-primary btn-icon-filter me-2"
+                [icon]="showFilter ? 'pi pi-times' : 'pi pi-filter-slash'"
+                (click)="toggleFilter()">
+                </button>
+                <input 
+                type="text"
+                (input)="search($event)"
+                placeholder="Mot-clé de recherche">
+            </div>
+
+            <div 
+            *ngIf="showFilter"
+             class="row filter-animation"
+            [@filter-animation]="{ value: '', params: { heightEnter:'0', heightLeave:'54px',marginTop :'-10px', heightOut:'0'}}">
+            <div class="col-lg col-sm-6 col-12">
+                <div class="form-style-1">
+                    <p-dropdown
+                    #ddstatus 
+                    [options]="allStatus"
+                    [autoDisplayFirst]="false"
+                    placeholder="Status"
+                    optionLabel="name"
+                    optionValue="value"
+                    [showClear]="true"
+                    (onChange)="selectStatus($event)" >
+                    </p-dropdown>
+                </div>
+            </div>
+           
+            <div class="col-lg col-sm-6 col-12">
+                <div class="form-style-1">
+
+                    <p-dropdown
+                    #ddformat
+                    [options]="formats"
+                    [autoDisplayFirst]="false"
+                    placeholder="Type offre d'emploi"
+                    optionLabel="name"
+                    optionValue="value"
+                    [showClear]="true"
+                    (onChange)="selectFormat($event)" >
+                    </p-dropdown>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-6 col-12 d-flex">
+
+                <button
+                pButton
+                class="btn btn-primary btn-icon"
+                icon="pi pi-search"
+                (click)="filterChange()"
+                >
+                </button>
+
+                <button
+                pButton
+                class="btn btn-red icon  ms-2"
+                icon="pi pi-refresh"
+                (click)="resetFilter()"
+                ></button>
+            </div>
+        </div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+
+        <tr>
+            <th pSortableColumn="id">
+                Référence
+                <p-sortIcon field="id" class="sort-icon"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="name">
+                Title
+                <p-sortIcon field="name" class="sort-icon"></p-sortIcon>
+            </th>
+            <th pSortableColumn="description">
+                Description
+                <p-sortIcon field="description" class="sort-icon"></p-sortIcon>
+            </th>
+            <th pSortableColumn="type_media">
+                Type offre d'emploi
+                <p-sortIcon field="type_media" class="sort-icon">
+                </p-sortIcon>
+            </th>
+            <th pSortableColumn="status">
+                Status
+                <p-sortIcon field="status" class="sort-icon"></p-sortIcon>
+            </th>
+            <th pSortableColumn="created_at">
+                Date de création
+                <p-sortIcon field="created_at" class="sort-icon"></p-sortIcon>
+            </th>
+            <th class="text-center">
+                Actions
+            </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-news sortMode="multiple">
+        <tr>
+            <td><span class="badge-ref">{{news.id}}</span></td>
+                            <td>{{news.title}}</td>
+                            <td>{{news.description}}</td>
+                            <td>{{news.format}}</td>
+                            <td>{{news.status}}</td>
+                            <td>{{ news.created_at | date : 'dd/MM/yyyy'}}</td>
+                            <td class="text-center">
+                                <button
+                                type="button"
+                                pTooltip="Details"
+                                tooltipPosition="left"
+                                pButton
+                                class="btn-icon btn-icon--outlin-primary"
+                                icon="pi pi-eye"
+                                (click)="goToDetails(news.id)"></button>
+
+                                <!--Button 2 update-->
+
+                                <button
+                                type="button"
+                                pTooltip="update"
+                                tooltipPosition="left"
+                                pButton 
+                                class="btn-icon btn-icon--outlin-primary"
+                                icon="pi pi-pencil"
+                                (click)="goToUpdate(news.id)">
+                            </button>
+
+                            <!-- button 3 delete -->
+
+                            <button
+                                type="button"
+                                pTooltip="Delete"
+                                tooltipPosition="left"
+                                pButton 
+                                class="btn-icon btn-icon--outlin-primary"
+                                icon="pi pi-trash"
+                                (click)="toggleDeleteNews(news)"></button>
+                            </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr *ngIf="loading">
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+        </tr>  
+        <tr *ngIf="loading">
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+        </tr>
+        <tr *ngIf="!loading && !news.length">
+            <td colspan="7">
+                <div class="text-center">news</div>
+            </td>
+        </tr>
+      </ng-template>
+    </p-table>       
+</div>
+</div>
+</div>
+
+<div class="custom-modal-container" *ngIf="showDelete">
+    <div class="custom-modal-overlay" (click)="toggleDeleteNews()"></div>
+    <div class="custom-modal-content" style="width: 636px;">
+        <h2 class="modal-header">Supprimer Nouveaute /h2>
+    
+        <div class="create-client-content clien-area">
+          <p>Etes-vous sur(e) de vouloir supprimer ?</p>
+        </div>
+
+        <div class="footer_style modal-footer">
+            <button class="p-button-text btn btn-cancel"
+             (click)="toggleDeleteNews()">
+              Annuler
+            </button>
+            <button class="btn btn-primary" (click)="deleteNews()">
+              Supprimer
+            </button>
+          </div>

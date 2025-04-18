@@ -1,0 +1,94 @@
+
+<div class="container">
+     <!-- Icône de fermeture dans l'en-tête -->
+     <div class="modal-header">
+      <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+   
+        <h1 class="title">Ajout d'un post</h1>
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+           
+        <div *ngIf="overlayStatus" class="overlay">
+          <!-- Contenu de ton overlay ici -->
+          <button class="overlay-close" (click)="overlayStatusFct()"></button>
+        </div>
+        </div>
+
+    <div class="form-area add-partner-modal-body">
+      <form [formGroup]="addPostForm" (ngSubmit)="addPost()">
+    
+
+        <!-- Champ Description -->
+        <div class="form-style-1 input-item-bloc">
+          <label for="description"></label>
+          <input
+            type="text"
+            id="link"
+            class="flex-auto"
+            formControlName="description"
+            placeholder="Description *"
+            autocomplete="off"
+          />
+          <span
+            class="error"
+            *ngIf="addPostForm.get('description')?.errors?.['required'] && addPostForm.get('description')?.touched"
+          >
+            Description est obligatoire
+          </span>
+        </div>
+  
+        <!-- Champ Sélection d'image ou document -->
+        <div class="form-style-1 input-item-bloc">
+          <label for="file" class="label-file">
+            Choisir une image ou document *
+          </label>
+          <input
+            type="file"
+            id="file"
+            class="input-file"
+            (change)="uploadImage($event)"
+            accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          />
+          <span
+            class="error"
+            *ngIf="addPostForm.get('file')?.errors?.['required'] && addPostForm.get('file')?.touched"
+          >
+            Image ou Document est obligatoire
+          </span>
+        </div>
+  
+        <!-- Affichage de l'image ou document sélectionné -->
+        <div class="form-style-1" *ngIf="imageUrl">
+          <div class="gallerie">
+            <div class="gallerie__item">
+              <img class="img-image" [src]="imageUrl" alt="image du post" *ngIf="isBase64Image(imageUrl)" />
+              <i
+                *ngIf="!isBase64Image(imageUrl)"
+                class="pi pi-file-pdf"
+                style="font-size: 2.5em; color: #708090; border: none;"
+              ></i>
+              <i class="pi pi-times" (click)="removeImage()"></i>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Boutons Annuler et Créer -->
+        <div class="add-partner-modal-buttons">
+          <button
+            type="reset" class="annuler"
+            style="font-style: normal; color: black; background-color: white;"
+            (click)="closeModal()"
+          >
+            Annuler
+          </button>
+          <button
+            type="submit" class="creer"
+            style="font-style: normal; color: white; background-color: blue;"
+          >
+            Créer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+ 

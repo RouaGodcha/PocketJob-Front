@@ -1,0 +1,63 @@
+<div class="container update-candidat-form">
+  <!-- 🔙 Retour et titre -->
+  <div class="modal-header">
+    <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+    <h1 class="title">Modifier un candidat</h1>
+    <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+  </div>
+
+  <!-- ✅ Formulaire de mise à jour -->
+  <form [formGroup]="updateCandidatsForm" (ngSubmit)="onUpdateSubmit()" class="form-area" *ngIf="!showSuccess">
+    <!-- Nom -->
+    <div class="form-style-1">
+      <input type="text" placeholder="Nom *" formControlName="firstname" />
+      <div class="alert-danger" *ngIf="updateCandidatsForm.get('firstname')?.invalid && updateCandidatsForm.get('firstname')?.touched">
+        Nom requis (au moins 2 caractères)
+      </div>
+    </div>
+
+    <!-- Prénom -->
+    <div class="form-style-1">
+      <input type="text" placeholder="Prénom *" formControlName="lastname" />
+      <div class="alert-danger" *ngIf="updateCandidatsForm.get('lastname')?.invalid && updateCandidatsForm.get('lastname')?.touched">
+        Prénom requis
+      </div>
+    </div>
+
+    <!-- Diplôme -->
+    <div class="form-style-1">
+      <label class="label-file">Diplôme *</label>
+      <input type="file" (change)="onFileChange($event)" class="input-file" />
+      <div class="alert-danger" *ngIf="!selectedFile && updateCandidatsForm.get('diplome')?.touched">
+        Diplôme requis
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-style-1">
+      <input type="email" placeholder="E-mail *" formControlName="email" />
+      <div class="alert-danger" *ngIf="updateCandidatsForm.get('email')?.invalid && updateCandidatsForm.get('email')?.touched">
+        Email invalide
+      </div>
+    </div>
+
+    <!-- Téléphone -->
+    <div class="form-style-1">
+      <input type="text" placeholder="Téléphone *" formControlName="phone" />
+      <div class="alert-danger" *ngIf="updateCandidatsForm.get('phone')?.invalid && updateCandidatsForm.get('phone')?.touched">
+        Numéro requis
+      </div>
+    </div>
+
+    <!-- ✅ Boutons -->
+    <div class="add-partner-modal-buttons">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+      <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </div>
+  </form>
+
+  <!-- ✅ Message de succès -->
+  <div *ngIf="showSuccess" class="alert-success">
+    🎉 Candidat mis à jour avec succès !
+  </div>
+</div>

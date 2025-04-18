@@ -1,0 +1,185 @@
+<div class="list-orders-item-area users-area" >
+  <div class="introduction-area">
+    <div class="p-d-flex p-jc-between">
+      <div class="big-title-blc">
+        <h1 class="big-title">Liste des Candidats</h1>
+      </div>
+      <div class="btns-group two-btns">
+        <a
+          class="btn-primary"
+          routerLink="/dashboard/users/candidats/add-candidat"
+          pButton
+          pRipple
+          icon="pi pi-plus">
+          Ajouter
+        </a>
+        <a
+        class="btn-primary"
+        routerLink="/dashboard/users/candidats/update-candidat"
+        pButton
+        pRipple
+        icon="pi pi-plus">
+        modifier
+      </a>
+      <a
+      class="btn-primary"
+      routerLink="/dashboard/users/candidats/Viewcandidats"
+      pButton
+      pRipple
+      icon="pi pi-plus">
+      details
+    </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-area">
+    <div class="card">
+      <div class="card-body">
+        <p-table
+          [value]="candidats"
+          [first]="first"
+          [paginator]="true"
+          [lazy]="true"
+          [rows]="per_page"
+          [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[1, 5, 10, 20]"
+          [totalRecords]="total"
+          (onLazyLoad)="lazyLoad($event)"
+          currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées"
+        >
+          <ng-template pTemplate="caption">
+            <div class="recherche-blc form-area">
+              <span class="p-input-icon-left ml-auto form-style-1">
+                <input
+                  type="text"
+                  placeholder="Mot-clé de recherche"
+                  (input)="search($event)"
+                />
+              </span>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Référence</th>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Diplôme</th>
+              <th>Téléphone</th>
+              <th>Status</th>
+              <th>Date d'inscription</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-candidat>
+            <tr>
+              <td>#{{ candidat.id }}</td>
+              <td>{{ candidat.firstname }} {{ candidat.lastname }}</td>
+              <td>{{ candidat.email }}</td>
+              <td>{{ candidat.diplome }}</td>
+              <td>{{ candidat.phone }}</td>
+              <td>
+                <p-dropdown
+                  [options]="allStatus"
+                  [ngModel]="candidat.status"
+                  (onChange)="updateCandidatsStatus(candidat.id, $event)"
+                  [class]="'status-' + candidat.status"
+                  optionLabel="name"
+                  optionValue="value"
+                  placeholder="Statut"
+                ></p-dropdown>
+              </td>
+              <td>{{ candidat.created_at | date: 'dd/MM/yyyy' }}</td>
+              <td class="text-center">
+                <button
+                  pButton
+                  icon="pi pi-folder"
+                  pTooltip="Pages"
+                  tooltipPosition="left"
+                  class="btn-icon btn-icon--outlin-primary"
+                  (click)="openPages(candidat.id)"
+                ></button>
+
+                <button
+                  pButton
+                  icon="pi pi-eye"
+                  pTooltip="Détails"
+                  tooltipPosition="left"
+                  class="btn-icon btn-icon--outlin-primary"
+                  [routerLink]="['dashboard/users/candidats/Viewcandidats', candidat.id]"
+                  (click)="candidatDetails(candidat.id)"
+                ></button>
+
+                <button
+                  pButton
+                  icon="pi pi-pencil"
+                  pTooltip="Modifier"
+                  tooltipPosition="left"
+                  class="btn-icon btn-icon--outlin-primary"
+                  (click)="displayUpdateCandidats(candidat)"
+                ></button>
+
+                <button
+                  pButton
+                  icon="pi pi-trash"
+                  pTooltip="Supprimer"
+                  tooltipPosition="left"
+                  class="btn-icon btn-icon--outlin-primary"
+                  (click)="toggleDeleteCandidat(candidat)"
+                  ></button>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr *ngIf="!loading && candidats.length === 0">
+              <td colspan="8" class="text-center">Aucun candidat trouvé</td>
+            </tr>
+            <tr *ngIf="loading">
+              <td colspan="8">
+                <p-skeleton width="100%" height="2rem"></p-skeleton>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal d'ajout -->
+<app-add-candidat
+  *ngIf="isModalOpen"
+  (close)="isModalOpen = false"
+  (success)="onCandidatAdded($event)">
+</app-add-candidat> 
+
+<p-dialog 
+header="Supprimer"
+[(visible)]="showDelete"
+[modal]="true"
+[style]="{width : '636px'}">
+<div class="create-client-content clien-area">
+  <p>
+    supprimer avec succees 
+  </p>
+</div>
+<ng-template pTemplate="footer">
+  <div class="footer_style">
+    <p-button
+    label="Cancel"
+    styleClass="p-button-text btn btn-cancel"
+    (click)="toggleDeleteCandidat()">
+  </p-button>
+
+  <p-button
+          label="Supprimer"
+          styleClass="btn btn-primary"
+          (click)="deleteCandidat()"
+        >
+        </p-button>
+  </div>
+</ng-template>
+</p-dialog>

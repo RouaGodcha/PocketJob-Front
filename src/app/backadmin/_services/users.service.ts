@@ -7,14 +7,17 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UsersService {
-  private apiUrl = `${environment.apiUrl}/backoffice`;
+  private apiUrl = `${environment.apiUrl}`;
  
 
   constructor(
     private http: HttpClient
   ) { }
+  
+
+
   public getUsersList(payload: any): Observable<HttpResponse<any>> {
-    return this.http.post(`${this.apiUrl}/users`, payload, { observe: 'response' })
+    return this.http.post(`${this.apiUrl}/clients`, payload, { observe: 'response' })
   }
 
 
@@ -36,14 +39,11 @@ export class UsersService {
   public changePassword(id: number, payload: any): Observable<HttpResponse<any>> | any {
     return this.http.post(`${this.apiUrl}/users/change_password/${id}`, payload, { observe: 'response' })
   }
-  
 
   uploadDiplome(userId: number, formData: FormData) {
     return this.http.post(`/api/users/${userId}/upload-diplome`, formData);
   }
   
-
-
   public getDiplomasList(payload: any): Observable<HttpResponse<any>> {
     return this.http.post(`${this.apiUrl}/diplomas`, payload, { observe: 'response' })
   }

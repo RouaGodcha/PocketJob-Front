@@ -1,0 +1,239 @@
+<div class="list-orders-item-area">
+    <div class="introduction-area">
+        <div class="p-d-flex p-jc-between">
+            <div class="big-title-blc">
+                <h1 class="big-title">
+                    Liste des postes
+                </h1>
+            </div>
+            <div class="btns-group two-btns" style="text-align:end">
+                <a 
+                class="btn-primary"
+                routerLink="/dashboard/pocketjob/postes/add-postes"
+         
+                pButton
+                pRipple
+                icon="pi pi-plus"
+                (click)="AddPost()">
+                Ajouter
+               ></a>
+                <a 
+                class="btn-primary"
+                routerLink="/dashboard/pocketjob/postes/update-postes"
+         
+                pButton
+                pRipple
+                icon="pi pi-plus"
+                (click)="AddPost()">
+                modfer post
+                </a>
+                <a 
+                class="btn-primary"
+                routerLink="/dashboard/pocketjob/postes/update-postesupdate-postes-react"
+         
+                pButton
+                pRipple
+                icon="pi pi-plus"
+                (click)="AddPost()">
+                modifer poste reaction
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--table de formulaire-->
+    <div class="table-area chapters_table">
+        <div class="card">
+            <div class="card-body">
+                <p-table
+                    [first]="first"
+                    [value]="posts"
+                    responsiveLayout="stack"
+                    [breakpoint]="'960px'"
+                    [lazy]="true"
+                    [rows]="per_page"
+                    [paginator]="true"
+                    [rowsPerPageOptions]="[1, 5, 10, 20]"
+                    [totalRecords]="total"
+                    [showCurrentPageReport]="true"
+                    (onLazyLoad)="lazyLoad($event)"
+                    currentPageReportTemplate=
+                    "
+                    Affichage de {first} à {last} sur {totalRecords} entrées"
+          >
+          <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">Référence
+                <p-sortIcon field="id" class="sort-icon"></p-sortIcon>  
+            </th> <!-- icon de fleche a gauche-->
+                 <th>Image</th>
+                 <th>Description</th>
+                 <th>Details</th>
+                 <th>Créer par</th>
+                 <th>Date de creation</th>
+                 <th>Action</th>
+            </tr>
+          </ng-template>   
+             <!-- sortMode="multiple" : Indique que le tri peut être activé sur plusieurs colonnes en même temps.  -->
+           
+          <ng-template    pTemplate="body" let-post sortMode="multiple">
+            <tr>
+                <td>
+                    <span class="badge-ref"> {{ post.id }} </span>
+                </td>
+                <td>
+                     <!-- si post.files.length > 0 (le post contient au moins un fichier).-->
+                     
+                    <ng-container *ngIf="post.files.length; else noImage">  
+                        <img
+                        class="img-image" 
+                        *ngIf="getFileType(post.files[0].path) === 'image'"
+                        [src]="post.files[0].path"
+                        alt="image du chapitre">
+                        <i
+                        (click)="openFile(post.files[0].path)"
+                        *ngIf="getFileType(post.files[0].path) != 'image'"
+                        class="pi pi-file-pdf"
+                        style="font-size: 2.5em; color: #708090"
+                      ></i>
+                    </ng-container>
+
+                    <ng-template #noImage>
+                            --
+                    </ng-template>
+                </td>
+
+                <td>
+                    <p>{{post.description ? collapse(post.description, 10) : "--" }}
+                    </p>
+                </td>
+                <td>
+                    <div class="details">
+                        <div>
+                            <p>
+                                {{ post.favorites }}
+                            </p>
+                            <p>
+                                {{ post.comments.length }}
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p> {{ post.user.firstname + " " + post.user.lastname }} </p>
+                </td>
+
+                <td>{{ post.created_at | date : "dd/MM/yyyy" }}</td>
+                <td class="text-center">
+                    <!-- boutton pour update les raction-->
+                    <button
+                    type="button"
+                    pTooltip="{{ 'POSTS.UPDATE_R' | translate }}"
+                    tooltipPosition="left"
+                    pButton
+                    class="btn-icon btn-icon--outlin-primary"
+                    icon="pi pi-file-edit"
+                    (click)="updatePostReacts(post)"
+                    >
+                    </button>
+                     <!-- boutton pour update les post-->
+                    <button
+                    type="button"
+                    pTooltip="{{ 'POSTS.UPDATE' | translate }}"
+                    tooltipPosition="left"
+                    pButton
+                    class="btn-icon btn-icon--outlin-primary"
+                    icon="pi pi-pencil"
+                    (click)="updatePost(post)">
+    
+                    </button>
+
+                     <!-- boutton pour supp les postes -->
+                      <button
+                      type="button"
+                      pTooltip="{{ 'POSTS.DELETE' | translate }}"
+                      tooltipPosition="left"
+                        pButton
+                        class="btn-icon btn-icon--outlin-primary"
+                        icon="pi pi-trash"
+                        (click)="deletePost(post)">
+                      </button>
+                </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage" let-columns>
+              <tr *ngIf="loading">
+                <td>
+                    <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                </td>
+              <td>
+                <p-skeleton size="3rem" styleClass="mr-2"></p-skeleton>
+              </td>
+              <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+              </td>
+              <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+              </td>
+              <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+              </td>
+              <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+              </td>
+
+              </tr>
+              <tr *ngIf="loading">
+                <td>
+                  <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                </td>
+                <td>
+                  <p-skeleton size="3rem" styleClass="mr-2"></p-skeleton>
+                </td>
+                <td>
+                  <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                </td>
+                <td>
+                  <p-skeleton styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                </td>
+                <td>
+                  <p-skeleton styleClass="mb-2"></p-skeleton>
+                  <p-skeleton styleClass="mb-2"></p-skeleton>
+                </td>
+                <td>
+                  <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                </td>
+              </tr>
+
+
+
+              <tr *ngIf="!loading && !posts.length">
+                <td colspan="7">
+                  <div class="text-center">Aucun Posts trouvé</div>
+                </td>
+              </tr>
+          </ng-template>
+        </p-table>
+        </div>
+        </div>
+    </div>
+</div>
+
+<app-add-postes
+*ngIf="showAdd"
+
+(close)="closeAdd()">
+
+</app-add-postes>
+
+

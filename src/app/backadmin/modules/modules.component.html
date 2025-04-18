@@ -1,0 +1,159 @@
+<div class="list-orders-item-area">
+    <!-- Title and Button Area -->
+    <div class="introduction-area">
+      <div class="p-d-flex p-jc-between">
+        <div class="big-title-blc">
+          <h1 class="big-title">Liste des modèles d'offres d'emploi</h1>
+        </div>
+        <div class="btns-group two-btns text-end">
+          <a class="btn-primary"
+             pButton
+             pRipple
+             label="Ajouter"
+             icon="pi pi-plus"
+             routerLink="/dashboard/offre-emploi/modules/add-module"></a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Table Area -->
+    <div class="table-area chapters_table">
+      <div class="card">
+        <div class="card-body">
+          <p-table
+            [value]="modules"
+            [first]="first"
+            [paginator]="true"
+            [lazy]="true"
+            [rows]="per_page"
+            [rowsPerPageOptions]="[1, 5, 10, 20]"
+            [totalRecords]="total"
+            [showCurrentPageReport]="true"
+            [responsiveLayout]="'stack'"
+            [breakpoint]="'960px'"
+            currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées"
+            (onLazyLoad)="lazyLoad($event)">
+  
+            <!-- Filter Area -->
+            <ng-template pTemplate="caption">
+              <div class="form-area btn-div">
+                <div class="p-input-icon-left ml-auto form-style-1 mb-4">
+                  <button
+                    pButton
+                    class="btn btn-primary btn-icon-filter me-2"
+                    [icon]="showFilter ? 'pi pi-times' : 'pi pi-filter-slash'"
+                    (click)="toggleFilter()">
+                  </button>
+                  <input type="text"
+                         (input)="search($event)"
+                         placeholder="Mot-clé de recherche" />
+                </div>
+  
+                <!-- Animated Filter Zone -->
+                <div *ngIf="showFilter"
+                     class="row filter-animation"
+                     [@filter-animation]="{ value: '', params: { heightEnter: '0', heightLeave: '54px', marginTop: '-10px', heightOut: '0' }}">
+  
+                  <div class="col-lg col-sm-6 col-12">
+                    <p-dropdown
+                      #ddsubject
+                      [options]="diplomas"
+                      [autoDisplayFirst]="false"
+                      placeholder="Diplôme *"
+                      optionLabel="name"
+                      optionValue="id"
+                      [showClear]="true"
+                      [filter]="true"
+                      filterBy="name"
+                      (onChange)="selectDiplome($event)">
+                    </p-dropdown>
+                  </div>
+  
+                  <div class="col-lg-2 col-sm-6 col-12 d-flex">
+                    <button pButton class="btn btn-primary btn-icon" icon="pi pi-search" (click)="filterChange()"></button>
+                    <button pButton class="btn btn-red icon ms-2" icon="pi pi-refresh" (click)="resetFilter()"></button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+  
+            <!-- Table Header -->
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="id">Référence <p-sortIcon field="id"></p-sortIcon></th>
+                <th>diplome</th>
+                <th>Image</th>
+                <th pSortableColumn="name">Titre <p-sortIcon field="name"></p-sortIcon></th>
+                <th>Durée du contrat</th>
+                <th>Salaire</th>
+                <th>Compétences</th>
+                <th>Lieu de travail</th>
+                <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+                <th pSortableColumn="created_at">Créé le <p-sortIcon field="created_at"></p-sortIcon></th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </ng-template>
+  
+            <!-- Table Body -->
+            <ng-template pTemplate="body" let-module>
+              <tr>
+                <td><span class="badge-ref">{{ module.id }}</span></td>
+                <td>{{ module.diploma }}</td>
+                <td>
+                  <img *ngIf="module.image; else noImage" class="img-image" [src]="module.image" alt="Image du module" />
+                  <ng-template #noImage>--</ng-template>
+                </td>
+                <td>{{ module.name }}</td>
+                <td>{{ module.contractDuration }}</td>
+                <td>{{ module.salary | currency }}</td>
+                <td>{{ module.skills }}</td>
+                <td>{{ module.workLocation }}</td>
+                <td>{{ module.description }}</td>
+                <td>{{ module.created_at | date: 'dd/MM/yyyy' }}</td>
+                <td>
+                  <p-dropdown
+                    [options]="allStatus"
+                    (onChange)="updateUserStatus(module.id, $event)"
+                    [ngModel]="module.status"
+                    optionLabel="name"
+                    optionValue="value">
+                  </p-dropdown>
+                </td>
+                <td class="text-center">
+                  <button pButton
+                          type="button"
+                          pTooltip="Modifier"
+                          tooltipPosition="left"
+                          class="btn-icon btn-icon--outlin-primary"
+                          icon="pi pi-pencil"
+                          (click)="goToUpdate(module.id)">
+                  </button>
+                  <button pButton
+                          type="button"
+                          pTooltip="Supprimer"
+                          tooltipPosition="left"
+                          class="btn-icon btn-icon--outlin-primary"
+                          icon="pi pi-trash"
+                          (click)="deleteModule(module)">
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+  
+            <!-- Empty / Loading Messages -->
+            <ng-template pTemplate="emptymessage">
+              <tr *ngIf="loading">
+                <td colspan="11">
+                  <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                </td>
+              </tr>
+              <tr *ngIf="!loading && !modules.length">
+                <td colspan="11" class="text-center">{{ 'AUCUN MODULE' }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

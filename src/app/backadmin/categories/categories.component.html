@@ -1,0 +1,195 @@
+<div class="list-orders-item-area">
+    <div class="introduction-area">
+        <div class="p-d-flex p-jc-between">
+            <div class="big-title-blc">
+                <h1 class="big-title">
+                    Listes des Catégories
+                </h1>
+            </div>
+            <div class="btns-group two-btns"  style="text-align: end">
+                <a
+          class="btn-primary"
+          routerLink="/dashboard/all-news/categories/add-categorie"
+          pButton
+          pRipple
+          icon="pi pi-plus"
+          (click)="addCategorie()"
+        > Ajouter </a>
+        <a
+        class="btn-primary"
+        routerLink="/dashboard/all-news/categories/update-categorie"
+        pButton
+        pRipple
+        icon="pi pi-plus"
+        (click)="UpdateCategorie()"
+      > modifer </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-area chapters_table">
+        <div class="card">
+            <div class="card-body">
+                <p-table
+                [first]="first"
+                [value]="categories"
+                responsiveLayout="stack"
+                [breakpoint]="'960px'"
+                [lazy]="true"
+                [rows]="per_page"
+                [paginator]="true"
+                [rowsPerPageOptions]="[1, 5, 10, 20]"
+                [totalRecords]="total"
+                [showCurrentPageReport]="true"
+                (onLazyLoad)="lazyLoad($event)"
+                currentPageReportTemplate=
+                "
+                Affichage de {first} à {last} sur {totalRecords} entrées"
+       >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id">
+                            Reference
+                            <p-sortIcon  field="id" class="sort-icon"></p-sortIcon>
+                        </th>
+                        <th>Image</th>
+                        <th pSortableColumn="name" >
+                            Nom
+                            <p-sortIcon field="name" class="sort-icon"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="created_at">
+                            Date de création
+                            <p-sortIcon field="created_at" class="sort-icon"></p-sortIcon>
+                        </th>
+                        <th class="text-center">
+                            Actions
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-categorie sortMode="multiple">
+                    <tr>
+                        <td>
+                            <span class="badge-ref"> {{ categorie.id }}</span>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="categorie.image; else noImage">
+                                <img 
+                                class="img-image"
+                                [src]="categorie.image"
+                                alt="image de chapitre"
+                                />
+                            </ng-container>
+
+                            <ng-template #noImage> -- </ng-template>
+                        </td>
+
+                        <td>{{ categorie.name}}</td>
+                        <td>
+                            <p>{{ collapse( categorie.description,50) }}</p>
+                        </td>
+                        <td>{{ categorie.created_at | date : "dd/MM/yyyy" }}</td>
+                         <td class="text-center">
+                            <button 
+                            type="button"
+                            pTooltip="Edit"
+                            tooltipPosition="left"
+                            pButton
+                            class="btn-icon btn-icon--outlin-primary"
+                            icon="pi pi-pencil"
+                            (click)="updateCategorie(categorie)">
+                            </button>
+                            <button
+                            type="button"
+                  pTooltip= "Delete"
+                  tooltipPosition="left"
+                  pButton
+                  class="btn-icon btn-icon--outlin-primary"
+                  icon="pi pi-trash"
+                  (click)="deleteCategorie(categorie)"
+               
+                            >
+
+                            </button>
+                         </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr *ngIf="loading">
+                      <td>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton size="3rem" styleClass="mr-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton styleClass="mb-2"></p-skeleton>
+                        <p-skeleton styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                      </td>
+                    </tr>
+                    <tr *ngIf="loading">
+                      <td>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton size="3rem" styleClass="mr-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton styleClass="mb-2"></p-skeleton>
+                        <p-skeleton styleClass="mb-2"></p-skeleton>
+                      </td>
+                      <td>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                      </td>
+                    </tr>
+                    <tr *ngIf="!loading && !categories.length">
+                      <td colspan="6">
+                        <div class="text-center">{{ "NONE.CATEGORIE" | translate }}</div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<app-add-categorie
+  *ngIf="showAdd"
+  [visible]="showAdd"
+  (close)="closeAdd()"
+></app-add-categorie>
+<app-update-categorie
+  *ngIf="categorieToUpdate !== false"
+  [visible]="showUpdate"
+  [categorie]="categorieToUpdate"
+  (close)="closeUpdate()"
+></app-update-categorie>
+
+-->

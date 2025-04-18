@@ -1,0 +1,112 @@
+@import "../../../scss/components/extend";
+
+/* # New Poste Style - copie de categories
+------------------------------------*/
+
+.page-link {
+  background-color: #00f !important;
+}
+
+.table-filter {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* Zone titre */
+.list-ordrs-item-area {
+  .introduction-area {
+    .p-d-flex {
+      justify-content: space-between;
+      align-items: center;
+
+      
+        h1 {
+          font-size: 20px;
+          font-weight: bold;
+          color: #231e22;
+          margin-bottom: 0;
+        }
+      
+
+      .btns-group {
+        display: flex;
+        gap: 10px;
+        text-align: end;
+      }
+    }
+  }
+}
+
+/* Table style */
+.news_table {
+  table,
+  th,
+  td,
+  tr {
+    text-align: center !important;
+  }
+
+  .badge-ref {
+    margin-left: auto !important;
+  }
+}
+
+/* Bouton Ajouter / Modifier */
+.btn-primary {
+  background-color: #3364c6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: darken(#BFBAB0, 10%);
+    transform: scale(1.05);
+  }
+
+  &.right {
+    float: right;
+  }
+}
+
+/* Icônes tri dans le tableau */
+::ng-deep {
+  .sort-icon {
+    svg {
+      color: #2f455c !important;
+      height: 12px;
+    }
+  }
+
+  .form-area .form-style-1 .p-dropdown {
+    width: 400px;
+  }
+}
+
+/* Image style */
+.img-image {
+  width: 50px;
+  height: 50px;
+}
+
+/* Mobile responsive */
+@media (max-width: 767px) {
+  .list-ordrs-item-area {
+    .introduction-area {
+      position: static;
+      margin-bottom: 20px;
+      .p-d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .btns-group {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        width: 100%;
+      }
+    }
+  }
+}

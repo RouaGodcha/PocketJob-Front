@@ -1,0 +1,86 @@
+@import "./../../../scss/components/extend";
+
+/* Table Layout */
+.chapters_table table,
+.chapters_table th,
+.chapters_table td,
+.chapters_table tr {
+  text-align: center !important;
+}
+
+.chapters_table .badge-ref {
+  margin-left: auto !important;
+}
+
+/* Image Styling */
+.img-image {
+  width: 50px;
+  height: 50px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #3364c6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: darken(#BFBAB0, 10%);
+    transform: scale(1.05);
+  }
+
+  &.right {
+    float: right;
+  }
+}
+
+
+/* Filter Toggle */
+.table-filter {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* Mobile Layout */
+@media (max-width: 767px) {
+  .list-orders-item-area {
+    &.users-area {
+      .introduction-area {
+        position: static;
+        margin: 0 0 20px;
+        height: initial;
+        .p-jc-between {
+          display: block;
+        }
+        .btns-group {
+          @include flex;
+          margin: 10px 0 0;
+        }
+      }
+      .recherche-bloc {
+        width: 100%;
+        .p-input-icon-left {
+          >input {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Dropdown Styling */
+::ng-deep {
+  .sort-icon {
+    svg {
+      color: #2f455c !important;
+      height: 12px;
+    }
+  }
+  .form-area .form-style-1 .p-dropdown {
+    width: 400px;
+  }
+}

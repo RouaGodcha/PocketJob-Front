@@ -59,3 +59,11 @@
 @mixin formsBoxShadow($color: $color-primary) {
   box-shadow: 0 0 0 0.2rem rgba($color, 0.2) !important;
 }
+
+
+@mixin card-style {
+  background-color: $white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+

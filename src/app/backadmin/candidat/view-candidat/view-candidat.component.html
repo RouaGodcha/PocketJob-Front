@@ -1,0 +1,126 @@
+<div class="list-orders-item-area">
+    <div class="introduction-area p-d-flex p-jc-between">
+  
+      <div class="big-title-blc">
+        <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+     
+         <h1 class="big-title title-align-center">
+            Details du candidat
+          {{ candidat?.firstname + " " + candidat?.lastname }}
+        </h1>
+      </div>
+    </div>
+  
+    <div class="table-area">
+      <div class="card">
+        <div class="card-body">
+          <div class="row form-area">
+            <div class="col-md-6">
+              <div class="form-style-1">
+                <label class="form-label">Nom</label>
+                <input disabled type="text" [value]="candidat?.firstname || 'Non défini'">
+              </div>
+              <div class="form-style-1">
+                <label for="" class="form-label">Prénom</label>
+                <input disabled type="text" [value]="candidat?.lastname || 'Non défini'">
+              </div>
+              <div class="form-style-1">
+                <label for="" class="form-label">Date de création</label>
+                <input type="text" disabled [value]="candidat?.created_at | date: 'dd/MM/yyyy'">
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-style-1">
+                <label class="form-label">E-mail</label>
+                <input type="email" disabled [value]="candidatEmail">
+              </div>
+              <div class="form-style-1">
+                <label class="form-label">Status</label>
+                <input type="text" disabled [value]="candidatStatus">
+              </div>
+              <div class="form-style-1">
+                <label for="" class="form-label">Date de modification</label>
+                <input type="text" disabled [value]="candidat?.updated_at | date: 'dd/MM/yyyy'">
+              </div>
+            </div>
+          </div>
+  
+          <div class="row form-area">
+            <div class="col-md-6">
+                <div *ngIf="candidat?.points?.length">
+                    <div class="form-style-1" *ngFor="let item of candidat?.points; let i = index">
+                      <label class="form-label">
+                        {{ 'COMMON_PLACEHOLDERS.STRENGTH_POINTS' | translate }} {{ i + 1 }}
+                      </label>
+                      <input disabled type="text" [value]="item">
+                    </div>
+                  </div>
+                  
+  
+              <div class="form-style-1" *ngIf="candidat?.post">
+                <label for="" class="form-label">Votre post</label>
+                <input type="text" disabled [value]="candidat?.post || 'Non défini'">
+              </div>
+  
+              <div class="form-style-1">
+                <label class="form-label">Diplôme</label>
+                <input disabled type="text" [value]="candidat?.diploma?.name || 'Non défini'">
+              </div>
+  
+              <div *ngIf="niveau?.length">
+                <div class="graduation-bloc" *ngFor="let grad of niveau; let i = index">
+                  <p class="post-number">Diplôme #{{ i + 1 }}</p>
+                  <div class="form-style-1">
+                    <label class="input-label" for="diplomas">Education level</label>
+                    <input disabled type="text" [value]="grad.level || 'Non défini'">
+                  </div>
+                  <div class="align-row">
+                    <div class="form-style-1" style="flex: 1">
+                      <input disabled type="text" [value]="grad.university || 'Non défini'">
+                    </div>
+                    <div class="form-style-1" style="flex: 1">
+                      <input disabled type="text" [value]="grad.date || 'Non défini'">
+                    </div>
+                  </div>
+                  <div class="form-style-1">
+                    <input disabled type="text" [value]="grad.name || 'Non défini'">
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div *ngIf="candidat?.networks?.facebook">
+                <label class="form-label">Facebook</label>
+                <input disabled type="text" [value]="candidat?.networks?.facebook || 'Non défini'">
+              </div>
+              <div *ngIf="candidat?.networks?.linkedIn">
+                <label class="form-label">LinkedIn</label>
+                <input disabled type="text" [value]="candidat?.networks?.linkedIn || 'Non défini'">
+              </div>
+              <div *ngIf="candidat?.networks?.instagram">
+                <label class="form-label">Instagram</label>
+                <input disabled type="text" [value]="candidat?.networks?.instagram || 'Non défini'">
+              </div>
+  
+              <div *ngIf="candidat?.networks?.site_web">
+                <label class="form-label">Site Web</label>
+                <input disabled type="text" [value]="candidat?.networks?.site_web || 'Non défini'">
+              </div>
+  
+              <div *ngIf="careers?.length">
+                <div *ngFor="let career of careers; let i = index">
+                  <div *ngIf="career.title && career.to && career.from" class="form-style-1">
+                    <label class="form-label">Career {{ i + 1 }}</label>
+                    <input disabled type="text" [value]="career.title || 'Non défini'">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

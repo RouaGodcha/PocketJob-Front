@@ -16,12 +16,14 @@ export class NavbarComponent {
   ) {}
   logout() {
     this.localstorageService.clear();
-    this.router.navigate(['admin/login']);
+    this.router.navigate(['/login']);
   }
+
   openSetting() {
-    this.router.navigate(['admin/dashboard/configurations']);
+    this.router.navigate(['/dashboard/configurations']);
     this.toggleDropdownList();
   }
+    
   toggleDropdownList() {
     this.statusToggleDropdownList = !this.statusToggleDropdownList;
   }

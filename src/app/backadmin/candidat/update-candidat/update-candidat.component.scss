@@ -1,0 +1,194 @@
+@import "../../../../scss/components/extend";
+
+/* 🔵 Fond avec dégradé */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  padding: 20px;
+}
+
+/* 📦 Conteneur principal */
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* 🎯 En-tête */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .btn-back {
+    font-size: 1.2rem;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+  }
+
+  .btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+
+    &:hover {
+      color: #ff4d4f;
+    }
+  }
+}
+
+/* 📋 Champs */
+.form-style-1 {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  input[type="text"],
+  input[type="email"],
+  input[type="file"] {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    font-size: 14px;
+    color: #333;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+
+  .label-file {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+
+  }
+}
+
+/* ❗ Erreurs */
+.alert-danger {
+  font-size: 13px;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 6px 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+/* ✅ Message succès */
+.alert-success {
+  font-size: 14px;
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* 🎯 Boutons */
+.add-partner-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary {
+    background-color: #f8f9fa;
+    color: #343a40;
+    border: 1px solid #ced4da;
+
+    &:hover {
+      background-color: #e2e6ea;
+    }
+  }
+
+  .btn-primary {
+    background-color: #04328c;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: #022b70;
+      transform: scale(1.03);
+    }
+  }
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .title {
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .btn-close {
+      align-self: flex-end;
+    }
+  }
+
+  .add-partner-modal-buttons {
+    flex-direction: column;
+    width: 100%;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+/* 🎬 Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

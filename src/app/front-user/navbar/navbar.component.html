@@ -1,0 +1,46 @@
+<nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo">
+      <span>PocketJob</span>
+    </div>
+  
+    <!-- Icône de menu pour mobile -->
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <i class="bx bx-menu"></i>
+    </button>
+  
+    <!-- Menu de navigation -->
+    <ul class="nav-links" [class.active]="menuOpen">
+      <li>
+        <i class="bx bx-calendar"></i>
+        <a routerLink="/home">Accueil</a>
+      </li>
+      <li>
+        <i class="bx bx-briefcase"></i>
+        <a routerLink="/offre-d'emploi">Offres d'emploi</a>
+      </li>
+      <li>
+        <i class="bx bx-book"></i>
+        <a routerLink="/reservation">Réservation</a>
+      </li>
+      <li>
+        <i class="bx bx-calendar"></i>
+        <a routerLink="/references">Références</a>
+      </li>
+      <li>
+        <a routerLink="/home/loginUser" (click)="openLogin()">Se connecter</a>
+      </li>
+      <li>
+        <a routerLink="/home/registerUser" (click)="openRegister()">S'inscrire</a>
+      </li>
+      <li><button class="btn-yellow">EMPLOIS</button></li>
+      <li>
+        <img class="flag" src="assets/uk-flag.png" alt="English">
+      </li>
+    </ul>
+  </nav>
+
+
+
+  
+  

@@ -1,0 +1,128 @@
+<div class="list-orders-item-area">
+    <div class="introduction-area">
+        <div class="p-d-flex p-jc-between">
+            <div class="big-title-blc">
+                <h1 class="big-title">
+                    Listes des médias
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="table-area medias-table">
+    <div class="card">
+        <div class="card-body">
+            <p-table
+            [value]="mediasList"
+            responsiveLayout="stack"
+            [breakpoint]="'960px'"
+            [paginator]="true"
+            [lazy]="true" [rows]="per_page"
+            [rowsPerPageOptions]="[5,10,20]" 
+            [totalRecords]="total"
+            [showCurrentPageReport]="true" 
+            (onLazyLoad)="lazyLoad($event)"
+            currentPageReportTemplate=
+                  "
+                  Affichage de {first} à {last} sur {totalRecords} entrées"
+    >
+    <ng-template pTemplate="caption">
+        <div class="form-area btn-div">
+            <div class="p-input-icon-left ml-auto form-style-1 mb-4">
+                <input
+                    type="text"
+                    (input)="search($event)"
+                    placeholder="Mot-clé de recherche"
+                />
+            </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="reference-col"  pSortableColumn="id">
+                Ref
+                <p-sortIcon field=" id" class="sort-icon"></p-sortIcon>
+            </th>
+
+            <!-- <th class="image-col" pSortableColumn="image">
+                              {{'COMMON.IMAGE' | translate}} / PDF
+                          </th> -->
+            
+            <th class="description-col" pSortableColumn="description">
+                Description
+                <p-sortIcon field="description" class="sort-icon"></p-sortIcon>
+            </th>
+            <th pSortableColumn="user">
+                Créer par
+                <p-sortIcon field="user" class="sort-icon"></p-sortIcon>
+            </th>
+             <th pSortableColumn="created_at">
+                Date de création
+                <p-sortIcon field="created_at" class="sort-icon"></p-sortIcon>
+                          
+             </th>
+             <th class="text-center">
+                Actions
+             </th>
+        </tr>
+    </ng-template>
+        
+     <ng-template pTemplate="body" let-media let-rowIndes="rowIndex" sortMode="multiple">
+        <tr>
+            <td>
+                <span class="badge-ref"> {{media.id}}</span>
+            </td>
+            <!-- <td>
+                <img *ngIf="media.image" src="{{media.image}}" alt="{{media.name}}" class="img-thumbnail">
+            </td> -->
+
+            <td>{{media.description}}</td>
+            <td>{{media.user.firstname}} {{media.user.lastname}}</td>
+            <td>{{media.created_at | date : 'dd/MM/yyyy'}}</td>
+            
+            <td class="text-center">
+                <button 
+                type="button"
+                pTooltip="details"
+                tooltipPosition="left"
+                pButton
+                class="btn-icon btn-icon--outlin-primary"
+                icon="pi pi-eye"
+                (click)="showItem(media)">
+                </button>
+
+                <button
+                type="button"
+                pTooltip="supprimer"
+                tooltipPosition="left"
+                pButton
+                class="btn-icon btn-icon--outlin-primary"
+                icon="pi pi-trash"
+                (click)="deleteMedia(media.id)"></button>
+
+            </td>
+        </tr>
+     </ng-template>
+
+    <ng-template pTemplate="emptymessage" let-columns>
+        <tr *ngIf="!loading && !mediasList?.length">
+            <td colspan="10">
+                <div class="text-center">
+                    Pas de médias
+                </div>
+            </td>
+        </tr>
+        </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<!--
+<app-view-media *ngIf="show" [show]="show" [selectedMedia]="selectedMedia"  (closeMedia)="closeMedia()"></app-view-media>
+
+-->

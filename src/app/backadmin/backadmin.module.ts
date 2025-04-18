@@ -1,9 +1,13 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { BackadminRoutingModule } from './backadmin-routing.module';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// 👇 Ce module est OBLIGATOIRE pour que <canvas baseChart> fonctionne
+import { NgChartsModule } from 'ng2-charts';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginComponent } from './auth/login/login/login.component';
@@ -15,7 +19,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserComponent } from './user/user.component';
-import { SharedModule } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
@@ -45,6 +48,50 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { TooltipModule } from 'primeng/tooltip';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
+import { PostesComponent } from './postes/postes.component';
+import { AddPostesComponent } from './postes/add-postes/add-postes.component';
+import { UpdatePostesComponent } from './postes/update-postes/update-postes.component';
+import { UpdatePostesReactionComponent } from './postes/update-postes-reaction/update-postes-reaction.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { MediasComponent } from './medias/medias.component';
+import { NewPosteComponent } from './new-poste/new-poste.component';
+import { AddCategorieComponent } from './categories/add-categorie/add-categorie.component';
+import { UpdateCategorieComponent } from './categories/update-categorie/update-categorie.component';
+import { ViewMediaComponent } from './medias/view-media/view-media.component';
+import { SharedModule } from './shared/shared.module';
+import { AddNewsComponent } from './new-poste/add-news/add-news.component';
+import { UpdateNewsComponent } from './new-poste/update-news/update-news.component';
+import { ViewNewsComponent } from './new-poste/view-news/view-news.component';
+import { ModulesComponent } from './modules/modules.component';
+import { QcmsComponent } from './qcms/qcms.component';
+import { FichesComponent } from './fiches/fiches.component';
+import { AddModuleComponent } from './modules/add-module/add-module.component';
+import { EditModuleComponent } from './modules/edit-module/edit-module.component';
+import { CandidatComponent } from './candidat/candidat.component';
+import { RouterModule } from '@angular/router';
+import { AddCandidatComponent } from './candidat/add-candidat/add-candidat.component';
+import { UpdateCandidatComponent } from './candidat/update-candidat/update-candidat.component';
+import { ViewCandidatComponent } from './candidat/view-candidat/view-candidat.component';
+import { EmployeurComponent } from './employeur/employeur.component';
+import { AddEmployerComponent } from './employeur/add-employer/add-employer.component';
+import { SwitchButtonComponent } from './shared/switch-button/switch-button.component';
+import { ConfigurationsComponent } from './configurations/configurations.component';
+import { UpdateEmployerComponent } from './employeur/update-employer/update-employer.component';
+import { CandidatureComponent } from './candidature/candidature.component';
+import { UpdateCandidatureComponent } from './candidature/update-candidature/update-candidature.component';
+
+
+// 📌 Import en haut du fichier
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { AdminsComponent } from './admins/admins.component';
+import { AddAdminComponent } from './admins/add-admin/add-admin.component';
+import { UpdateAdminComponent } from './admins/update-admin/update-admin.component';
+import { ViewAdminComponent } from './admins/view-admin/view-admin.component';
+import { UpdatePasswordComponent } from './admins/update-password/update-password.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { PubliciteComponent } from './publicite/publicite.component';
+import { AddPublicitesComponent } from './publicite/add-publicites/add-publicites.component';
 
 @NgModule({
   declarations: [
@@ -52,24 +99,62 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
     LoginComponent,
     ResetComponent,
     ForgetComponent,
-    DashboardComponent,
     SidebarComponent,
     NavbarComponent,
     UserComponent,
-    AddUserComponent,
     UpdateUserComponent,
-   
+    AddUserComponent,
+    PostesComponent,
+    AddPostesComponent,
+    UpdatePostesComponent,
+    UpdatePostesReactionComponent,
+    CategoriesComponent,
+    MediasComponent,
+    NewPosteComponent,
+    AddCategorieComponent,
+    UpdateCategorieComponent,
+    ViewMediaComponent,
+    AddNewsComponent,
+    UpdateNewsComponent,
+    ViewNewsComponent,
+    ModulesComponent,
+    QcmsComponent,
+    FichesComponent,
+    AddModuleComponent,
+    EditModuleComponent,
+    CandidatComponent,
+    AddCandidatComponent,
+    UpdateCandidatComponent,
+    ViewCandidatComponent,
+    EmployeurComponent,
+    AddEmployerComponent,
+    SwitchButtonComponent,
+    ConfigurationsComponent,
+    UpdateEmployerComponent,
+    CandidatureComponent,
+    UpdateCandidatureComponent,
+    AdminsComponent,
+    AddAdminComponent,
+    UpdateAdminComponent,
+    ViewAdminComponent,
+    UpdatePasswordComponent,
+    DashboardComponent,
+    AppointmentsComponent,
+    PubliciteComponent,
+    AddPublicitesComponent,
+    
   ],
   imports: [
     CommonModule,
-    BackadminRoutingModule,
     FormsModule,
+    NgChartsModule,
+    RouterModule,
     ReactiveFormsModule,
+    BackadminRoutingModule,
+    SharedModule,
     HttpClientModule,
     InputTextModule,
-    SharedModule,
     SlickCarouselModule,
-    DialogModule,
     TableModule,
     DropdownModule,
     SkeletonModule,
@@ -77,14 +162,15 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
     RippleModule,
     MenuModule,
     NgbDatepickerModule,
-  NgbNavModule,
+    NgbNavModule,
     InputNumberModule,
     FieldsetModule,
-    DialogModule,
     SplitterModule,
     CheckboxModule,
     AutoCompleteModule,
     AvatarModule,
+    DialogModule,
+    AutoCompleteModule,
     BrowserAnimationsModule ,
     CardModule,
     NgbDatepickerModule,
@@ -93,12 +179,13 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
     RadioButtonModule,
     CalendarModule,
     ProgressSpinnerModule,
-    ProgressSpinnerModule,
     SplitButtonModule,
     DragDropModule,
     TooltipModule ,
     TabViewModule,
+    ToastModule,
     ColorPickerModule,
+   
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -107,7 +194,10 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
       },
     }),
   ],
-  providers: [DatePipe],
+  
+  providers: [
+    DatePipe , 
+  ],
 })
 export class BackadminModule { }
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {

@@ -1,0 +1,171 @@
+<div class="list-orders-item-area">
+    <div class="introduction-area p-d-flex p-jc-between">
+      <div class="big-title-blc">
+         <!-- Icône de fermeture dans l'en-tête -->
+     <div class="modal-header">
+       <a class="btn-back"
+            pButton
+            pRipple
+            icon="pi pi-arrow-left"
+            (click)="backToList()" > {{ news?.name }}</a>
+        <h1 class="big-title title-align-center">  </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row form-area">
+          <div class="col-md-6">
+            <div class="thumbnail-div">
+              <div class="form-style-1">
+                <label class="form-label">{{
+                  "NEWS.THUMBNAIL" | translate
+                }}</label>
+              </div>
+              <div class="form-style-1 form-thumbnail">
+                <img [src]="news?.thumbnail" alt="image de couverture" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 qcm-element-col">
+            <div class="form-style-1">
+              <label class="form-label">{{ "NEWS.TITLE" | translate }}</label>
+              <input disabled type="text" [value]="news?.name" />
+            </div>
+            <div class="form-style-1 desc-area">
+              <label class="form-label">{{
+                "QCMS.DESCRIPTION" | translate
+              }}</label>
+              <textarea
+                placeholder="{{ 'QCMS.DESCRIPTION' | translate }}"
+                [value]="news?.description"
+                disabled
+              ></textarea>
+            </div>
+            <div class="flex-two">
+              <div class="form-style-1 full-width">
+                <label class="form-label">{{
+                  "NEWS.POSITION" | translate
+                }}</label>
+                <input disabled type="text" [value]="news?.position" />
+              </div>
+              <div class="form-style-1 full-width">
+                <label class="form-label">{{ "NEWS.STATUS" | translate }}</label>
+                <input
+                  disabled
+                  type="text"
+                  [value]="showStatusName(news?.status)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-area">
+      <div class="card">
+        <div class="card-body">
+          <div class="row form-area">
+            <div class="form-style-1">
+              <label class="form-label">{{ "NEWS.LINKS" | translate }}</label>
+            </div>
+            <div class="form-style-1">
+              <div class="flex-inputs">
+                <button class="btn-link facebook"></button>
+                <input
+                  type="text"
+                  placeholder="https://www.facebook.com/exemple-de-lien/"
+                  [value]="news?.facebook"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-style-1">
+              <div class="flex-inputs">
+                <button class="btn-link instagram"></button>
+                <input
+                  type="text"
+                  placeholder="https://www.instagram.com/exemple-de-lien/"
+                  [value]="news?.instagram"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-style-1">
+              <div class="flex-inputs">
+                <button class="btn-link tiktok"></button>
+                <input
+                  type="text"
+                  placeholder="https://www.tiktok.com/@exemple-de-lien/"
+                  [value]="news?.tiktok"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-style-1">
+              <div class="flex-inputs">
+                <button class="btn-link twitter"></button>
+                <input
+                  type="text"
+                  placeholder="https://www.twitter.com/exemple-de-lien/"
+                  [value]="news?.twitter"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="row form-area">
+            <div class="form-style-1">
+              <label class="form-label">{{ "NEWS.FORMAT" | translate }}</label>
+              <input
+                disabled
+                type="text"
+                [value]="showFormatName(news?.type_media)"
+              />
+            </div>
+            <div>
+              <div class="form-style-1" *ngIf="news?.type_media === 'IMAGE'">
+                <label class="form-label">{{ "NEWS.IMAGE" | translate }}</label>
+              </div>
+              <div
+                class="form-style-1 form-image"
+                *ngIf="news?.type_media === 'IMAGE'"
+              >
+                <img [src]="news?.media" alt="image du News" />
+              </div>
+            </div>
+            <div>
+              <div class="form-style-1" *ngIf="news?.type_media === 'VIDEO'">
+                <label class="form-label">{{
+                  "FORMATS.VIDEO" | translate
+                }}</label>
+              </div>
+              <div
+                class="form-style-1 form-video"
+                *ngIf="news?.type_media === 'VIDEO'"
+              >
+                <video controls>
+                  <source [src]="news?.media" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+            <div class="form-style-1" *ngIf="news?.type_media === 'LINK'">
+              <label class="form-label">{{ "FORMATS.LINK" | translate }}</label>
+              <input
+                type="text"
+                placeholder="{{ 'FORMATS.LINK' | translate }} *"
+                [value]="news?.video_url"
+                disabled
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

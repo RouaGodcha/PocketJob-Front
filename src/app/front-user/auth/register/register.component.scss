@@ -1,0 +1,216 @@
+// Variables
+$primary-color: #04328C;
+$button-color: #28A745;
+$text-color: #333;
+$background-color: #F8F9FA;
+$border-color: #ccc;
+$hover-border-color: #0065cc;
+
+// Réinitialisation des styles de base
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+// Conteneur principal
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $background-color;
+  padding: 20px;
+}
+
+// Boîte d'inscription
+.register-box {
+  width: 450px;
+  padding: 40px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+
+  h1 {
+    font-size: 28px;
+    color: $primary-color;
+    margin-bottom: 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: #606770;
+    margin-bottom: 20px;
+  }
+}
+
+// Alignement des champs de saisie en ligne
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .input-group {
+    flex: 1;
+  }
+}
+
+// Groupes de saisie
+.input-group {
+  margin-bottom: 15px;
+  position: relative;
+
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    font-size: 16px;
+    color: $text-color;
+    background-color: #f8f9fa;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+    }
+  }
+
+  i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $primary-color;
+  }
+}
+
+// Date de naissance
+.dob-label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  color: #606770;
+  margin: 0 0 8px 2px;
+}
+
+.dob-selects {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  select {
+    width: 32%;
+    padding: 12px;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    font-size: 15px;
+
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
+}
+
+// Genre
+.genre-label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  color: #606770;
+  margin: 0 0 8px 2px;
+}
+
+.genre-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: $text-color;
+
+    input[type="radio"] {
+      accent-color: $primary-color;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+// Bouton S'inscrire
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: $button-color;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  
+  &:hover {
+    background: darken($button-color, 5%);
+    transform: scale(1.05);
+  }
+}
+
+// Bouton fermer
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: red;
+  }
+}
+
+// Lien vers la connexion
+.login-link {
+  font-size: 14px;
+  margin-top: 20px;
+
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+
+    &:hover {
+      text-decoration: underline;
+      color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Animation des transitions
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.register-box {
+  animation: fadeIn 0.5s ease-in-out;
+}

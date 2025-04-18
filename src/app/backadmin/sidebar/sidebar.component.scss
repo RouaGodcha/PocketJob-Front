@@ -1,4 +1,4 @@
-@import "../../../scss/components/extend";
+@import "./../../../scss/components/extend";
 /* # Sidebar ::
 ------------------------------------*/
 .sidebar-wrapper {
@@ -10,7 +10,7 @@
 .sidebar-area {
   width: 60px;
   box-shadow: 0 0 14px rgb(198 198 198 / 25%);
-  background-color: $color-white;
+  background-color: #D9D7D7;
   transition: all 0.3s;
   min-height: calc(100vh - 60px);
   float: left;
@@ -54,6 +54,14 @@
             background-image: url("../../../assets/img/exercices.png");
             background-size: 24px auto;
           }
+          &.candidature {
+            background-image: url("../../../assets/img/candidature.png");
+            background-size: 24px auto;
+          }
+          &.publicites {
+            background-image: url("../../../assets/img/publicite.png");
+            background-size: 24px auto;
+          }
           &.kit-compta {
             background-image: url("../../../assets/img/tool-box.png");
             background-size: 24px auto;
@@ -62,6 +70,11 @@
             background-image: url("../../../assets/img/games/games.png");
             background-size: 24px auto;
           }
+          &.rendez-vous {
+            background-image: url("../../../assets/img/rendez-vous.png");
+            background-size: 24px auto;
+          }
+       
         }
         &.nav-link-active,
         &.nav-link-child-active {
@@ -485,11 +498,18 @@
                 background-image: url("../../../assets/img/post-active.png");
               }
             }
-            &.groupes {
-              background-image: url("../../../assets/img/groupes.png");
+            &.candidates {
+              background-image: url("../../../assets/img/candidats.png");
               background-size: 24px auto;
               &.nav-link-active {
                 background-image: url("../../../assets/img/groupes-active.png");
+              }
+            }
+            &.employers  {
+              background-image: url("../../../assets/img/employeurs.png");
+              background-size: 24px auto;
+              &.nav-link-active {
+                background-image: url("../../../assets/img/apps-active.png");
               }
             }
             &.categories-blogs {

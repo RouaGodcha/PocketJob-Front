@@ -1,0 +1,101 @@
+<div class="list-orders-item-area"> 
+    <div class="introduction-area">
+      <div class="p-d-flex p-jc-between">
+        <div class="big-title-blc">
+          <h1 class="big-title">Configurations</h1>
+        </div>
+      </div>
+    </div>
+    <div class="table-area">
+      <div class="card">
+        <div class="card-body">
+          <p-tabView>
+            <!-- configuration -->
+            <p-tabPanel header="Configurations">
+              <form class="form-area">
+                <div class="form-area mb-4">
+                  <h6>Activation SMS</h6>
+                  <div class="form-area config-item">
+                    <div class="form-style-1 d-flex align-items-center">
+                      <p-checkbox [(ngModel)]="sms" name="sms" id="sms" [binary]="true" (onChange)="onSmsStatusChange()" ></p-checkbox>
+                      <label for="sms" class="form-label mb-0 ms-2">SMS</label>
+                    </div>
+                    <p-button [disabled]="loading" [icon]="loading ? 'pi pi-spin pi-spinner' : ''" label="Enregistrer" styleClass="btn btn-primary bottom" (onClick)="configSms()">
+                    </p-button>
+                  </div>
+                </div>
+                <div class="form-area mt-4">
+                  <h6>Activation ChatBot</h6>
+                  <div class="form-area config-item">
+                    <div class="form-style-1 d-flex align-items-center">
+                      <p-checkbox [(ngModel)]="chatbot" name="chatbot" id="chatbot" [binary]="true" (onChange)="onChatBotStatusChange()" ></p-checkbox>
+                      <label for="chatbot" class="form-label mb-0 ms-2">ChatBot</label>
+                    </div>
+                    <p-button [disabled]="loadingCB" [icon]="loadingCB ? 'pi pi-spin pi-spinner' : ''" label="Enregistrer" styleClass="btn btn-primary bottom" (onClick)="configChatBot()">
+                    </p-button>
+                  </div>
+                </div>
+              </form>
+            </p-tabPanel>
+  
+            <!-- application versions  -->
+            <p-tabPanel header="Versions">
+              <form class="form-area">
+                <div class="form-style-1">
+                  <label for="iosVersion">iOS version</label>
+                  <input
+                    name="iosVersion"
+                    [(ngModel)]="iosVersion"
+                    placeholder="1.0.0"
+                    pInputText
+                  />
+                </div>
+                <div class="form-style-1 d-flex align-items-center">
+                  <p-checkbox
+                    [(ngModel)]="iosRequired"
+                    name="ios-required"
+                    id="ios-required"
+                    [binary]="true"
+                    (onChange)="onSmsStatusChange()"
+                  ></p-checkbox>
+                  <label for="ios-required" class="form-label mb-0 ms-2">
+                    Mise à jour obligatoire vers cette version ?
+                  </label>
+                </div>
+                <div class="form-style-1">
+                  <label for="androidVersion">Android version</label>
+                  <input
+                    name="androidVersion"
+                    [(ngModel)]="androidVersion"
+                    placeholder="1.0.0"
+                    pInputText
+                  />
+                </div>
+                <div class="form-style-1 d-flex align-items-center">
+                  <p-checkbox
+                    [(ngModel)]="androidRequired"
+                    name="android-required"
+                    id="android-required"
+                    [binary]="true"
+                    (onChange)="onSmsStatusChange()"
+                  ></p-checkbox>
+                  <label for="android-required" class="form-label mb-0 ms-2">
+                    Mise à jour obligatoire vers cette version ?
+                  </label>
+                </div>
+                <p-button
+                  [disabled]="loading"
+                  [icon]="loading ? 'pi pi-spin pi-spinner' : ''"
+                  label="Enregistrer"
+                  styleClass="btn btn-primary bottom"
+                  (onClick)="updateVersions()"
+                >
+                </p-button>
+              </form>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+      </div>
+    </div>
+  </div>
+  

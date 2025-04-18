@@ -1,105 +1,98 @@
-<p-dialog #dialog header="Ajouter un utilisateur" [(visible)]="show" [modal]="true" (onHide)="cancel()" [draggable]="false"
-  [style]="{width: '636px'}">
-  <div class="create-client-content clien-area">
-    <form *ngIf="!showSuccess" [formGroup]="addUserForm">
-      <div class="form-area">
-        <div class="form-area">
-          <div class="">
-            <div class="input-required-group">
-              <div class="form-style-1">
-                <input type="text" formControlName="firstname" placeholder="Prénom *" />
-                <span class="error"
-                  *ngIf=" attemptSubmission && addUserForm.controls['firstname'].hasError('required')">
-                  Ce champ est obligatoire
-                </span>
-                <span class="error"
-                  *ngIf="attemptSubmission && addUserForm?.get('firstname')?.dirty && addUserForm.controls['firstname'].hasError('pattern')">
-                  Le prénom ne doit contenir que des lettres
-                </span>
-              </div>
-              <div class="form-style-1">
-                <input type="text" formControlName="lastname" placeholder="Nom *" />
-                <span class="error" *ngIf=" attemptSubmission && addUserForm.controls['lastname'].hasError('required')">
-                  Ce champ est obligatoire
-                </span>
-                <span class="error"
-                  *ngIf="attemptSubmission && addUserForm?.get('lastname')?.dirty && addUserForm.controls['lastname'].hasError('pattern')">
-                  Le nom ne doit contenir que des lettres
-                </span>
-              </div>
-              <div class="form-style-1">
-                <p-dropdown [options]="diplomas" formControlName="diploma_id" [autoDisplayFirst]="false"
-                    placeholder="Diplôme *" optionLabel="name" optionValue="id"  [showClear]="false"></p-dropdown>
-                  <span class="error"
-                    *ngIf=" attemptSubmission && addUserForm.controls['diploma_id'].hasError('required')">
-                    Ce champ est obligatoire
-                  </span>
-              </div>
-            </div>
-          </div>
-          <div class="form-style-1">
-            <input type="email" formControlName="email" placeholder="Email *" />
-            <span class="error" *ngIf=" attemptSubmission && addUserForm.controls['email'].hasError('required')">
-              Ce champ est obligatoire
-            </span>
-            <span class="error"
-              *ngIf="attemptSubmission && addUserForm?.get('email')?.dirty && addUserForm.controls['email'].hasError('pattern') ">
-              Email invalide
-            </span>
-            <span class="error" *ngIf="emailExists">
-              Cet email existe déjà
-            </span>
-          </div>
-          <div class="grid gtc-3 gcg-3">
-            <div class="grid-blc">
-              <div class="form-style-1 form-style_password-item">
-                <input [type]="showingPassword ? 'text' : 'password'" formControlName="password"
-                  placeholder="Mot de passe *" />
-                <span class="error" *ngIf=" attemptSubmission && addUserForm.controls['password'].hasError('required')">
-                  Ce champ est obligatoire
-                </span>
-                <span class="error"
-                  *ngIf="attemptSubmission && addUserForm?.get('password')?.dirty && addUserForm.controls['password'].hasError('minlength')">
-                  Le mot de passe doit contenir au moins 6 caractères
-                </span>
-                <button type="button" class="btn-showhide-password" [ngClass]="showingPassword ? 'hidden' : ''"
-                  (click)="password()"></button>
-              </div>
-            </div>
-            <div class="grid-blc">
-              <div class="form-style-1">
-                <button type="button" (click)="generatePassword()" class="btn btn-primary generatePassword">
-                  Générer un mot de passe
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="form-style-1">
-            <input type="password" formControlName="password_confirmation"
-              placeholder="Confirmer le mot de passe *" />
-            <span class="error"
-              *ngIf="  attemptSubmission && addUserForm.controls['password_confirmation'].hasError('required')">
-              Ce champ est obligatoire
-            </span>
-            <span class="error position-error"
-              *ngIf="attemptSubmission && addUserForm?.get('password_confirmation')?.dirty  && addUserForm.controls['password_confirmation'].hasError('password_mismatch')">
-              Les mots de passe ne correspondent pas
-            </span>
-          </div>
-        </div>
-        <div class="required-field">
-          Champs obligatoires
-        </div>
-      </div>
-    </form>
-  </div>
-  <ng-template pTemplate="footer">
-    <div class="footer_style">
-      <p-button label="Annuler" styleClass="p-button-text btn btn-cancel" (click)="dialog.close($event)">
-      </p-button>
-      <p-button *ngIf="!showSuccess" [disabled]="loading" [icon]="loading ? 'pi pi-spin pi-spinner' : ''" label="Créer"
-        styleClass="btn btn-primary" (click)="attemptAddUser($event)">
-      </p-button>
+<div class="container">
+
+  <h2>Ajouter Client</h2>
+  <form *ngIf="!showSuccess" [formGroup]="addUserForm" (ngSubmit)="attemptAddUser()">
+
+    <div class="form-style-1">
+      <label for="firstname"></label>
+      <input type="text" placeholder="Nom *" class="form-control"  formControlName="firstname">
     </div>
-  </ng-template>
-</p-dialog>
+
+    <div class="alert alert-danger" *ngIf="addUserForm.get('firstname')?.errors?.['required'] && addUserForm.get('firstname')?.touched">
+      Nom est obligatoire
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('firstname')?.errors?.['minlength'] && addUserForm.get('firstname')?.touched">
+      Nom doit contenir au moins 2 caractères
+    </div>
+
+    <!--Prénom -->
+
+    <div class="form-style-1">
+      <label for="lastname"></label>
+      <input type="text" placeholder="Prénom *" class="form-control" formControlName="lastname">
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('lastname')?.errors?.['required'] && addUserForm.get('lastname')?.touched">
+      Prénom est obligatoire
+    </div>
+    
+
+   <!--diplome-->  
+    <div class="form-style-1">
+      <label for="diplome"></label>
+      <input type="file" placeholder="Diplôme" class="form-control" formControlName="diplome">
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('diplome')?.errors?.['required'] && addUserForm.get('diplome')?.touched">
+      Ce champ est obligatoire
+    </div>
+
+
+     <!-- Email -->
+
+    <div class="form-style-1">
+      <label for="email"></label>
+      <input type="email" placeholder="E-mail *" class="form-control" formControlName="email">
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('email')?.errors?.['required'] && addUserForm.get('email')?.touched">
+      Email est obligatoire
+    </div>
+
+    <!-- Mot de passe -->
+    <div class="form-style-1 password-group">
+      <label for="mdp"></label>
+      <input type="password" [type]="showingPassword ? 'text' : 'password'" placeholder="Mot de passe *" class="form-control" formControlName="mdp"/>
+      <button type="button" class="btn-showhide-password" [ngClass]="showingPassword ? 'hidden' : ''"
+      (click)="password()"></button>
+      <!--les message d'erreur -->
+      <span class="alert alert-danger" *ngIf="addUserForm.get('mdp')?.errors?.['required'] && addUserForm.get('mdp')?.touched">
+        Mot de passe est obligatoire
+      </span>
+      <span class="alert alert-danger" *ngIf="addUserForm.get('mdp')?.dirty && addUserForm.controls['mdp'].hasError('minlength')">
+        Le mot de passe doit comporter au moins 8 caractères
+      </span>
+      <span class="alert alert-danger" *ngIf="addUserForm.get('mdp')?.errors?.['pattern'] && addUserForm.get('mdp')?.touched">
+        Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre
+      </span>
+
+    
+     
+    </div>
+
+
+    <div class="grid-blc">
+        <div class="form-style-1">
+        <button type="button" class="generate-password-btn"
+        (click)="generatePassword()" > Générer mot de passe</button>
+      </div>
+    </div>
+  
+    
+     <!-- Confirmation Mot de passe -->
+     <div class="form-style-1">
+      <label for="confirmmdp"></label>
+      <input type="password" placeholder="Confirmation de Mot de passe *" class="form-control" formControlName="confirmmdp">
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('confirmmdp')?.errors?.['required'] && addUserForm.get('confirmmdp')?.touched">
+      Confirmation est obligatoire
+    </div>
+
+   <!-- Notes -->
+   <p class="p-1" style="font-weight: normal; color: black;">Les champs avec (*) sont obligatoires</p>
+   <div class="btn">
+    <button class="annuler" type="reset" style="font-style: normal; color: black; background-color: white;"
+    (click)="dialog.close($event)">
+      Annuler</button>
+    <button class="creer" type="submit" style="font-style: normal; color: white; background-color: blue;"
+    (click)="attemptAddUser()">Créer</button>
+  </div>
+  </form>
+</div>

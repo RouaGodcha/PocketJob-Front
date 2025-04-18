@@ -69,7 +69,7 @@ export class UserComponent implements OnInit {
   }
 
   openPages(id: number) {
-    this.routerService.navigate(['admin/dashboard/users/pages/' + id]);
+    this.routerService.navigate(['/dashboard/users/pages/' + id]);
   }
 
   getUserList() {

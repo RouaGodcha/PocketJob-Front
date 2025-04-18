@@ -15,31 +15,38 @@ export class SidebarComponent implements OnInit {
   showListNews: boolean = false;
   showListOffres: boolean = false;
   showListKit: boolean = false;
-  
+  showListUsers: boolean = false;  // Nouvelle variable pour gérer les filtres utilisateurs
+  showListCandidature : boolean = false;
   currentFilter: any;
   state = {
     users: false,
   } as any;
+  
   constructor(
     public router: Router,
     public translate: TranslateService,
     public _route: ActivatedRoute
   ) {}
+
   ngOnInit(): void {
-    this.setCurrentFilter();
+    this.currentFilter();
   }
-  ngOnChanges(changes: SimpleChanges): void {}
+
   clickEvent(): void {
     this.status = !this.status;
   }
+
   overlayStatusFct(): void {
     this.overlayStatus = false;
     this.showListPocketJob = false;
     this.showListNews = false;
     this.showListOffres = false;
     this.showListKit = false;
+    this.showListUsers = false; 
+    this.showListCandidature =false; // Fermer les filtres utilisateurs
     this.closeFilters();
   }
+
   openFilter(name: string) {
     this.overlayStatus = !this.overlayStatus;
     Object.keys(this.state).forEach((key) => {
@@ -50,36 +57,10 @@ export class SidebarComponent implements OnInit {
       }
     });
   }
+
   closeFilters() {
     Object.keys(this.state).forEach((key) => {
       this.state[key] = false;
-    });
-  }
-  isFilterActive(): boolean {
-    let res = false;
-    Object.keys(this.state).forEach((key) => {
-      if (this.state[key]) {
-        res = true;
-      }
-    });
-    return res;
-  }
-  setCurrentFilter() {
-    if (this._route.firstChild?.snapshot.routeConfig?.data) {
-      this.currentFilter =
-        this._route.firstChild?.snapshot.routeConfig?.data['activeFilter'];
-    } else {
-      this.currentFilter = null;
-    }
-    this.router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        if (this._route.firstChild?.snapshot.routeConfig?.data) {
-          this.currentFilter =
-            this._route.firstChild?.snapshot.routeConfig?.data['activeFilter'];
-        } else {
-          this.currentFilter = null;
-        }
-      }
     });
   }
 
@@ -89,28 +70,36 @@ export class SidebarComponent implements OnInit {
       this.showListNews = false;
       this.showListOffres = false;
       this.showListKit = false;
+      this.showListUsers = false;
+      this.showListCandidature =false; 
     } else if (listName === 'news') {
       this.showListNews = !this.showListNews;
       this.showListPocketJob = false;
       this.showListOffres = false;
       this.showListKit = false;
+      this.showListUsers = false;
+      this.showListCandidature =false; 
     } else if (listName === 'offre-emploi') {
       this.showListOffres = !this.showListOffres;
       this.showListPocketJob = false;
       this.showListNews = false;
       this.showListKit = false;
-    } else if (listName === 'kit-compta') {
-      this.showListKit = !this.showListKit;
+      this.showListUsers = false;
+      this.showListCandidature =false; 
+    } else if (listName === 'users') {
+      this.showListUsers = !this.showListUsers;
       this.showListPocketJob = false;
       this.showListNews = false;
       this.showListOffres = false;
-     
+      this.showListKit = false;
+      this.showListCandidature =false; 
     } else {
       this.showListPocketJob = false;
       this.showListNews = false;
       this.showListOffres = false;
       this.showListKit = false;
-     
+      this.showListUsers = false;
+      this.showListCandidature =false; 
     }
   }
 }

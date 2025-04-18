@@ -1,0 +1,255 @@
+@import "../../../../scss/components/extend";
+
+/* ✅ Centrage modal sur toute la page */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+
+  .modal-dialog {
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .modal-content {
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: none;
+    padding-bottom: 10px;
+
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      color: #333;
+      margin: 0 auto;
+      text-align: center;
+      flex: 1;
+    }
+
+    .btn-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: #333;
+      cursor: pointer;
+
+      &:hover {
+        color: #ff4d4f;
+      }
+    }
+
+    .btn-back {
+      font-size: 1.2rem;
+      color: #000;
+      cursor: pointer;
+    }
+  }
+
+  .modal-body {
+    padding-top: 10px;
+  }
+}
+
+/* 📌 Conteneur du formulaire */
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 🧾 Champs formulaire */
+.form-style-1 {
+  margin-bottom: 1rem;
+  position: relative;
+
+  .form-label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+
+    .label-file {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid $color-light-gray;
+    font-size: 14px;
+    background-color: $color-lightest-gray;
+
+    &:focus {
+      border-color: $color-primary;
+      outline: none;
+    }
+  }
+
+  .error {
+    color: $color-error;
+    font-size: 12px;
+    margin-top: 0.25rem;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    font-style: italic;
+  }
+}
+
+/* 🖼️ Image preview + suppression */
+.gallerie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &__item {
+    position: relative;
+
+    .img-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .pi-times {
+      position: absolute;
+      font-size: 12px;
+      right: -5px;
+      top: -5px;
+      background: white;
+      border: 1px solid $color-ghost-gray;
+      border-radius: 50%;
+      padding: 3px;
+      color: $color-ghost-gray;
+      z-index: 9;
+
+      &:hover {
+        cursor: pointer;
+        border-color: $color-primary;
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+/* ✅ Bouton de soumission */
+.btn-primary.submit {
+  max-width: 123px !important;
+  float: right;
+  padding: 10px 20px;
+  background-color: #04328c;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #022b70;
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  .pi {
+    margin-right: 5px;
+  }
+}
+
+/* ✅ Message succès */
+.success-msg {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+  font-weight: bold;
+  border: 1px solid #c3e6cb;
+}
+
+
+/* 📱 Responsive */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    h1 {
+      font-size: 18px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .btn-close {
+      align-self: flex-end;
+    }
+  }
+
+  .btn-primary.submit {
+    width: 100%;
+    margin-top: 20px;
+    float: none;
+  }
+}
+
+/* ✨ Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🎓 Diplôme field fix */
+.form-style-1 .label-label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-style-1 .input-file {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid $color-light-gray;
+  background-color: $color-lightest-gray;
+}
+
+.form-style-1 .alert-danger {
+  color: $color-error;
+  font-size: 12px;
+  margin-top: 0.25rem;
+}

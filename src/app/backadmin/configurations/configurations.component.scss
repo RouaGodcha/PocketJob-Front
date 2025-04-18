@@ -1,0 +1,92 @@
+@import "../../../scss/components/extend";
+
+::ng-deep {
+  .p-tabview {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+
+    .p-tabview-nav {
+      border-bottom: 1px solid #dcdcdc; // ligne grise claire
+      padding-left: 0.5rem;
+      margin-bottom: 1rem;
+
+      li {
+        margin-right: 0.5rem;
+
+        .p-tabview-nav-link {
+          border: none;
+          background: transparent;
+          color: #555;
+          font-weight: 500;
+          font-family: 'Inter', sans-serif;
+          border-radius: 0;
+          padding: 0.75rem 1.2rem;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #000;
+          }
+        }
+
+        &.p-highlight .p-tabview-nav-link {
+          color: #000;
+          border-bottom: 2px solid #000; // ligne noire sous l’onglet actif
+        }
+      }
+    }
+
+    .p-tabview-panels {
+      padding: 1.5rem 0 0 0;
+      border: none;
+    }
+  }
+
+  .form-area {
+    padding: 1rem;
+  }
+
+  .form-style-1 {
+    margin-bottom: 1.5rem;
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #dcdcdc;
+      border-radius: 5px;
+      font-size: 14px;
+      font-family: "Inter", sans-serif;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+
+  .d-flex.align-items-center {
+    margin-bottom: 1.5rem;
+
+    p-checkbox {
+      margin-right: 0.5rem;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+    }
+  }
+
+  .btn-primary.bottom:not(.outline) {
+    width: 150px;
+    float: right;
+    background-color: #1668e3;
+    border-color: #1668e3;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
+}

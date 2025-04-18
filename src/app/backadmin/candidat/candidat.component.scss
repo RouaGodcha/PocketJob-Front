@@ -1,0 +1,146 @@
+@import "../../../scss/components/extend";
+
+/* 🌟 Zone principale de la liste */
+.list-orders-item-area.users-area {
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 12px;
+
+  .introduction-area {
+    margin-bottom: 20px;
+
+    .p-d-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .big-title-blc .big-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #020304;
+    }
+
+    .btns-group {
+      display: flex;
+      gap: 10px;
+
+      .btn-primary {
+        background-color:  #3364c6; /* Couleur verte pour "Ajouter" */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        
+        &:hover {
+          background-color: darken(#BFBAB0, 10%); /* Changer la couleur au survol */
+          transform: scale(1.05); /* Légère augmentation de taille au survol */
+        }
+      
+        &.right {
+          float: right; /* Aligner le bouton à droite */
+        }
+      }
+    }
+  }
+
+  .table-area {
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      background: white;
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .recherche-blc {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+
+        input {
+          border: 1px solid #ced4da;
+          padding: 8px 12px;
+          border-radius: 6px;
+          font-size: 14px;
+          width: 250px;
+        }
+      }
+
+      ::ng-deep .p-paginator {
+        margin-top: 15px;
+        justify-content: flex-end;
+      }
+
+      table {
+        width: 100%;
+        th {
+          background-color: #04328C;
+          color: white;
+          padding: 10px;
+          text-align: left;
+        }
+
+        td {
+          padding: 10px;
+          vertical-align: middle;
+
+          &.text-center {
+            text-align: center;
+          }
+
+          .btn-icon {
+            margin: 0 3px;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid #04328C;
+            background-color: white;
+            color: #04328C;
+            transition: background 0.3s ease, transform 0.2s ease;
+
+            &:hover {
+              background-color: #04328C;
+              color: white;
+              transform: scale(1.05);
+            }
+          }
+
+          ::ng-deep .p-dropdown {
+            width: 150px;
+            border-radius: 6px;
+          }
+
+          &.lis-dropdown {
+            min-width: 160px;
+          }
+        }
+      }
+
+      .text-center {
+        text-align: center;
+        font-size: 14px;
+        color: #888;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+/* Status dropdown colors */
+::ng-deep .status-actif {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+::ng-deep .status-inactif {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+::ng-deep .status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}

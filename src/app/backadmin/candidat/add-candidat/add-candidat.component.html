@@ -1,0 +1,58 @@
+<div class="container add-candidat-form" (onHide)="cancel()">
+  <div class="modal-header">
+    <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+
+    <h1 class="title">Ajout d'un candidat</h1>
+
+    <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+  </div>
+
+  <form [formGroup]="addCandidatForm" (ngSubmit)="onSubmit()" *ngIf="!showSuccess" class="form-area">
+    <!-- Nom -->
+    <div class="form-style-1">
+      <input type="text" placeholder="Nom *" formControlName="firstname" />
+      <div class="error" *ngIf="addCandidatForm.get('firstname')?.invalid && addCandidatForm.get('firstname')?.touched">
+        Nom est obligatoire et doit contenir au moins 2 caractères
+      </div>
+    </div>
+
+    <!-- Prénom -->
+    <div class="form-style-1">
+      <input type="text" placeholder="Prénom *" formControlName="lastname" />
+      <div class="error" *ngIf="addCandidatForm.get('lastname')?.invalid && addCandidatForm.get('lastname')?.touched">
+        Prénom est obligatoire
+      </div>
+    </div>
+
+    <!-- Diplôme -->
+    <div class="form-style-1">
+      <label class="label-file">Diplôme *</label>
+      <input type="file" (change)="onFileChange($event)" class="input-file" />
+      <div class="error" *ngIf="!selectedFile && addCandidatForm.get('diplome')?.touched">
+        Diplôme est obligatoire
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-style-1">
+      <input type="email" placeholder="E-mail *" formControlName="email" />
+      <div class="error" *ngIf="addCandidatForm.get('email')?.invalid && addCandidatForm.get('email')?.touched">
+        Email invalide ou manquant
+      </div>
+    </div>
+
+    <!-- Téléphone -->
+    <div class="form-style-1">
+      <input type="text" placeholder="Numéro de téléphone *" formControlName="phone" />
+      <div class="error" *ngIf="addCandidatForm.get('phone')?.invalid && addCandidatForm.get('phone')?.touched">
+        Numéro de téléphone est obligatoire
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="add-partner-modal-buttons">
+      <button type="button" class="btn-annuler" (click)="closeModal()">Annuler</button>
+      <button type="submit" class="btn-ajouter" routerLink="/dashboard/offre-emploi/modules" >Ajouter</button>
+    </div>
+  </form>
+</div>

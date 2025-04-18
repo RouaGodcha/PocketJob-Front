@@ -1,0 +1,9 @@
+<div id="switch-button">
+  <input
+    type="checkbox"
+    [checked]="default === 0 ? false : true"
+    [id]="'switch' + Id"
+    (change)="onToggle($event)"
+  />
+  <label [for]="'switch' + Id">Toggle</label>
+</div>

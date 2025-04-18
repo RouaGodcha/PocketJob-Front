@@ -1,37 +1,37 @@
 @import "../../../scss/components/extend";
 
-/* Variables de couleurs */
-$color-primary: #4A90E2;
+/* --- Couleurs --- */
+$color-primary: #4C9AFF;
 $color-white: #fff;
-$color-gray: #8f8c8c;
 $color-dark: #333;
+$color-gray: #8f8c8c;
 $color-hover: rgba(0, 0, 0, 0.1);
+$color-border: #e0e0e0;
+$color-placeholder: #a6a6a6;
 $color-red-guardsman: #D94D4D;
-$color-border: #e0e0e0; /* Définition de la bordure */
-$color-placeholder: #a6a6a6; /* Définition de la couleur du placeholder */
 
 header {
   position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  top: 0;
-  background-color: $color-white;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
   height: 70px;
-  padding: 10px 20px;
-  z-index: 10;
+  background-color: #0A1659;
+  padding: 0 20px;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
   .logo {
     @include dimensions(50px, 50px);
-    float: left;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
 
     img {
       @include dimensions(100%, 100%);
-      object-fit: contain;
+      object-fit: cover;
       border-radius: 50%;
     }
   }
@@ -39,76 +39,50 @@ header {
   .row-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    gap: 20px;
 
-    /* Zone de recherche */
     .search-area {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      position: center;
-      width: 100%;
 
       .search-blc {
         position: relative;
-        width: 100%;
-        max-width: 300px;
 
         input {
-          width: 100%;
-          padding: 10px 30px 10px 15px;
-          font-size: 12px;
-          color: $color-dark;
-          background-color: $color-white;
+          width: 250px;
+          padding: 10px 15px;
+          border-radius: 20px;
           border: 1px solid $color-border;
-          border-radius: 25px;
-          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          background-color: $color-white;
+          font-size: 14px;
+          color: $color-dark;
+          transition: 0.3s;
 
-          /* Placeholder */
           &::placeholder {
             color: $color-placeholder;
-            font-size: 14px;
           }
 
           &:focus {
             border-color: $color-primary;
             outline: none;
-            box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+            box-shadow: 0 0 5px rgba(76, 154, 255, 0.3);
           }
 
           &:hover {
             border-color: $color-primary;
           }
         }
-
-        /* Icône de recherche */
-        .search-icon {
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          transform: translateY(-50%);
-          font-size: 18px;
-          color: $color-gray;
-          cursor: pointer;
-          transition: color 0.3s ease;
-
-          &:hover {
-            color: $color-primary;
-          }
-        }
       }
     }
 
-    /* Zone utilisateur & configuration */
     .dropdown-blc {
       display: flex;
       align-items: center;
+      gap: 10px;
 
       .connected-status-area {
+        color: $color-white;
         font-size: 14px;
-        color: $color-dark;
-        margin-right: 10px;
       }
 
       .dropdown {
@@ -116,27 +90,26 @@ header {
 
         .user-icon {
           background-color: $color-primary;
-          padding: 10px;
-          border-radius: 50%;
           width: 40px;
           height: 40px;
+          border-radius: 50%;
           background-image: url("../../../assets/img/profile.svg");
+          background-size: cover;
           background-position: center;
-          background-size: contain;
-          background-repeat: no-repeat;
           cursor: pointer;
         }
 
         .dropdown-list {
-          display: none;
           position: absolute;
-          top: 45px;
+          top: 50px;
           right: 0;
+          display: none;
           background-color: $color-white;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           border-radius: 5px;
-          width: 180px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
           padding: 10px;
+          width: 180px;
+          z-index: 200;
 
           &.active {
             display: block;
@@ -145,105 +118,45 @@ header {
           button {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 10px;
-            background: none;
-            border: none;
             width: 100%;
+            padding: 10px;
+            border: none;
+            background: none;
             font-size: 14px;
             color: $color-dark;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background 0.3s;
 
             &:hover {
               background-color: $color-hover;
             }
 
-            .logout-text, .config-text {
+            .logout-text{
+              color: $color-red-guardsman;
               margin-left: 10px;
+              text-align: left;
+              font-size: 14px;
+              padding-right: 20px;
+            }
+            .config-text {
+              margin-left: 10px;
+              text-align: left;
+              font-size: 14px;
+              color: #8f8c8c;
+              padding-right: 20px;
             }
           }
 
           .logout-btn {
             color: $color-red-guardsman;
+            @include backgroundImage($smart-tags-associes-icon, 100%, 50%, auto);
+            @include flex();
           }
-
           .config-btn {
-            color: $color-primary;
+            @include backgroundImage($setting-icon, 97%, 50%, auto);
           }
         }
       }
-    }
-  }
-}
-
-/* Responsive Design */
-
-/* Tablettes et mobiles */
-@media (max-width: 768px) {
-  header {
-    padding: 15px;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .row-header {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-
-    .search-area {
-      width: 100%;
-      justify-content: center;
-      margin-top: 10px;
-
-      .search-blc {
-        max-width: 90%; /* Prend toute la largeur sur mobile */
-      }
-    }
-
-    .dropdown-blc {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-  }
-}
-
-/* Petits mobiles */
-@media (max-width: 480px) {
-  .logo {
-    @include dimensions(40px, 40px);
-  }
-
-  .row-header {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .search-area {
-    width: 100%;
-    padding: 0 10px;
-
-    .search-blc {
-      max-width: 95%;
-    }
-  }
-
-  .dropdown-blc {
-    justify-content: center;
-    width: 100%;
-
-    .user-icon {
-      width: 35px;
-      height: 35px;
-    }
-
-    .dropdown-list {
-      width: 160px;
     }
   }
 }

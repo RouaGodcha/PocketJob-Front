@@ -1,0 +1,105 @@
+@import "../../../scss/components/extend";
+
+/* # Users ::
+------------------------------------*/
+.page-link {
+  background-color: #00f !important;
+}
+.table-filter {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+
+/* # $Mobile ::
+------------------------------------*/
+@media (max-width: 767px) {
+  .list-orders-item-area {
+    &.users-area {
+      .introduction-area {
+        position: static;
+        margin: 0 0 20px;
+        height: initial;
+        .p-jc-between {
+          display: block;
+        }
+        .btns-group {
+          @include flex;
+          margin: 10px 0 0;
+        }
+      }
+      .recherche-bloc {
+        width: 100%;
+        .p-input-icon-left {
+          > input {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+}
+.chapters_table table,
+.chapters_table th,
+.chapters_table td,
+.chapters_table tr {
+  text-align: center !important;
+}
+.chapters_table td {
+  max-width: 92px;
+  p {
+    margin: 0;
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
+    div {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 100%;
+      p{
+        margin: 0;
+        // text-wrap: nowrap;
+      }
+    }
+  }
+}
+.btn-primary {
+    background-color:  #3364c6; /* Couleur verte pour "Ajouter" */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    
+    &:hover {
+      background-color: darken(#BFBAB0, 10%); /* Changer la couleur au survol */
+      transform: scale(1.05); /* Légère augmentation de taille au survol */
+    }
+  
+    &.right {
+      float: right; /* Aligner le bouton à droite */
+    }
+  }
+.chapters_table .badge-ref {
+  margin-left: auto !important;
+}
+::ng-deep {
+  .sort-icon {
+    svg {
+      color: #2f455c !important;
+      height: 12px;
+    }
+  }
+  .form-area .form-style-1 .p-dropdown {
+    width: 400px;
+  }
+}
+.img-image {
+  width: 50px;
+  height: 50px;
+}

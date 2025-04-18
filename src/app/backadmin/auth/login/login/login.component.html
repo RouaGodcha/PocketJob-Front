@@ -1,7 +1,12 @@
 <div class="login-container duerp_bg_page wrapper">
-    <!--formulaire -->
-  <form class="form-signin" [formGroup]="loginForm">
+  <div class="">
+    <img src="image/login.jpg" class="img-fluid ">
+
+</div>  
+  <!--formulaire -->
+  <form class="form-signin" [formGroup]="loginForm" >
       <h1>Welcome Admin!</h1>
+      
     
     <!-- message d'erreur -->
     <div class="success-message"
@@ -19,7 +24,10 @@
   
     <div class="form-bloc">
       <label>Email</label>
-      <input type="text" matInput mat-autosize formControlName="email" placeholder="Email"
+      <input
+      id="email"
+      type="text" matInput mat-autosize
+       formControlName="email" placeholder="Email"
         autocomplete="email" autofocus class="login-form-input" />
       <span class="error" *ngIf="loginForm?.get('email')?.dirty && f['email'].hasError('pattern')">
         <p>Email invalide</p>
@@ -44,7 +52,10 @@
       <p><a (click)="forget()">Mot de passe oublié ?</a></p>
     </div>
     <div class="form-buttons">
-      <button class="connect-btn" (click)="login()">
+      <button
+      (click)="login()"
+      type="submit"
+      class="connect-btn" >
         Se connecter
       </button>
     </div>

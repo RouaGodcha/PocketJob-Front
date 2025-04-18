@@ -5,9 +5,14 @@
         <h1 class="big-title">Liste des utilisateurs</h1>
       </div>
       <div class="btns-group two-btns">
-        <button class="btn-primary" pButton pRipple (click)="displayAddUser()" routerLink="/dashboard/add-user">
-        +  Ajouter
-        </button>
+        <a
+          class="btn-primary"
+          routerLink="/dashboard/users/add-user"
+          pButton
+          pRipple
+          icon="pi pi-plus"
+          (click)="displayAddUser()"
+        > Ajouter </a>
       </div>
     </div>
   </div>
@@ -22,9 +27,20 @@
           [totalRecords]="total"
           (onLazyLoad)="lazyLoad($event)"
         >
+        <ng-template pTemplate="caption">
+          <div class="recherche-bloc form-area">
+            <span class="p-input-icon-left ml-auto form-style-1">
+              <input
+                type="text"
+                (input)="search($event)"
+                placeholder="Mot-clé de recherche"
+              />
+            </span>
+          </div>
+        </ng-template>
           <ng-template pTemplate="header">
             <tr>
-              <th>Réf</th>
+              <th>Référence</th>
               <th>Nom</th>
               <th>Email</th>
               <th>Diplôme (CV)</th>
@@ -51,6 +67,8 @@
                 ></p-dropdown>
               </td>
               <td>{{ user.created_at | date: "dd/MM/yyyy" }}</td>
+
+
               <td class="text-center">
                 <button
                   type="button"

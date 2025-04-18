@@ -14,8 +14,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  
-  url = `${environment.apiUrl}/auth`;
+  helper = new JwtHelperService();
+  url = `${environment.apiUrl}`;
+
 
   private isAuthenticated = false;
   private authStatusListener = new Subject<boolean>();
@@ -25,39 +26,57 @@ export class AuthService {
     private router: Router,
     private localstorageService: LocalStorageService
   ) { }
-  login(formData: any) {
-    return this.http.post(`${this.url}/admin/login`, formData, { observe: 'response' }).pipe(
+  login(formData: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.url}/login`, formData, {
+      observe: 'response',
+      withCredentials: true // S'assurer que les cookies sont envoyés
+    }).pipe(
       catchError(this.handleError)
     );
   }
-  forgetPassword(formData: any) {
-    return this.http.post(`${this.url}/forget`, formData, { observe: 'response' }).pipe(
+  
+  /** Inscription utilisateur */
+  register(formData: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.url}/register`, formData, { observe: 'response' }).pipe(
       catchError(this.handleError)
     );
   }
-  resetPassword(formData: any) {
-    return this.http.post(`${this.url}/reset`, formData, { observe: 'response' }).pipe(
+
+ /** Demande de réinitialisation du mot de passe */
+  forgetPassword(formData: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.url}/forgot-password`, formData, { observe: 'response' }).pipe(
       catchError(this.handleError)
     );
   }
-  getIsAuth() {
-    return this.isAuthenticated;
+ /** Réinitialisation du mot de passe */
+ resetPassword(formData: any): Observable<HttpResponse<any>> {
+  return this.http.post(`${this.url}/reset-password`, formData, { observe: 'response' }).pipe(
+    catchError(this.handleError)
+  );
+}
+ /** Vérifie si l'utilisateur est authentifié */
+ getIsAuth(): boolean {
+  return this.isAuthenticated;
+}
+
+  /** Déconnexion */
+  logOut(): void {
+    this.http.post(`${this.url}/logout`, {}, { observe: 'response' }).subscribe(() => {
+      this.localstorageService.clear();
+      this.isAuthenticated = false;
+      this.authStatusListener.next(false);
+      this.router.navigate(['/login']);
+    });
   }
-  logOut() {
-    this.localstorageService.clear();
-    this.isAuthenticated = false;
-    this.authStatusListener.next(false);
-    this.router.navigate(['admin/login']);
-  }
+  /** Gère les erreurs HTTP */
   private handleError(err: HttpErrorResponse): Observable<never> {
     return throwError(() => err);
   }
-  private getAuthData() {
-    const token = this.localstorageService.getAdminToken();
-    if (token) {
-      return jwtDecode(token);
-    } else {
-      return false;
+    /** Récupère les données d'authentification */
+    private getAuthData() {
+      const token = this.localstorageService.getAdminToken();
+      return token ? jwtDecode(token) : false;
     }
-  }
 }
+
+

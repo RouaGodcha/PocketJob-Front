@@ -1,13 +1,208 @@
+@import "../../../../scss/components/extend";
+
+/* 🔥 Background centré avec dégradé */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+}
+
+/* 📌 Conteneur du formulaire */
+.container {
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Modal body styles */
+.add-post-modal-body {
+  .input-item-bloc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin: 10px 0;
+
+    label {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .label-file {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .input-file {
+      display: none;
+    }
+  }
+
+  /* Galerie */
+  .gallerie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    &__item {
+      position: relative;
+      left: 52px;
+      border: none;
+
+      .pi {
+        position: absolute;
+        font-size: 10px;
+        border: 1px solid $color-ghost-gray;  // Assurez-vous que ces variables soient définies
+        border-radius: 50%;
+        padding: 3px;
+        right: -5px;
+        top: -5px;
+        background: white;
+        z-index: 9;
+        color: $color-ghost-gray;
+
+        &:hover {
+          cursor: pointer;
+          border-color: $color-primary;  // Assurez-vous que ces variables soient définies
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  .img-image {
+    @include dimensions(100px, 100px);
+    object-fit: cover;
+  }
+}
+
+/* Boutons */
+.add-post-modal-buttons {
+  .btn-cancel {
+    color: #64748b !important;
+    background-color: transparent;
+    border: 1px solid #64748b;  // Bordure correcte
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background: #f1f5f9 !important;
+    }
+  }
+
+  .btn-create {
+    color: #fff3f3 !important;
+    background-color: #04328C;
+    border: 1px solid #04328C;  // Bordure correcte
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background: #f1f5f9 !important;
+      border: 1px solid #04328C;  // Bordure correcte
+      color: #000000;
+    }
+  }
+}
+
+.form-area .form-style-1 input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+
+  &:focus {
+    border-color: $color-primary;
+    outline: none;
+  }
+}
+
 .form-style-1 {
-    margin-bottom: 1rem;
+  margin-bottom: 20px;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
+
+.input-item-bloc input {
+  display: block;
+  width: 100%;
+}
+
+.label-file {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.add-post-modal-body .input-item-bloc {
+  margin-bottom: 20px;
+}
+
+/* Générer le bouton de mot de passe */
+.generate-password-btn {
+ 
+  color: white;
+  background-color: #04328C;
+  padding: 8px 10px;
+  border: 1px solid #04328C;  // Bordure correcte
+  border-radius: 9px;
+  margin-left: 10px;  // Corrigé de "margin-LEFT" à "margin-left"
+}
+
+/* Boutons supplémentaires */
+.btn {
+  display: flex;
+  justify-content: right;
+   gap: 10px;  // Espacement entre les boutons
+
+  .annuler {
+    color: #000000 !important;
+    background-color: rgb(255, 234, 234);
+    border: 1px solid rgb(0, 0, 0);  // Bordure correcte
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+    &:hover {
+      background: #f1f5f9 !important;
+    }
   }
-  .required-field {
-    font-size: 11px;
-    line-height: 10px;
-    color: #000;
-    font-family: "Poppins-Medium", serif;
-    font-weight: 300;
-    text-align: left;
-    margin: 15px 0 0;
-    display: block;
+
+  .creer {
+    color: #fff3f3 !important;
+    background-color: #04328C;
+    border: 1px solid #04328C;  // Bordure correcte
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+    &:hover {
+      background: #93abc3 !important;
+      border: 2px solid rgb(171, 171, 188);
+    }
   }
+   
+}

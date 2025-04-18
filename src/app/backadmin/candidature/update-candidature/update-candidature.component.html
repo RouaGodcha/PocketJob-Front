@@ -1,0 +1,61 @@
+<div class="container update-candidature-form">
+    <div class="modal-header">
+      <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+      <h1 class="title">Modifier une candidature</h1>
+      <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+    </div>
+  
+    <form (ngSubmit)="updateCandidature()" [formGroup]="updateCandidatureForm" class="form-area">
+      <!-- Nom Candidat -->
+      <div class="form-style-1">
+        <input type="text" placeholder="Nom du candidat *" formControlName="nomCandidat" />
+        <span class="error" *ngIf="updateCandidatureForm.controls['nomCandidat'].hasError('required') && isSubmitted">
+          Nom du candidat est obligatoire !
+        </span>
+      </div>
+  
+      <!-- Référence Offre -->
+      <div class="form-style-1">
+        <input type="text" placeholder="Référence de l'offre *" formControlName="offreReference" />
+        <span class="error" *ngIf="updateCandidatureForm.controls['offreReference'].hasError('required') && isSubmitted">
+          Référence de l'offre est obligatoire !
+        </span>
+      </div>
+  
+      <!-- Nom Entreprise -->
+      <div class="form-style-1">
+        <input type="text" placeholder="Nom de l'entreprise *" formControlName="entrepriseNom" />
+        <span class="error" *ngIf="updateCandidatureForm.controls['entrepriseNom'].hasError('required') && isSubmitted">
+          Nom de l'entreprise est obligatoire !
+        </span>
+      </div>
+  
+      <!-- Domaine -->
+      <div class="form-style-1">
+        <input type="text" placeholder="Domaine *" formControlName="domaine" />
+        <span class="error" *ngIf="updateCandidatureForm.controls['domaine'].hasError('required') && isSubmitted">
+          Domaine est obligatoire !
+        </span>
+      </div>
+  
+      <!-- Statut -->
+      <div class="form-style-1">
+        <p-dropdown
+          [options]="statusOptions"
+          formControlName="statut"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Choisir le statut">
+        </p-dropdown>
+        <span class="error" *ngIf="updateCandidatureForm.controls['statut'].hasError('required') && isSubmitted">
+          Statut est obligatoire !
+        </span>
+      </div>
+  
+      <div class="add-partner-modal-buttons">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+        <button type="submit" class="btn btn-primary">Modifier</button>
+      </div>
+    </form>
+  </div>
+  

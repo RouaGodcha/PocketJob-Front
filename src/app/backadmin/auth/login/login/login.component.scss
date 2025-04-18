@@ -1,54 +1,57 @@
-@import "./../../../../../scss/components/extend";
+@import "./../../../../../scss/components/extend"; // Importation de vos extensions personnalisées
+
 /* General Body Styling */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
-  background: linear-gradient(-225deg, #99a4a4 0%, #262a88 100%);
+  background:  #262a88 ; // Dégradé du fond
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.img-fluid {
-  max-width: 100%;
-  height: auto;
-}
+/* Image Styling */
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
+  height: 100vh; // Utilisation de toute la hauteur de la vue
+  width: 100%;
+  background-color: transparent; // Le fond du conteneur est transparent pour l'effet de fond dégradé
 
   .form-signin {
-    background: #ffffff;
+
+
+
+    background: rgba(255, 255, 255, 0.9); // Formulaire avec un fond semi-transparent
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 420px;
     text-align: center;
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 1s ease-in-out; // Animation pour faire apparaître le formulaire
 
-    .img-login {
-      width: 120px;
-      height: 120px;
-      background-size: cover;
-      background-position: center;
-      background-image: url("/assets/img/profile-login.jpg");
-      background-size: cover;
- margin: 0 auto 1rem;
+    /* Image de profil */
+    .img-fluid {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
       border-radius: 10px;
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease;
+      transform: scale(1); // Transformation initiale de l'image pour ne pas faire apparaître un effet de zoom
+    
+    
+      &:hover {
+        transform: scale(1.1); // Effet zoom sur l'image au survol
+      }
     }
+    
 
-    .img-login:hover {
-      transform: scale(1.1);
-    }
-
+    /* Champs de formulaire */
     .form-bloc {
       margin-bottom: 1.5rem;
       text-align: left;
@@ -70,7 +73,7 @@ body {
         &:focus {
           border-color: #007bff;
           outline: none;
-          box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+          box-shadow: 0 0 10px rgba(0, 123, 255, 0.3); // Effet focus sur les champs
         }
       }
 
@@ -82,13 +85,14 @@ body {
       }
     }
 
+    /* Alertes d'erreur */
     .alert {
       padding: 0.75rem;
       border-radius: 5px;
       font-size: 0.875rem;
       text-align: center;
       margin-bottom: 1rem;
-      animation: slideIn 0.5s ease-in-out;
+      animation: slideIn 0.5s ease-in-out; // Animation pour l'apparition des alertes
 
       &.alert-danger {
         background-color: #f8d7da;
@@ -103,10 +107,11 @@ body {
       font-size: 0.875rem;
 
       &:hover {
-        text-decoration: underline;
+        text-decoration: underline; // Soulignement au survol
       }
     }
 
+    /* Boutons de soumission */
     .form-buttons {
       text-align: center;
       margin-top: 1.5rem;
@@ -123,13 +128,14 @@ body {
 
         &:hover {
           background-color: #0056b3;
-          transform: scale(1.05);
+          transform: scale(1.05); // Effet agrandi sur le bouton
         }
       }
     }
   }
 }
 
+/* Animation pour l'apparition du formulaire */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -141,6 +147,7 @@ body {
   }
 }
 
+/* Animation pour l'apparition des alertes */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -151,3 +158,45 @@ body {
     transform: translateX(0);
   }
 }
+
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+    align-items: flex-start; // Décale vers le haut si besoin
+  }
+
+  .login-container {
+    padding-top: 2rem;
+    align-items: flex-start;
+    height: auto; // Permet au conteneur de s'ajuster à la hauteur du contenu
+    flex-direction: column;
+
+    .form-signin {
+      padding: 1.5rem;
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: none; // Moins d’ombre sur mobile pour plus de simplicité
+
+      .form-bloc {
+        .login-form-input {
+          font-size: 0.95rem;
+          padding: 0.6rem;
+        }
+      }
+
+      .form-buttons {
+        .connect-btn {
+          width: 100%;
+          font-size: 1rem;
+          padding: 0.75rem;
+        }
+      }
+
+      .img-fluid {
+        display: none; // On cache l'image si elle prend trop de place sur mobile
+      }
+    }
+  }
+}
+

@@ -1,0 +1,103 @@
+<p>admins works!</p>
+<div class="list-orders-item-area">
+    <div class="introduction-area">
+      <div class="p-d-flex p-jc-between">
+        <div class="big-title-blc">
+          <h1 class="big-title">Liste des admins</h1>
+        </div>
+        <div class="btns-group two-btns" style="text-align: end">
+          <a class="btn-primary" pButton pRipple label="Ajouter un admin" icon="pi pi-plus" (click)="displayAddAdmin()"></a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="table-area">
+      <div class="card">
+        <div class="card-body">
+          <p-table [value]="admins" responsiveLayout="stack" [breakpoint]="'960px'" [paginator]="true" [lazy]="true"
+                   [rows]="per_page" [rowsPerPageOptions]="[1,5,10,20]" [totalRecords]="total"
+                   [showCurrentPageReport]="true"
+                   (onLazyLoad)="lazyLoad($event)"
+                   currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées">
+            
+            <ng-template pTemplate="caption">
+              <div class="recherche-bloc form-area">
+                <span class="p-input-icon-left ml-auto form-style-1">
+                  <input type="text" (input)="search($event)" placeholder="Rechercher..." />
+                </span>
+              </div>
+            </ng-template>
+  
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Réf</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Date de création</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </ng-template>
+  
+            <ng-template pTemplate="body" let-admin>
+              <tr>
+                <td><span class="badge-ref">{{admin.id}}</span></td>
+                <td>{{admin.firstname}} {{admin.lastname}}</td>
+                <td>{{admin.email}}</td>
+                <td class="list-dropdown">
+                  <p-dropdown [options]="allStatus" placeholder="Status"
+                              (onChange)="updateAdminStatus(admin.id, $event)"
+                              [ngModel]="admin.status"
+                              [class]="'status-' + admin.status"
+                              optionLabel="name" optionValue="value"></p-dropdown>
+                </td>
+                <td>{{ admin.created_at | date : 'dd/MM/yyyy' }}</td>
+                <td class="text-center">
+                  <button type="button" pTooltip="Détails" tooltipPosition="left" pButton icon="pi pi-eye"
+                          class="btn-icon btn-icon--outlin-primary"
+                          (click)="adminDetails(admin.id)"></button>
+                  <button type="button" pTooltip="Modifier" tooltipPosition="left" pButton icon="pi pi-pencil"
+                          class="btn-icon btn-icon--outlin-primary"
+                          (click)="displayUpdateAdmin(admin)"></button>
+                  <button type="button" pTooltip="Supprimer" tooltipPosition="left" pButton icon="pi pi-trash"
+                          class="btn-icon btn-icon--outlin-primary"
+                          (click)="toggleDeleteAdmin(admin)"></button>
+                  <button type="button" pTooltip="Modifier mot de passe" tooltipPosition="left" pButton icon="pi pi-lock"
+                          class="btn-icon btn-icon--outlin-primary"
+                          (click)="toggleUpdatePassword(admin)"></button>
+                </td>
+              </tr>
+            </ng-template>
+  
+            <ng-template pTemplate="emptymessage">
+              <tr *ngIf="loading">
+                <td colspan="6"><p-skeleton *ngFor="let i of [1,2,3]" width="100%" class="mb-2"></p-skeleton></td>
+              </tr>
+              <tr *ngIf="!loading && !admins.length">
+                <td colspan="6" class="text-center">Aucun admin trouvé.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modales -->
+    <app-add-admin [show]="showingAddAdmin" (close)="displayAddAdmin()" (success)="getAdminList()"></app-add-admin>
+    <app-update-admin [show]="showingUpdateAdmin" (close)="displayUpdateAdmin()" (success)="getAdminList()"
+                      admin="selectedAdminToUpdate"></app-update-admin>
+    <app-update-password [show]="showUpdatePassword" admin="adminToUpdatePassword"
+                         (close)="showUpdatePassword=false"></app-update-password>
+  
+    <!-- Zone de confirmation suppression -->
+    <div *ngIf="showDelete" class="delete-confirmation-popup">
+      <div class="popup-content">
+        <p>Voulez-vous vraiment supprimer cet admin ?</p>
+        <div class="popup-actions">
+          <button class="btn btn-cancel" (click)="toggleDeleteAdmin()">Annuler</button>
+          <button class="btn btn-delete" (click)="deleteAdmin()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

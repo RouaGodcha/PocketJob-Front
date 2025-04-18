@@ -98,7 +98,7 @@ dropdown
 /* # Ajouter button - Aligné à droite ::
 ------------------------------------*/
 .btn-primary {
-  background-color:  #00f; /* Couleur verte pour "Ajouter" */
+  background-color:  #3364c6; /* Couleur verte pour "Ajouter" */
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -106,7 +106,7 @@ dropdown
   transition: background-color 0.3s ease, transform 0.3s ease;
   
   &:hover {
-    background-color: darken(#616662, 10%); /* Changer la couleur au survol */
+    background-color: darken(#BFBAB0, 10%); /* Changer la couleur au survol */
     transform: scale(1.05); /* Légère augmentation de taille au survol */
   }
 

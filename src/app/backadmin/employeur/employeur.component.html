@@ -1,0 +1,189 @@
+<div class="body">
+  <div class="list-orders-item-area">
+    <div class="introduction-area">
+      <div class="p-d-flex p-jc-between">
+        <div class="big-title-blc">
+          <h1 class="big-title">Liste des Employeurs / Entreprises</h1>
+        </div>
+        <div class="btns-group two-btns" style="text-align: end">
+          <button
+            class="btn-primary"
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            label="Ajouter"
+            routerLink="/dashboard/users/employers/add-employer"
+          ></button>
+          <button
+          class="btn-primary"
+          pButton
+          pRipple
+          icon="pi pi-plus"
+          label="modofier"
+          routerLink="/dashboard/users/employers/update-employer"
+        ></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-area">
+      <div class="card">
+        <div class="card-body">
+          <!-- 📋 Tableau des employeurs -->
+          <p-table
+            [value]="employer"
+            [first]="first"
+            [paginator]="true"
+            [lazy]="true"
+            [rows]="per_page"
+            [totalRecords]="total"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées"
+            (onLazyLoad)="lazyLoad($event)"
+          >
+            <ng-template pTemplate="caption">
+              <div class="form-area btn-div">
+                <div class="p-input-icon-left ml-auto form-style-1 mb-4">
+                  <input
+                    type="text"
+                    (input)="search($event)"
+                    placeholder="Mot-clé de recherche"
+                  />
+                </div>
+              </div>
+            </ng-template>
+           
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="id">Réf<p-sortIcon field="id" /></th>
+                <th pSortableColumn="name">Nom_Entreprise</th>
+                <th pSortableColumn="image">Image</th>
+                <th pSortableColumn="domaine">Domaine<p-sortIcon field="domaine" /></th>
+                <th pSortableColumn="Type">Type Professionnel<p-sortIcon field="type" /></th> 
+                <th pSortableColumn="diploma">Diplôme<p-sortIcon field="diploma" /></th>
+                <th pSortableColumn="adresse">Adresse</th>
+                <th pSortableColumn="qualification">Qualification<p-sortIcon field="qualification" /></th>
+                <th pSortableColumn="creator">Créé par <p-sortIcon field="creator" /></th>
+                <th pSortableColumn="email">E-mail</th>
+                <th pSortableColumn="phone">Téléphone</th>
+                <th pSortableColumn="status">Statut</th>
+                <th pSortableColumn="created_at">Date de création</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-employer let-rowIndex="rowIndex">
+              <tr>
+                <!-- Référence de l'entreprise -->
+                <td><span class="badge-ref">{{ rowIndex + 1 }}</span></td>
+               <!-- Image -->
+                <td>
+                  <img
+                    *ngIf="employer.image"
+                    [src]="employer.image"
+                    alt="image"
+                    class="img-thumbnail"
+                  />
+                </td>
+                <!-- Nom entreprise employeur -->
+                <td>{{ employer.name }}</td>
+                <td>{{ employer.domaine?.name }}</td>
+                <td>{{ employer.type }}</td>
+                <td>{{ employer.document?.name }}</td>
+                <td>{{ employer.adresse }}</td>
+                <td>{{ employer.qualification?.name }}</td> <!-- Qualification -->
+                <td>{{ employer.creator?.firstname }} {{ employer.creator?.lastname }}</td>
+                <td>{{ employer.email }}</td>
+                <td>{{ employer.phone }}</td>
+                <!-- Statut -->
+                <td>
+                  <p-dropdown
+                    [options]="allStatus"
+                    [ngModel]="employer.status"
+                    (onChange)="updateEmployerStatus(employer.id, $event)"
+                    optionLabel="name"
+                    optionValue="value"
+                    [class]="'status-' + employer.status"
+                  ></p-dropdown>
+                </td>
+                <!-- Date de création -->
+                <td>{{ employer.created_at | date: 'dd/MM/yyyy' }}</td>
+                <td class="text-center">
+                  <button
+                    pButton
+                    icon="pi pi-folder"
+                    tooltip="Pages"
+                    tooltipPosition="top"
+                    class="btn-icon btn-icon--outlin-primary"
+                    (click)="openPages(employer.id)"
+                  ></button>
+
+                  <button
+                    pButton
+                    icon="pi pi-eye"
+                    tooltip="Détails"
+                    tooltipPosition="top"
+                    class="btn-icon btn-icon--outlin-primary"
+                    [routerLink]="['/dashboard/users/emplyer/Viewemployer', employer.id]"
+                  ></button>
+
+                  <button
+                    *ngIf="employer.status !== 'DELETED'"
+                    pButton
+                    icon="pi pi-pencil"
+                    tooltip="Modifier"
+                    tooltipPosition="top"
+                    class="btn-icon btn-icon--outlin-primary"
+                    (click)="displayUpdateEmployer(employer)"
+                  ></button>
+
+                  <button
+                    *ngIf="employer.status !== 'DELETED'"
+                    pButton
+                    icon="pi pi-trash"
+                    tooltip="Supprimer"
+                    tooltipPosition="top"
+                    class="btn-icon btn-icon--outlin-primary"
+                    (click)="toggleDeleteEmployer(employer)"
+                  ></button>
+
+                  <button
+                    *ngIf="employer.status === 'DELETED'"
+                    pButton
+                    icon="pi pi-replay"
+                    tooltip="Restaurer"
+                    tooltipPosition="top"
+                    class="btn-icon btn-icon--outlin-success"
+                    (click)="restoreEmployer(employer.id)"
+                  ></button>
+
+                  <button
+                    *ngIf="employer.status === 'DELETED'"
+                    pButton
+                    icon="pi pi-times"
+                    tooltip="Suppression définitive"
+                    tooltipPosition="top"
+                    class="btn-icon btn-icon--outlin-danger"
+                    (click)="confirmPermanentDelete(employer.id)"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+              <tr *ngIf="!loading && employer.length === 0">
+                <td colspan="13" class="text-center">Aucun employeur trouvé</td>
+              </tr>
+              <tr *ngIf="loading">
+                <td colspan="13">
+                  <p-skeleton width="100%" height="2rem"></p-skeleton>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+// Variables de couleurs
+$primary-color: #04328C;
+$secondary-color: #333;
+$white-color: #fff;
+
+// Footer Principal
+.footer {
+  
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: $primary-color;
+  color: $white-color;
+  padding: 20px 0; // Réduit un peu la hauteur pour s'assurer qu'il ne gêne pas trop le contenu
+  text-align: center;
+  z-index: 1000; // Pour qu'il reste au-dessus du contenu si besoin
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .footer-brand {
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  }
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: $white-color;
+      color: $primary-color;
+      border-radius: 50%;
+      font-size: 20px;
+      transition: 0.3s;
+
+      &:hover {
+        background: darken($white-color, 10%);
+      }
+    }
+  }
+
+  .contact-info {
+    p {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .footer-bottom {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+}

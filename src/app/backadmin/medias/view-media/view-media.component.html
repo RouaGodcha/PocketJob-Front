@@ -1,0 +1,36 @@
+<div class="custom-modal-container" *ngIf="show">
+    <div class="custom-modal-overlay" (click)="close()"></div>
+  
+    <div class="custom-modal-content" style="width: 40vw;">
+      <button class="close-btn" (click)="close()">X</button>
+  
+      <div class="table-area">
+        <div *ngIf="selectedMedia?.file?.length">
+          <ngx-slick-carousel class="carousel" #slickModal [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of selectedMedia.file" class="slide">
+              <!-- Image preview -->
+              <img
+                *ngIf="isImageFile(slide.path)"
+                [src]="slide.path"
+                alt="media"
+                width="100%"
+                height="400px"
+              />
+  
+              <!-- PDF preview -->
+              <iframe
+                *ngIf="isPdfFile(slide.path)"
+                [src]="slide.path | safeURL"
+
+                frameborder="0"
+                width="100%"
+                height="400px"
+                ></iframe>
+
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
+  

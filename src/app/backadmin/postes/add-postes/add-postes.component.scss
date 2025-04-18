@@ -1,0 +1,261 @@
+@import "../../../../scss/components/extend";
+
+/* 🔥 Background centré avec dégradé */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  padding: 20px; // pour éviter que le contenu touche les bords en mobile
+}
+
+/* 📌 Conteneur du formulaire */
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* ✅ En-tête */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+
+  .btn-back {
+    font-size: 1.2rem;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ff4d4f;
+    }
+  }
+}
+
+/* 🎯 Titre principal */
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000000;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+/* 📌 Corps du formulaire */
+.add-partner-modal-body {
+  .input-item-bloc {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0;
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #333;
+  }
+
+  .label-file {
+    cursor: pointer;
+    font-weight: 600;
+    color: #000000;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+
+  .input-file {
+    display: none;
+  }
+
+  input,
+  textarea {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+
+  .error {
+    font-size: 12px;
+    color: #dc3545;
+    margin-top: 4px;
+  }
+
+  .gallerie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+
+    &__item {
+      position: relative;
+
+      .img-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .pi-times {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        font-size: 12px;
+        background: white;
+        color: red;
+        border: 1px solid red;
+        border-radius: 50%;
+        padding: 3px;
+        cursor: pointer;
+        z-index: 1;
+
+        &:hover {
+          background: red;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .add-partner-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+
+    .annuler,
+    .creer {
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 14px;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .annuler {
+      background-color: #f1f5f9;
+      color: #333;
+      border: 1px solid #ccc;
+
+      &:hover {
+        background-color: #e2e8f0;
+        transform: scale(1.05);
+      }
+    }
+
+    .creer {
+      background-color: #04328c;
+      color: white;
+
+      &:hover {
+        background-color: #022b70;
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+/* 📌 Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .overlay-close {
+    background: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+/* ✨ Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Responsive pour mobile */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .title {
+      font-size: 18px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .btn-close {
+      align-self: flex-end;
+    }
+  }
+
+  .add-partner-modal-buttons {
+    flex-direction: column;
+    align-items: stretch;
+
+    .annuler,
+    .creer {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .gallerie__item .img-image {
+    width: 80px;
+    height: 80px;
+  }
+}

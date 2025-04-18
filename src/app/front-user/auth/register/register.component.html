@@ -1,0 +1,74 @@
+<div class="register-container">
+    <div class="register-box">
+      <form>
+        <h1>Créer un compte</h1>
+        <button  class="close-btn" (click)="closeModal()">&times;</button>
+
+        <!-- Prénom -->
+        <div class="input-row">
+          <div class="input-group">
+            <input type="text" required placeholder="Prénom">
+          </div>
+          <div class="input-group">
+            <input type="text" required placeholder="Nom de famille">
+          </div>
+        </div>
+  
+        <!-- Date de naissance -->
+        <label class="dob-label">Date de naissance</label>
+        <div class="dob-selects">
+          <select name="day" required>
+            <option value="" disabled selected>Jour</option>
+            <!-- Générer options 1 à 31 -->
+            <option *ngFor="let d of days" [value]="d">{{ d }}</option>
+          </select>
+  
+          <select name="month" required>
+            <option value="" disabled selected>Mois</option>
+            <!-- Générer options mois (janv, févr, etc.) -->
+            <option *ngFor="let m of months" [value]="m.value">{{ m.label }}</option>
+          </select>
+  
+          <select name="year" required>
+            <option value="" disabled selected>Année</option>
+            <!-- Générer options d'années (par ex. 1920 à 2025) -->
+            <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+          </select>
+        </div>
+  
+        <!-- Genre -->
+        <label class="genre-label">Genre</label>
+        <div class="genre-options">
+          <label>
+            <input type="radio" name="genre" value="Femme" required>
+            Femme
+          </label>
+          <label>
+            <input type="radio" name="genre" value="Homme" required>
+            Homme
+          </label>
+          <label>
+            <input type="radio" name="genre" value="Personnalisé" required>
+            Personnalisé
+          </label>
+        </div>
+  
+        <!-- Numéro mobile ou e-mail -->
+        <div class="input-group">
+          <input type="email" required placeholder="e-mail">
+        </div>
+  
+        <!-- Nouveau mot de passe -->
+        <div class="input-group">
+          <input type="password" required placeholder="Nouveau mot de passe">
+        </div>
+  
+        <button type="submit" class="btn">S'inscrire</button>
+  
+        <div class="login-link">
+          <p>Vous avez déjà un compte ? <a routerLink="/home/loginUser">Se connecter</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+  

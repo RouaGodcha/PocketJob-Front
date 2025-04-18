@@ -1,0 +1,134 @@
+<div class="container">
+<div class="modal-container"  [class.visible]="visible">
+   <!-- Icône de fermeture dans l'en-tête -->
+   <div class="modal-header">
+    <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+ 
+      <h1 class="title">Modifer Categorie</h1>
+     
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+         
+      <div *ngIf="overlayStatus" class="overlay">
+        <!-- Contenu de ton overlay ici -->
+        <button class="overlay-close" (click)="overlayStatusFct()"></button>
+      </div>
+      </div>
+</div>
+<div class="form-area add-partner-modal-body">
+    <form [formGroup]="updateCategorieForm">
+      <div class="form-style-1 input-item-bloc">
+        <input
+          pInputText
+          id="name"
+          class="flex-auto"
+          formControlName="name"
+          maxlength="100"
+          placeholder="Nom *"
+          autocomplete="off"
+        />
+        <span
+          class="error"
+          *ngIf="
+            attemptSubmission &&
+            updateCategorieForm.controls['name'].hasError('required')
+          "
+        >
+        Nom est obligatoire !
+        </span>
+
+        <span
+          class="error"
+          *ngIf="
+            attemptSubmission &&
+            updateCategorieForm.controls['name'].hasError('maxlength')
+          "
+        >
+        Le nom ne doit pas dépasser 100 caractères.
+        </span>
+        <span
+          class="error"
+          *ngIf="
+            attemptSubmission &&
+            updateCategorieForm?.get('name')?.dirty &&
+            updateCategorieForm.controls['name'].hasError('pattern')
+          "
+        >
+        Le nom ne doit contenir que des lettres.
+        </span>
+      </div>
+  
+      <div class="form-style-1 input-item-bloc">
+        <input
+          pInputText
+          id="link"
+          class="flex-auto"
+          formControlName="description"
+          placeholder="Description *"
+          autocomplete="off"
+        />
+        <span
+          class="error"
+          *ngIf="
+            attemptSubmission &&
+            updateCategorieForm.controls['description'].hasError('required')
+          "
+        >
+        La description est obligatoire !
+        </span>
+      </div>
+  
+      <div class="form-style-1 input-item-bloc">
+        <label for="icon" class="label-file">Choisir une icône *</label>
+        <input
+          id="icon"
+          class="input-file"
+          type="file"
+          (change)="uploadImage($event)"
+        />
+        <span
+          class="error"
+          *ngIf="attemptSubmission && (!imageUrl || !imageUrl.length)"
+        >
+        L’icône est obligatoire !
+        </span>
+      </div>
+  
+      <div class="form-style-1" *ngIf="imageUrl">
+        <div class="gallerie">
+          <div class="gallerie__item">
+            <img class="img-image" [src]="imageUrl" alt="BLOG ICON" />
+            <i class="pi pi-times" (click)="removeImage()"></i>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-style-1 input-item-bloc">
+        <label for="image" class="label-file">Choisir une image *</label>
+        <input
+          id="image"
+          class="input-file"
+          type="file"
+          (change)="uploadFile($event)"
+        />
+        <span class="error" *ngIf="attemptSubmission && !fileUrl">
+            L’image est obligatoire !
+        </span>
+      </div>
+  
+      <div class="form-style-1" *ngIf="fileUrl">
+        <div class="gallerie">
+          <div class="gallerie__item">
+            <img class="img-image" [src]="fileUrl" alt="BLOG IMAGE" />
+            <i class="pi pi-times" (click)="removeFile()"></i>
+          </div> 
+        </div>
+      </div>
+
+      <!-- Buttons -->
+    <div class="add-partner-modal-buttons">
+      <button class="btn btn-cancel" (click)="closeModal()">Annuler</button>
+      <button class="btn btn-primary submit" (click)="updateCategorie()">Ajouter</button>
+    </div>
+    </form>
+  </div>
+</div>

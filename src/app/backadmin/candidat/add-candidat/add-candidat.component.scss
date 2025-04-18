@@ -1,0 +1,184 @@
+@import "../../../../scss/components/extend";
+
+/* 🔥 Background centré avec dégradé */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  padding: 20px;
+}
+
+/* 📌 Conteneur */
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* En-tête */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .btn-back {
+    font-size: 1.2rem;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+  }
+
+  .btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+
+    &:hover {
+      color: #ff4d4f;
+    }
+  }
+}
+
+/* Champs */
+.form-style-1 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    font-size: 14px;
+    color: #333;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+
+  .input-file {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .label-file {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+  }
+}
+
+/* Boutons */
+.add-partner-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+
+  .btn-annuler {
+    background-color: #f8f9fa;
+    color: #343a40;
+    border: 1px solid #ced4da;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #e2e6ea;
+    }
+  }
+
+  .btn-ajouter {
+    background-color: #04328c;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: #022b70;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Responsive mobile */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .title {
+      font-size: 18px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .btn-close {
+      align-self: flex-end;
+    }
+  }
+
+  .add-partner-modal-buttons {
+    flex-direction: column;
+    align-items: stretch;
+
+    .btn-annuler,
+    .btn-ajouter {
+      width: 100%;
+    }
+  }
+}
+
+/* ✨ Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

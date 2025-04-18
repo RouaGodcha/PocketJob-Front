@@ -40,6 +40,10 @@
             ],
             "styles": [
              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+             "node_modules/primeicons/primeicons.css",
+              "node_modules/boxicons/css/boxicons.min.css",
+              "node_modules/ionicons/dist/css/ionicons.min.css",
+              
               "src/scss/main.scss",
               "src/styles.scss"
             ],

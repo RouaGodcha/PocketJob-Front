@@ -1,0 +1,105 @@
+@import "../../../scss/components/extend";
+/* # Users ::
+------------------------------------*/
+.page-link {
+  background-color: #00f !important;
+}
+.table-filter {
+  display: flex;
+  flex-direction: row-reverse;
+}
+/**
+dropdown
+ */
+::ng-deep .list-dropdown {
+  .p-dropdown {
+    width: 119px;
+    height: 29px;
+    .p-dropdown-trigger {
+      background: transparent;
+      color: #6c757d;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      position: relative;
+      left: -18px;
+      width: 10px;
+    }
+    .p-dropdown-label {
+      background: transparent;
+      border: 0 none;
+      width: 101px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  span {
+    &.p-dropdown-trigger-icon {
+      &.pi {
+        &.pi-chevron-down {
+          &::before {
+            font-size: 11px;
+            position: relative;
+            left: 6px;
+          }
+        }
+      }
+    }
+  }
+  .status-ACTIVE {
+    .p-dropdown {
+      border: 1px solid $color-java-green;
+      .p-dropdown-label {
+        color: $color-java-green;
+        font-size: 12px;
+      }
+    }
+  }
+  .status-PENDING {
+    .p-dropdown {
+      border: 1px solid $color-sunset-orange;
+      .p-dropdown-label {
+        color: $color-sunset-orange ;
+        font-size: 12px;
+      }
+    }
+  }
+  .status-DISABLED {
+    .p-dropdown {
+      border: 1px solid grey;
+      .p-dropdown-label {
+        color: grey;
+        font-size: 12px;
+      }
+    }
+  }
+}
+/* # $Mobile ::
+------------------------------------*/
+@media (max-width: 767px) {
+  .list-orders-item-area {
+    &.users-area {
+      .introduction-area {
+        position: static;
+        margin: 0 0 20px;
+        height: initial;
+        .p-jc-between {
+          display: block;
+        }
+        .btns-group {
+          @include flex;
+          margin: 10px 0 0;
+        }
+      }
+      .recherche-bloc {
+        width: 100%;
+        .p-input-icon-left {
+          >input {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+}

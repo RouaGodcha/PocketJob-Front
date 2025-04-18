@@ -1,0 +1,178 @@
+@import "./../../../../scss/components/extend";
+
+/* 🌐 Layout général */
+body {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  padding: 20px;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* 📦 Conteneur principal */
+.list-orders-item-area {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+  animation: fadeIn 0.5s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* 🔙 En-tête */
+.introduction-area {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .big-title-blc {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    .btn-back {
+      font-size: 1.3rem;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .big-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #000;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+    }
+  }
+}
+
+/* 📑 Zone contenu */
+.table-area {
+  margin-top: 30px;
+
+  .card {
+    border-radius: 10px;
+
+    .card-body {
+      padding: 0;
+
+      .form-area {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .col-md-6 {
+        width: 48%;
+      }
+
+      .form-style-1 {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        label.form-label,
+        label.input-label {
+          font-weight: 600;
+          margin-bottom: 6px;
+          font-size: 14px;
+        }
+
+        input {
+          padding: 10px;
+          border-radius: 6px;
+          border: 1px solid #dcdcdc;
+          font-size: 14px;
+          color: #333;
+
+          &:disabled {
+            background-color: #f9f9f9;
+            color: #666;
+          }
+        }
+      }
+
+      /* 🎓 Diplômes */
+      .graduation-bloc {
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+        padding: 15px;
+        margin-block: 12px;
+
+        .post-number {
+          color: $color-secondary;
+          font-size: 16px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .align-row {
+          display: flex;
+          gap: 10px;
+
+          .form-style-1 {
+            flex: 1;
+            margin-bottom: 10px;
+          }
+        }
+
+        .align-col {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+/* 📱 Responsive tablette & mobile */
+@media screen and (max-width: 992px) {
+  .list-orders-item-area {
+    padding: 25px;
+
+    .introduction-area {
+      flex-direction: column;
+
+      .big-title-blc {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .big-title {
+          font-size: 20px;
+        }
+
+        .btn-back {
+          align-self: flex-start;
+        }
+      }
+    }
+
+    .card-body {
+      .form-area {
+        flex-direction: column;
+      }
+
+      .col-md-6 {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* ✨ Animation douce */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

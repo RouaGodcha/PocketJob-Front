@@ -12,6 +12,7 @@ export class GuestGuard implements CanActivate {
     private router: Router,
     private localstorageService: LocalStorageService
   ) { }
+  
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

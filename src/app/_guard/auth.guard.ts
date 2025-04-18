@@ -17,11 +17,12 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      
     let token = this.localstorageService.getAdminToken();
     try {
       if (token === null || helper.isTokenExpired(token)) {
         this.localstorageService.clear();
-        this.router.navigate(['admin/login'])
+        this.router.navigate(['admin/loginadmin'])
         return false
       }
       return true;

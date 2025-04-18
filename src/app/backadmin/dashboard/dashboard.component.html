@@ -1,36 +1,57 @@
 <div class="dashboard-page">
-    <div class="grid gtc-4 gcg-3">
-      <div class="grid-blc">
-        <div class="dashboard-header">
-          <div class="dashboard-header_title-blc">
-            <h2 class="dashboard-header_title">Bienvenue à PocketJob</h2>
-            <p class="dashboard-header_title-desc">Bonjour, Bon retour!</p>
-          </div><!--.dashboard-header_title-blc-->
-        </div><!--.dashboard-header-->
-      </div><!--.grid-blc-->
-    </div><!--.grid-->
-    
-    <div class="general-statistics-area">
-      <div class="general-statistics-item">
-        <div class="general-statistics_title">Total des emplois</div>
-        <div class="general-statistics_value">1350</div>
+  <!-- Header -->
+  <div class="grid gtc-4">
+    <div class="grid-blc dashboard-header">
+      <div class="dashboard-header_title-blc">
+        <h2 class="dashboard-header_title">Bienvenue sur PocketJob</h2>
+        <p class="dashboard-header_title-desc">Statistiques & Activités de la plateforme</p>
       </div>
-      <div class="general-statistics-item">
-        <div class="general-statistics_title">Candidats</div>
-        <div class="general-statistics_value">500</div>
-      </div>
-      <div class="general-statistics-item">
-        <div class="general-statistics_title">Offres Actuelles</div>
-        <div class="general-statistics_value">320</div>
-      </div>
-      <div class="general-statistics-item">
-        <div class="general-statistics_title">Employeurs</div>
-        <div class="general-statistics_value">150</div>
-      </div>
-    </div><!-- .general-statistics-area -->
-    
-    <div class="chart-area">
-      <canvas id="chart"></canvas>
-    </div><!-- .chart-area -->
-  </div><!-- .dashboard-page -->
-  
+    </div>
+  </div>
+
+  <!-- Statistiques Générales -->
+  <div class="general-statistics-area">
+    <div class="general-statistics-item" *ngFor="let stat of statistics">
+      <div class="general-statistics_title">{{ stat.title }}</div>
+      <div class="general-statistics_value">{{ stat.value }}</div>
+    </div>
+  </div>
+
+  <!-- Filtres dynamiques -->
+  <div class="filter-area">
+    <p-dropdown [options]="regions" placeholder="Région" [(ngModel)]="selectedRegion"></p-dropdown>
+    <p-dropdown [options]="sectors" placeholder="Secteur" [(ngModel)]="selectedSector"></p-dropdown>
+    <p-dropdown [options]="contractTypes" placeholder="Type de contrat" [(ngModel)]="selectedContract"></p-dropdown>
+    <button class="btn-action" (click)="applyFilters()">Appliquer</button>
+  </div>
+
+  <!-- Graphiques dynamiques -->
+  <div class="chart-cards">
+    <div class="chart-card">
+      <h4>Offres par secteur</h4>
+      <canvas baseChart
+        [datasets]="sectorChartData"
+        [labels]="sectorChartLabels"
+        [type]="'bar'">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h4>Satisfaction des employeurs</h4>
+      <canvas baseChart
+        [datasets]="satisfactionChartData"
+        [labels]="satisfactionLabels"
+        [type]="'doughnut'">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h4>Périodes de forte activité</h4>
+      <canvas baseChart
+        [datasets]="activityData"
+        [labels]="activityLabels"
+        [type]="'line'">
+      </canvas>
+    </div>
+  </div>
+</div>

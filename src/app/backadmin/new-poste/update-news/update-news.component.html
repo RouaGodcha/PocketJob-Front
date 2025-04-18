@@ -1,0 +1,240 @@
+<div class="container">
+    <div class="modal-header">
+      <a class="btn-back" (click)="backToList()">
+        <i class="pi pi-arrow-left"></i>
+      </a>
+      
+      <h1 class="title">Modifier une actualité</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+     
+     </div>
+  
+    <div class="table-area">
+      <form [formGroup]="updateNewsForm">
+        <div class="row">
+          <!-- Colonne gauche -->
+          <div class="col-lg-4 pe-md-0">
+            <!-- Statut et Position -->
+            <div class="card form-area bg-white">
+              <div class="card-body">
+                <div class="form-style-1">
+                  <label class="form-label">Statut</label>
+                  <p-dropdown
+                    [options]="allStatus"
+                    formControlName="status"
+                    [autoDisplayFirst]="false"
+                    placeholder="Statut"
+                    optionLabel="name"
+                    optionValue="value"
+                    [showClear]="false">
+                  </p-dropdown>
+                  <span class="error" *ngIf="updateNewsForm.controls['status'].hasError('required') && isSubmitted">
+                    Ce champ est obligatoire !
+                  </span>
+                </div>
+  
+                <div class="form-style-1">
+                  <label class="form-label">Position</label>
+                  <p-dropdown
+                    [options]="positions"
+                    formControlName="position"
+                    [autoDisplayFirst]="false"
+                    placeholder="Position"
+                    optionLabel="value"
+                    optionValue="value"
+                    [showClear]="false">
+                  </p-dropdown>
+                  <span class="error" *ngIf="updateNewsForm.controls['position'].hasError('required') && isSubmitted">
+                    Ce champ est requis
+                  </span>
+                </div>
+  
+                <!-- Liste des autres news -->
+                <div class="news_table">
+                  <p-table
+                    [value]="existingNews"
+                    [paginator]="true"
+                    [lazy]="true"
+                    [rows]="per_page"
+                    [totalRecords]="total"
+                    [rowsPerPageOptions]="[1, 5, 10, 20]"
+                    [showCurrentPageReport]="true"
+                    (onLazyLoad)="lazyLoad($event)"
+                    currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>Titre</th>
+                        <th>Position</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-News>
+                      <tr>
+                        <td>{{ News.name }}</td>
+                        <td>{{ News.position }}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                      <tr *ngIf="loadingNews">
+                        <td colspan="2">
+                          <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                        </td>
+                      </tr>
+                      <tr *ngIf="!loadingNews && !existingNews.length">
+                        <td colspan="2" class="text-center">Aucune actualité disponible</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Réseaux sociaux -->
+            <div class="card form-area bg-white">
+              <div class="card-body">
+                <label class="form-label">Liens sociaux</label>
+  
+                <div class="form-style-1">
+                  <div class="flex-inputs">
+                    <button class="btn-link facebook"></button>
+                                  
+                    <input type="text" placeholder="https://www.facebook.com/..." formControlName="facebook">
+                    
+                  </div>
+                </div>
+  
+                <div class="form-style-1">
+                  <div class="flex-inputs">
+                  <!-- Instagram -->
+                  <button class="btn-link instagram"></button>
+                                  
+                    <input type="text" placeholder="https://www.instagram.com/..." formControlName="instagram">
+                  </div>
+                </div>
+  
+                <div class="form-style-1">
+                  <div class="flex-inputs">
+                    <!-- Twitter -->
+                    <button class="btn-link twitter"></button>
+                    <input type="text" placeholder="https://www.twitter.com/..." formControlName="twitter">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Colonne droite -->
+          <div class="col-lg-8">
+            <!-- Image de couverture -->
+            <div class="card form-area bg-white">
+              <div class="card-body">
+                <label class="form-label">Image de couverture</label>
+                <div class="form-style-1" *ngIf="thumbnailUrl">
+                  <div class="gallerie">
+                    <div class="gallerie__item">
+                      <img class="img-image" [src]="thumbnailUrl" alt="image">
+                      <i class="pi pi-times" (click)="removeFile('THUMBNAIL')"></i>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="form-style-1">
+                  <input id="thumbnail" type="file" accept="image/png, image/jpeg" (change)="uploadFile($event, 'THUMBNAIL')" class="input-file image">
+                  <label for="thumbnail">
+                    {{ updateNewsForm.controls['thumbnail'].value?.name || 'Image' }}
+                  </label>
+                </div>
+  
+                <div class="form-style-1">
+                  <label class="form-label">Description</label>
+                  <textarea placeholder="Description *" formControlName="description"></textarea>
+                  <span class="error" *ngIf="updateNewsForm.controls['description']?.hasError('required') && isSubmitted">
+                    Ce champ est obligatoire !
+                  </span>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Format : IMAGE / VIDEO / LIEN -->
+            <div class="card form-area bg-white">
+              <div class="card-body">
+                <label class="form-label">Format</label>
+                <p-dropdown
+                  [options]="formats"
+                  formControlName="format"
+                  [autoDisplayFirst]="false"
+                  (onChange)="selectFormat($event)"
+                  placeholder="Format"
+                  optionLabel="name"
+                  optionValue="value"
+                  [showClear]="false">
+                </p-dropdown>
+                <span class="error" *ngIf="updateNewsForm.controls['format'].hasError('required') && isSubmitted">
+                  Ce champ est obligatoire !
+                </span>
+  
+                <!-- Format IMAGE -->
+                <div *ngIf="updateNewsForm.controls['format'].value === 'IMAGE'">
+                  <label class="form-label">Image</label>
+                  <div class="form-style-1" *ngIf="imageUrl">
+                    <div class="gallerie">
+                      <div class="gallerie__item">
+                        <img class="img-image" [src]="imageUrl" alt="image">
+                        <i class="pi pi-times" (click)="removeFile('IMAGE')"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-style-1">
+                    <input id="image" type="file" accept="image/png, image/jpeg" (change)="uploadFile($event, 'IMAGE')" class="input-file image">
+                    <label for="image">
+                      {{ updateNewsForm.controls['image'].value?.name || 'Image' }}
+                    </label>
+                  </div>
+                </div>
+  
+                <!-- Format VIDEO -->
+                <div *ngIf="updateNewsForm.controls['format'].value === 'VIDEO'">
+                  <label class="form-label">Vidéo</label>
+                  <div class="form-style-1" *ngIf="videoUrl">
+                    <div class="gallerie">
+                      <div class="gallerie__item">
+                        <video controls>
+                          <source [src]="videoUrl" type="video/mp4">
+                        </video>
+                        <i class="pi pi-times" (click)="removeFile('VIDEO')"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-style-1">
+                    <input id="video" type="file" accept="video/*" (change)="uploadFile($event, 'VIDEO')" class="input-file image">
+                    <label for="video">
+                      {{ updateNewsForm.controls['video'].value?.name || 'Vidéo' }}
+                    </label>
+                  </div>
+                </div>
+  
+                <!-- Format LIEN -->
+                <div class="form-style-1" *ngIf="updateNewsForm.controls['format'].value === 'LINK'">
+                  <label class="form-label">Lien</label>
+                  <input type="text" placeholder="Lien *" formControlName="link">
+                </div>
+  
+                <!-- Vérification contenu requis -->
+                <div class="form-style-1">
+                  <span class="error" *ngIf="!requiredContent() && isSubmitted">
+                    Ce champ est obligatoire
+                  </span>
+                </div>
+              </div>
+  
+              <div class="card-footer bg-white">
+                <button class="btn btn-primary submit" type="button" [disabled]="loadingEdit" (click)="submitForm()">
+                  {{ loadingEdit ? 'Chargement...' : 'Modifier' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

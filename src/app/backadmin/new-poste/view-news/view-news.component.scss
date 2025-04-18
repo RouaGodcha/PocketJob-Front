@@ -1,0 +1,196 @@
+.info-qcm {
+    display: flex;
+    .qcm-image {
+      flex: 1;
+      padding: 0 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    .qcm-elements {
+      flex: 1;
+      padding: 0 12px;
+      .qcm-element-col {
+        width: 100% !important;
+        padding-right: unset;
+        padding-left: 20px;
+      }
+    }
+    .qcm-question {
+      flex: 1;
+      align-items: center;
+    }
+    .qcm-answers {
+      flex: 1;
+      padding: 0 12px;
+    }
+  }
+  .card-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    .card {
+      width: 50%;
+    }
+  }
+  .flex-center {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .flex-two {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+  }
+  .full-width {
+    width: 100%;
+  }
+  .flex-end {
+    justify-content: flex-end;
+  }
+  .desc-area {
+    textarea {
+      height: 122px;
+    }
+  }
+  .flex-inputs {
+    display: flex;
+    gap: 10px;
+  }
+  .btn-link {
+    background-size: 25px auto;
+    width: 38px;
+    height: 38px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    &.twitter {
+      background-image: url("../../../../assets/img/twitter.png");
+    }
+    &.instagram {
+      background-image: url("../../../../assets/img/instagram.png");
+    }
+    &.tiktok {
+      background-image: url("../../../../assets/img/tiktok.png");
+    }
+    &.facebook {
+      background-image: url("../../../../assets/img/facebook.png");
+    }
+  }
+  .form-video {
+    display: flex;
+    justify-content: center;
+    video {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .form-image {
+    display: flex;
+    justify-content: center;
+    img {
+      height: 25%;
+      width: 25%;
+    }
+  }
+  .thumbnail-div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .form-thumbnail {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex: 1;
+      img {
+        height: 60%;
+        width: auto;
+      }
+    }
+  }
+
+  /* ✅ En-tête */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  
+    .btn-back {
+      font-size: 1.2rem;
+      color: #000000;
+      cursor: pointer;
+    }
+  
+    .btn-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.3s ease;
+  
+      &:hover {
+        color: #ff4d4f;
+      }
+    }
+  }
+  
+/* Responsive mobile */
+@media screen and (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+  
+    .modal-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+  
+      .title {
+        font-size: 18px;
+        text-align: left;
+        width: 100%;
+      }
+  
+      .btn-close {
+        align-self: flex-end;
+      }
+    }
+  
+    .add-partner-modal-buttons {
+      flex-direction: column;
+      align-items: stretch;
+  
+      .btn-annuler,
+      .btn-ajouter {
+        width: 100%;
+      }
+    }
+  }
+
+/* ✨ Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

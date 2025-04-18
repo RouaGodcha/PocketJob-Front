@@ -2,62 +2,102 @@
   <div class="sidebar-area" [ngClass]="status ? 'active' : ''">
     <div class="sidebar-area_top">
       <nav>
+        <!-- PocketJob -->
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/users"
-          [routerLinkActiveOptions]="{ exact: false }"
-          (click)="showList(''); closeFilters()"
-        >
-          <span class="nav-link-icon users"></span>
-          <span class="nav-link-txt">Users</span>
-        </a>
-        <a
-          class="nav-link"
-          routerLinkActive="nav-link-active"
-          routerLink="/admin/dashboard/pocketjob"
+          routerLink="/dashboard"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('pocketjob'); closeFilters()"
         >
           <span class="nav-link-icon home"></span>
           <span class="nav-link-txt">PocketJob</span>
         </a>
+
+        <!-- Utilisateurs -->
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/admin/dashboard/all-news"
+          routerLink="/dashboard/users"
           [routerLinkActiveOptions]="{ exact: false }"
-          (click)="showList('news'); closeFilters()"
+          (click)="showList('users'); closeFilters()"
         >
-          <span class="nav-link-icon all-news"></span>
-          <span class="nav-link-txt">News</span>
+          <span class="nav-link-icon users"></span>
+          <span class="nav-link-txt">Utilisateurs</span>
         </a>
+        <!-- Offres d'emploi -->
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/admin/dashboard/offre-emploi"
+          routerLink="/dashboard/offre-emploi"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('offre-emploi'); closeFilters()"
         >
-          <span class="nav-link-icon exercices"></span>
-          <span class="nav-link-txt">Job Offers</span>
+          <span class="nav-link-icon kit-compta"></span>
+          <span class="nav-link-txt">Offres d'emploi</span>
         </a>
+        <!-- Candidature -->
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/admin/dashboard/kit-compta"
+          routerLink="/dashboard/candidature"
           [routerLinkActiveOptions]="{ exact: false }"
-          (click)="showList('kit-compta'); closeFilters()"
+          (click)="showList('candidature'); closeFilters()"
         >
-          <span class="nav-link-icon kit-compta"></span>
-          <span class="nav-link-txt">Accounting Kit</span>
+          <span class="nav-link-icon candidature"></span>
+          <span class="nav-link-txt"> Candidature </span>
         </a>
+
+        <!-- Actualités -->
+        <a
+          class="nav-link"
+          routerLinkActive="nav-link-active"
+          routerLink="/dashboard/all-news/categories"
+          aria-label="Section Actualités"
+          (click)="showList('news'); closeFilters()"
+        >
+          <span class="nav-link-icon all-news"></span>
+          <span class="nav-link-txt">Actualités</span>
+        </a>
+
+
+
+        <!-- Rendez Vous -->
+        <a
+          class="nav-link"
+          routerLinkActive="nav-link-active"
+          routerLink="/dashboard/appointments"
+          aria-label="Section Actualités"
+          (click)="showList('news'); closeFilters()"
+        >
+          <span class="nav-link-icon rendez-vous"></span>
+          <span class="nav-link-txt">Rendez-vous</span>
+        </a>
+
+        <!-- Candidature -->
+        <a
+          class="nav-link"
+          routerLinkActive="nav-link-active"
+          routerLink="/dashboard/publicites"
+          [routerLinkActiveOptions]="{ exact: false }"
+          (click)="showList('publicites'); closeFilters()"
+        >
+          <span class="nav-link-icon publicites"></span>
+          <span class="nav-link-txt"> Publicites </span>
+        </a>
+
+        
+        
+
       </nav>
     </div>
     <div class="sidebar-area_bottom open-sidebar" (click)="clickEvent()">
       <em class="pi pi-angle-right"></em>
     </div>
   </div>
+
+
+
 
   <div class="sidebar-filter">
     <!-- PocketJob Filter -->
@@ -69,56 +109,39 @@
             <a
               class="icon posts"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/pocketjob/posts"
+              routerLink="/dashboard/pocketjob/postes"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Posts</a>
-          </li>
-          <li>
-            <a
-              class="icon groupes"
-              routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/pocketjob/groupes"
-              [routerLinkActiveOptions]="{ exact: false }"
-              (click)="closeFilters()"
-              >Groups</a>
-           
           </li>
         </ul>
       </nav>
     </div>
 
-    <!-- News Filter -->
-    <div class="sidebar-filter-style gestion-des-modeles-filter" [ngClass]="showListNews ? 'active' : ''">
+    <!-- Users Filter -->
+    <div class="sidebar-filter-style gestion-des-modeles-filter" [ngClass]="showListUsers ? 'active' : ''">
       <button class="overlay-close" (click)="overlayStatusFct()"></button>
       <nav>
         <ul class="nav-list filtres-nav-list">
           <li>
             <a
-              class="icon categories-blogs"
+              class="icon candidates"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/all-news/categorie"
+              routerLink="/dashboard/users/candidats"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
-              >Categories</a>
+              >Candidats</a>
+              
+            
           </li>
           <li>
             <a
-              class="icon medias"
+              class="icon employers"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/all-news/medias"
+              routerLink="/dashboard/users/employers"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
-              >Media</a>
-          </li>
-          <li>
-            <a
-              class="icon news"
-              routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/all-news/news"
-              [routerLinkActiveOptions]="{ exact: false }"
-              (click)="closeFilters()"
-              >New Posts</a>
+              >Employeurs</a>
           </li>
         </ul>
       </nav>
@@ -133,73 +156,70 @@
             <a
               class="icon modules"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/offre-emploi/modules"
+              routerLink="/dashboard/offre-emploi/modules"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
-              >Job Modules</a>
+              >Modules d'emploi</a>
           </li>
-          <li>
-            <a
-              class="icon chapters"
-              routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/offre-emploi/chapters"
-              [routerLinkActiveOptions]="{ exact: false }"
-              (click)="closeFilters()"
-              >Chapters</a>
-          </li>
+          <!--
           <li>
             <a
               class="icon qcms"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/offre-emploi/qcms"
+              routerLink="/dashboard/offre-emploi/qcms"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >QCMs</a>
           </li>
+          -->
           <li>
             <a
               class="icon fiche"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/offre-emploi/fiches"
+              routerLink="/dashboard/offre-emploi/fiches"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
-              >Sheets</a>
+              >Fiches de Poste</a>
           </li>
         </ul>
       </nav>
     </div>
+   
 
-    <!-- Accounting Kit Filter -->
-    <div class="sidebar-filter-style gestion-des-modeles-filter" [ngClass]="showListKit ? 'active' : ''">
-      <button class="overlay-close" (click)="overlayStatusFct()"></button>
+
+    <!--News actualité -->
+
+      <!-- News Filter -->
+    <div class="sidebar-filter-style gestion-des-modeles-filter" [ngClass]="showListNews ? 'active' : ''">
+      <button class="overlay-close" (click)="overlayStatusFct()" aria-label="Fermer le filtre actualités"></button>
       <nav>
         <ul class="nav-list filtres-nav-list">
           <li>
             <a
-              class="icon nos-partenaires"
+              class="icon categories-blogs"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/kit-compta/partners"
+              routerLink="/dashboard/all-news/categories"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
-              >Our Partners</a>
+              >Catégories</a>
           </li>
           <li>
             <a
-              class="icon annals"
+              class="icon medias"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/kit-compta/annals"
+              routerLink="/dashboard/all-news/medias"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
-              >Annals</a>
+              >Médias</a>
           </li>
           <li>
             <a
-              class="icon marketplace"
+              class="icon news"
               routerLinkActive="nav-link-active"
-              routerLink="/admin/dashboard/kit-compta/marketplace"
+              routerLink="/dashboard/all-news/newposte"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
-              >Marketplace</a>
+              >Nouveaux Posts</a>
           </li>
         </ul>
       </nav>

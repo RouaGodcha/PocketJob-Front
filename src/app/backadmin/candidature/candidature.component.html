@@ -1,0 +1,193 @@
+<div class="body">
+    <div class="list-orders-item-area">
+      <div class="introduction-area">
+        <div class="p-d-flex p-jc-between">
+          <div class="big-title-blc">
+            <h1 class="big-title">Liste des Candidatures</h1>
+          </div>
+          <div class="btns-group two-btns" style="text-align: end">
+          <button
+          icon="pi pi-pencil"
+            class="btn-icon btn-icon--outlin-primary"
+          pButton
+          tooltip="Modifier"
+          tooltipPosition="top"
+          routerLink="/dashboard/candidature/update-candidature/:id"></button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="table-area">
+        <div class="card">
+          <div class="card-body">
+            <p-table
+            [value]="tableData"
+            responsiveLayout="stack"
+            [breakpoint]="'960px'"
+            [first]="first"
+            [paginator]="true"
+            [lazy]="true"
+            [rows]="per_page"
+            [rowsPerPageOptions]="[1, 5, 10, 20]"
+            [totalRecords]="total"
+            [showCurrentPageReport]="true"
+            (onLazyLoad)="lazyLoad($event)"
+            currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées"
+          >
+              <ng-template pTemplate="caption">
+                <div class="form-area btn-div">
+                  <input
+                    type="text"
+                    placeholder="Nom candidat"
+                    [(ngModel)]="filters.nomCandidat"
+                    (input)="search()"
+                    class="form-control mb-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Référence offre"
+                    [(ngModel)]="filters.offreReference"
+                    (input)="search()"
+                    class="form-control mb-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Nom entreprise"
+                    [(ngModel)]="filters.entreprise"
+                    (input)="search()"
+                    class="form-control mb-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Domaine"
+                    [(ngModel)]="filters.domaine"
+                    (input)="search()"
+                    class="form-control mb-2"
+                  />
+                  <p-dropdown
+                    [options]="statusOptions"
+                    [(ngModel)]="filters.statut"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Statut"
+                    (onChange)="search()"
+                  ></p-dropdown>
+                </div>
+              </ng-template>
+  
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="candidatNom">Candidat <p-sortIcon field="candidatNom"></p-sortIcon></th>
+                  <th pSortableColumn="offreReference">Offre <p-sortIcon field="offreReference"></p-sortIcon></th>
+                  <th pSortableColumn="entrepriseNom">Entreprise <p-sortIcon field="entrepriseNom"></p-sortIcon></th>
+                  <th pSortableColumn="domaine">Domaine <p-sortIcon field="domaine"></p-sortIcon></th>
+                  <th pSortableColumn="statut">Statut <p-sortIcon field="statut"></p-sortIcon></th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </ng-template>
+  
+              <ng-template pTemplate="body" let-c>
+                <tr>
+                  <td>{{ c.candidatNom }}</td>
+                  <td>{{ c.offreReference }}</td>
+                  <td>{{ c.entrepriseNom }}</td>
+                  <td>{{ c.domaine }}</td>
+                  <td>{{ c.statut }}</td>
+                  <td class="text-center">
+                    <button
+                      pButton
+                      icon="pi pi-pencil"
+                      class="btn-icon btn-icon--outlin-primary"
+                      tooltip="Modifier"
+                      tooltipPosition="top"
+                      (click)="modifier(c)"
+                    ></button>
+  
+                    <button
+                      pButton
+                      icon="pi pi-trash"
+                      class="btn-icon btn-icon--outlin-danger"
+                      tooltip="Annuler"
+                      tooltipPosition="top"
+                      (click)="confirmerAnnulation(c)"
+                    ></button>
+                  </td>
+                </tr>
+              </ng-template>
+  
+              
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr *ngIf="loading">
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+        </tr>  
+        <tr *ngIf="loading">
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+            <td>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2"></p-skeleton>
+            </td>
+        </tr>
+        <tr *ngIf="!loading && !candidature.length">
+            <td colspan="7">
+                <div class="text-center">news</div>
+            </td>
+        </tr>
+      </ng-template>
+  
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
