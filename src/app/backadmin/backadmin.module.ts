@@ -79,7 +79,7 @@ import { ConfigurationsComponent } from './configurations/configurations.compone
 import { UpdateEmployerComponent } from './employeur/update-employer/update-employer.component';
 import { CandidatureComponent } from './candidature/candidature.component';
 import { UpdateCandidatureComponent } from './candidature/update-candidature/update-candidature.component';
-
+import { PanelModule } from 'primeng/panel';
 
 // 📌 Import en haut du fichier
 import { ToastModule } from 'primeng/toast';
@@ -92,6 +92,8 @@ import { UpdatePasswordComponent } from './admins/update-password/update-passwor
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { PubliciteComponent } from './publicite/publicite.component';
 import { AddPublicitesComponent } from './publicite/add-publicites/add-publicites.component';
+import { UpdatePublicitesComponent } from './publicite/update-publicites/update-publicites.component';
+import { MessagerieComponent } from './messagerie/messagerie.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +105,7 @@ import { AddPublicitesComponent } from './publicite/add-publicites/add-publicite
     NavbarComponent,
     UserComponent,
     UpdateUserComponent,
+
     AddUserComponent,
     PostesComponent,
     AddPostesComponent,
@@ -142,21 +145,24 @@ import { AddPublicitesComponent } from './publicite/add-publicites/add-publicite
     AppointmentsComponent,
     PubliciteComponent,
     AddPublicitesComponent,
+    UpdatePublicitesComponent,
+    MessagerieComponent,
     
   ],
   imports: [
     CommonModule,
     FormsModule,
+    DropdownModule,
+    InputTextModule,
+    PanelModule,
     NgChartsModule,
     RouterModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BackadminRoutingModule,
     SharedModule,
-    HttpClientModule,
-    InputTextModule,
     SlickCarouselModule,
     TableModule,
-    DropdownModule,
     SkeletonModule,
     ButtonModule,
     RippleModule,
@@ -185,7 +191,6 @@ import { AddPublicitesComponent } from './publicite/add-publicites/add-publicite
     TabViewModule,
     ToastModule,
     ColorPickerModule,
-   
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -196,7 +201,8 @@ import { AddPublicitesComponent } from './publicite/add-publicites/add-publicite
   ],
   
   providers: [
-    DatePipe , 
+    DatePipe ,
+    MessageService 
   ],
 })
 export class BackadminModule { }

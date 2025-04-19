@@ -21,7 +21,7 @@ export class PubliciteService {
     return this.http.get(`${this.apiUrl}/publicites`, { params });
    }
 
-  getPublicitesById(id: number): Observable<any> {
+   getPubliciteById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
@@ -29,7 +29,7 @@ export class PubliciteService {
     return this.http.post(this.apiUrl, formData);
   }
 
-  updatePublicites(publicites: any): Observable<any> {
+  updatePublicites(publicites: any, formData: FormData): Observable<any> {
     return this.http.put(`${this.apiUrl}/${publicites.id}`, publicites);
   }
 

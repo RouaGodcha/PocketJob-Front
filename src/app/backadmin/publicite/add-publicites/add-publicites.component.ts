@@ -9,19 +9,32 @@ import { PubliciteService } from '../../_services/publicite.service';
   styleUrl: './add-publicites.component.scss'
 })
 export class AddPublicitesComponent {
-
+  
+  successMsg: string = '';
+  imagePreview: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
   @Output() formClosed = new EventEmitter<void>();
   isSubmitted: boolean = false;
   publiciteForm!: FormGroup;
   imageUrl: string | null = null;
   imageFile!: File;
-  statusOptions = [
-    { label: 'Programmé', value: 'programmé' },
-    { label: 'Active', value: 'active' },
-    { label: 'Suspendu', value: 'suspendu' },
-    { label: 'Terminé', value: 'terminé' },
+
+  showAddPopup: boolean = false;
+  statusList = [
+    { label: 'Programmé', value: 'programmed' },
+    { label: 'Actif', value: 'active' },
+    { label: 'Terminé', value: 'ended' },
+    { label: 'Suspendu', value: 'suspended' },
+    { label: 'Supprimé', value: 'deleted' }
   ];
-  constructor(private fb: FormBuilder, private pubService: PubliciteService) {}
+  publicites : any;
+  publicite = {
+    status: null
+  };
+  constructor(
+    private fb: FormBuilder, 
+    private publiciteService: PubliciteService) {}
+  
   ngOnInit(){
     this.publiciteForm = this.fb.group({
       nom: ['', Validators.required],
@@ -30,6 +43,7 @@ export class AddPublicitesComponent {
       date_fin: [null, Validators.required],
       statut: ['', Validators.required],
     });
+    
   }
 
   
@@ -64,7 +78,6 @@ export class AddPublicitesComponent {
 
   onSubmit() {
     if (this.publiciteForm.invalid) return;
-
     const formData = new FormData();
     Object.entries(this.publiciteForm.value).forEach(([key, val]) => {
       formData.append(key, val as string);
@@ -82,8 +95,31 @@ export class AddPublicitesComponent {
         console.error('Erreur lors de l\'ajout de la publicité', err);
       
     });*/
+
   }
+  openAddPopup() {
+    this.showAddPopup = true;
+  }
+  
+  onFormClosed() {
+    this.showAddPopup = false;
+    // Tu peux aussi rafraîchir la liste ici
+  }
+  
+
   cancel() {
-    this.formClosed.emit();
+    this.successMsg = '';
+    this.publiciteForm.reset();
   }
+
+  closeModal() {
+    history.back();
+    this.cancel();
+  }
+
+  backToList(): void {
+    history.back(); // Revenir à la page précédente
+    console.log('Retour à la liste');
+  }
+
 }

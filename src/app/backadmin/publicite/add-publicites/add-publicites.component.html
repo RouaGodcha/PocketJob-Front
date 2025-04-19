@@ -1,7 +1,7 @@
 <div class="container add-publicite-form">
     <div class="modal-header">
-      <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="cancel()"></a>
-      <h1 class="title">Ajouter une publicité</h1>
+        <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+        <h1 class="title">Ajouter une publicité</h1>
       <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
     </div>
   
@@ -19,7 +19,7 @@
       </div>
   
       <div class="form-style-1">
-        <p-dropdown [options]="statusOptions" formControlName="statut" placeholder="Choisir le statut"></p-dropdown>
+        <p-dropdown [options]="statusList" formControlName="statut" placeholder="Choisir le statut"></p-dropdown>
       </div>
   
       <div class="form-style-1">

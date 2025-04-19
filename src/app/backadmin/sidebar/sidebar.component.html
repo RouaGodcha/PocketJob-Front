@@ -60,7 +60,29 @@
           <span class="nav-link-txt">Actualités</span>
         </a>
 
+        <!-- Publicite -->
+        <a
+        class="nav-link"
+        routerLinkActive="nav-link-active"
+        routerLink="/dashboard/publicites"
+        [routerLinkActiveOptions]="{ exact: false }"
+        (click)="showList('publicites'); closeFilters()"
+      >
+        <span class="nav-link-icon publicites"></span>
+        <span class="nav-link-txt"> Publicites </span>
+      </a>
 
+      <!-- Messagerie  -->
+      <a
+      class="nav-link"
+      routerLinkActive="nav-link-active"
+      routerLink="/dashboard/messagerie"
+      [routerLinkActiveOptions]="{ exact: false }"
+      (click)="showList('messagerie'); closeFilters()"
+    >
+      <span class="nav-link-icon messagerie"></span>
+      <span class="nav-link-txt"> messagerie </span>
+    </a>
 
         <!-- Rendez Vous -->
         <a
@@ -74,17 +96,7 @@
           <span class="nav-link-txt">Rendez-vous</span>
         </a>
 
-        <!-- Candidature -->
-        <a
-          class="nav-link"
-          routerLinkActive="nav-link-active"
-          routerLink="/dashboard/publicites"
-          [routerLinkActiveOptions]="{ exact: false }"
-          (click)="showList('publicites'); closeFilters()"
-        >
-          <span class="nav-link-icon publicites"></span>
-          <span class="nav-link-txt"> Publicites </span>
-        </a>
+       
 
         
         

@@ -1,0 +1,64 @@
+<div class="messagerie-container">
+    <h1 class="big-title">📨 Gestion de la Messagerie</h1>
+  
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchTerm" (input)="searchMessages()" placeholder="🔍 Rechercher une conversation ou un contact..." />
+    </div>
+  
+    <div class="main-content">
+      <!-- Liste des contacts -->
+      <div class="contacts-panel">
+        <p-dropdown 
+          [options]="contactTypes"
+          [(ngModel)]="selectedContactType"
+          (onChange)="filterContacts()"
+          placeholder="Filtrer par type">
+        </p-dropdown>
+  
+        <ul class="contact-list">
+          <li *ngFor="let contact of filteredContacts"
+              [class.active]="contact.id === selectedContact?.id"
+              (click)="selectContact(contact)">
+            <span class="contact-name">{{ contact.nom }}</span>
+            <span class="contact-type">({{ contact.type }})</span>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Liste des conversations -->
+      <div class="conversations-panel">
+        <p-dropdown 
+          [options]="messageStatusOptions"
+          [(ngModel)]="selectedMessageStatus"
+          (onChange)="filterMessages()"
+          placeholder="Filtrer par statut">
+        </p-dropdown>
+  
+        <ul class="conversation-list">
+          <li *ngFor="let conv of filteredConversations"
+              (click)="selectConversation(conv)"
+              [class.active]="conv.id === selectedConversation?.id"
+              [class.unread]="!conv.lu">
+            <div class="conv-header">
+              <strong>{{ conv.nom }}</strong>
+              <span class="conv-date">{{ conv.date | date:'short' }}</span>
+            </div>
+            <p class="conv-preview">{{ conv.dernierMessage | slice:0:50 }}...</p>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Affichage conversation -->
+      <div class="conversation-display" *ngIf="selectedConversation">
+        <h3>Conversation avec {{ selectedConversation.nom }}</h3>
+        <div class="message-thread">
+          <div *ngFor="let msg of selectedConversation.messages" class="msg" [class.me]="msg.from === 'admin'">
+            <p class="msg-content">{{ msg.contenu }}</p>
+            <span class="msg-date">{{ msg.date | date:'shortTime' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

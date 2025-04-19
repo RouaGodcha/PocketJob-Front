@@ -2,48 +2,61 @@
 
 ::ng-deep {
   .p-tabview {
-    box-shadow: none;
-    border: none;
     background: transparent;
+    border: none;
+    box-shadow: none;
 
     .p-tabview-nav {
-      border-bottom: 1px solid #dcdcdc; // ligne grise claire
+      border-bottom: 1px solid #e0e0e0;
       padding-left: 0.5rem;
       margin-bottom: 1rem;
+      display: flex;
+      gap: 0.5rem;
 
       li {
-        margin-right: 0.5rem;
-
         .p-tabview-nav-link {
           border: none;
           background: transparent;
-          color: #555;
+          color: #666;
           font-weight: 500;
           font-family: 'Inter', sans-serif;
           border-radius: 0;
           padding: 0.75rem 1.2rem;
-          transition: color 0.3s ease;
+          transition: all 0.3s ease;
 
           &:hover {
-            color: #000;
+            color: #111;
           }
         }
 
         &.p-highlight .p-tabview-nav-link {
           color: #000;
-          border-bottom: 2px solid #000; // ligne noire sous l’onglet actif
+          border-bottom: 2px solid #1668e3;
+          font-weight: 600;
         }
       }
     }
 
     .p-tabview-panels {
-      padding: 1.5rem 0 0 0;
+      padding: 1rem 0 0;
       border: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
   .form-area {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
   }
 
   .form-style-1 {
@@ -53,9 +66,15 @@
       width: 100%;
       padding: 0.75rem 1rem;
       border: 1px solid #dcdcdc;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 14px;
       font-family: "Inter", sans-serif;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #1668e3;
+        outline: none;
+      }
     }
 
     label {
@@ -64,6 +83,14 @@
       font-weight: 600;
       color: #333;
     }
+  }
+
+  .config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
   }
 
   .d-flex.align-items-center {
@@ -76,6 +103,7 @@
     label {
       font-size: 14px;
       color: #333;
+      font-weight: 500;
     }
   }
 
@@ -88,5 +116,11 @@
     font-weight: 600;
     border-radius: 8px;
     margin-top: 1.5rem;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #145dd3;
+      border-color: #145dd3;
+    }
   }
 }

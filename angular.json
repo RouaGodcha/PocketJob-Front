@@ -38,15 +38,16 @@
                 "input": "public"
               }
             ],
-            "styles": [
-             "node_modules/bootstrap/dist/css/bootstrap.min.css",
-             "node_modules/primeicons/primeicons.css",
-              "node_modules/boxicons/css/boxicons.min.css",
-              "node_modules/ionicons/dist/css/ionicons.min.css",
-              
-              "src/scss/main.scss",
-              "src/styles.scss"
-            ],
+          "styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "node_modules/boxicons/css/boxicons.min.css",
+  "node_modules/ionicons/dist/css/ionicons.min.css",
+  "node_modules/primeicons/primeicons.css",
+  "src/scss/main.scss",
+  "src/styles.scss"
+],
+
+
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]

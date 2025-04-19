@@ -1,0 +1,61 @@
+<div class="container add-publicite-form">
+    <div class="modal-header">
+        <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+        <h1 class="title">Modifier la publicité</h1>
+        <button type="button" class="btn-close" (click)="cancel()" aria-label="Close">X</button>
+    </div>
+
+    <form [formGroup]="publiciteForm" (ngSubmit)="onSubmit()" class="form-area">
+        <div class="form-style-1">
+            <input type="text" placeholder="Nom de la publicité *" formControlName="nom" />
+            <!-- Affichage du message d'erreur si le champ nom est invalide -->
+            <div *ngIf="publiciteForm.get('nom')?.touched && publiciteForm.get('nom')?.hasError('required')" class="error-message">
+                Le nom de publicité est obligatoire.
+            </div>   
+        </div>
+
+        <div class="form-style-1">
+            <p-calendar formControlName="date_debut" dateFormat="dd/mm/yy" showIcon placeholder="Date de début">
+                <!-- Affichage du message d'erreur si le champ date_debut est invalide -->
+                <div *ngIf="publiciteForm.get('date_debut')?.touched && publiciteForm.get('date_debut')?.hasError('required')" class="error-message">
+                    La date de début est obligatoire.
+                </div>   
+            </p-calendar>
+        </div>
+
+        <div class="form-style-1">
+            <p-calendar formControlName="date_fin" dateFormat="dd/mm/yy" showIcon placeholder="Date de fin">
+                <!-- Affichage du message d'erreur si le champ date_fin est invalide -->
+                <div *ngIf="publiciteForm.get('date_fin')?.touched && publiciteForm.get('date_fin')?.hasError('required')" class="error-message">
+                    La date de fin est obligatoire.
+                </div> 
+            </p-calendar>
+        </div>
+
+        <div class="form-style-1">
+            <p-dropdown [options]="statusList" formControlName="statut" placeholder="Choisir le statut">
+                <!-- Affichage du message d'erreur si le champ statut est invalide -->
+                <span class="error" *ngIf="publiciteForm.get('status')?.invalid && isSubmitted">Statut est requis</span>
+                   
+            </p-dropdown>
+        </div>
+
+        <div class="form-style-1">
+            <div *ngIf="imageUrl" class="gallerie">
+                <img class="img-thumbnail" [src]="imageUrl" alt="Publicité image" />
+                <i class="pi pi-times" (click)="removeImage()"></i>
+            </div>
+            <input type="file" (change)="onImageSelected($event)" />
+            <span class="error" *ngIf="publiciteForm.get('image')?.invalid && isSubmitted">L'image est requise</span> 
+        </div>
+
+        <div class="form-style-1">
+            <textarea formControlName="description" rows="3" placeholder="Description"></textarea>
+        </div>
+
+        <div class="add-partner-modal-buttons">
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+            <button type="submit" class="btn btn-primary" [disabled]="publiciteForm.invalid">Modifier</button>
+        </div>
+    </form>
+</div>

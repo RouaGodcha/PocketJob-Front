@@ -41,6 +41,8 @@ import { ViewAdminComponent } from './admins/view-admin/view-admin.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { PubliciteComponent } from './publicite/publicite.component';
 import { AddPublicitesComponent } from './publicite/add-publicites/add-publicites.component';
+import { UpdatePublicitesComponent } from './publicite/update-publicites/update-publicites.component';
+import { MessagerieComponent } from './messagerie/messagerie.component';
 
 const routes: Routes = 
 [
@@ -241,8 +243,14 @@ const routes: Routes =
         path :'publicites',
         children :[
         {  path :'', component :PubliciteComponent },
-        { path :'add-publicites' ,component : AddPublicitesComponent}
+        { path :'add-publicites' ,component : AddPublicitesComponent},
+        { path :'update-publicites/:id'  ,  component :UpdatePublicitesComponent}
         ]
+       },
+       // Partie gestion de messagerie 
+       {
+        path :'messagerie',
+        component : MessagerieComponent
        }
     
 

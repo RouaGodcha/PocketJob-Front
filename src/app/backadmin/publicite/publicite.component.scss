@@ -88,6 +88,73 @@
         }
       }
   }
+::ng-deep .p-dialog {
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff; // Fond opaque, pas de transparence
+  
+  .p-dialog-header {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    
+    .p-dialog-title {
+      font-size: 1.3rem;
+    }
+
+    .p-dialog-header-icons {
+      .p-dialog-header-close {
+        color: #fff;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+  }
+
+  .p-dialog-content {
+    font-size: 16px;
+    padding: 1.5rem;
+    color: #333;
+    background-color: #c8cfde;
+    strong {
+      color: #c00; // met le nom en rouge pour insister
+    }
+  }
+
+  .p-dialog-footer {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .p-button {
+    min-width: 100px;
+    border-radius: 8px;
+
+    &.p-button-secondary {
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ccc;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+
+    &.p-button-danger {
+      background-color: #e53935;
+      border: none;
+
+      &:hover {
+        background-color: #d32f2f;
+      }
+    }
+  }
+}
 
 
 /* # $Mobile ::

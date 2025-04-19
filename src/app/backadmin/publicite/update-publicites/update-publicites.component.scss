@@ -63,6 +63,18 @@
       margin-bottom: 6px;
     }
   }
+  .error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+  
 
   input[type="text"],
   input[type="file"],
@@ -151,6 +163,8 @@
   gap: 10px;
   margin-top: 20px;
   flex-wrap: wrap;
+  cursor: pointer;
+
 
   .btn {
     padding: 10px 20px;
