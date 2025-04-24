@@ -1,74 +1,126 @@
-<div class="register-container">
-    <div class="register-box">
-      <form>
-        <h1>Créer un compte</h1>
-        <button  class="close-btn" (click)="closeModal()">&times;</button>
+<h1>Inscription candidat PocketJob</h1>
 
-        <!-- Prénom -->
-        <div class="input-row">
-          <div class="input-group">
-            <input type="text" required placeholder="Prénom">
-          </div>
-          <div class="input-group">
-            <input type="text" required placeholder="Nom de famille">
-          </div>
-        </div>
-  
-        <!-- Date de naissance -->
-        <label class="dob-label">Date de naissance</label>
-        <div class="dob-selects">
-          <select name="day" required>
-            <option value="" disabled selected>Jour</option>
-            <!-- Générer options 1 à 31 -->
-            <option *ngFor="let d of days" [value]="d">{{ d }}</option>
-          </select>
-  
-          <select name="month" required>
-            <option value="" disabled selected>Mois</option>
-            <!-- Générer options mois (janv, févr, etc.) -->
-            <option *ngFor="let m of months" [value]="m.value">{{ m.label }}</option>
-          </select>
-  
-          <select name="year" required>
-            <option value="" disabled selected>Année</option>
-            <!-- Générer options d'années (par ex. 1920 à 2025) -->
-            <option *ngFor="let y of years" [value]="y">{{ y }}</option>
-          </select>
-        </div>
-  
-        <!-- Genre -->
-        <label class="genre-label">Genre</label>
-        <div class="genre-options">
-          <label>
-            <input type="radio" name="genre" value="Femme" required>
-            Femme
-          </label>
-          <label>
-            <input type="radio" name="genre" value="Homme" required>
-            Homme
-          </label>
-          <label>
-            <input type="radio" name="genre" value="Personnalisé" required>
-            Personnalisé
-          </label>
-        </div>
-  
-        <!-- Numéro mobile ou e-mail -->
-        <div class="input-group">
-          <input type="email" required placeholder="e-mail">
-        </div>
-  
-        <!-- Nouveau mot de passe -->
-        <div class="input-group">
-          <input type="password" required placeholder="Nouveau mot de passe">
-        </div>
-  
-        <button type="submit" class="btn">S'inscrire</button>
-  
-        <div class="login-link">
-          <p>Vous avez déjà un compte ? <a routerLink="/home/loginUser">Se connecter</a></p>
-        </div>
-      </form>
-    </div>
+<div class="form-step">
+  <h1>Inscription Candidat</h1>
+  <div class="etapes">
+    <span [class.active]="currentStep === 1">1</span>
+    <span [class.active]="currentStep === 2">2</span>
+    <span [class.active]="currentStep === 3">3</span>
   </div>
-  
+
+  <form [formGroup]="formRegister" (ngSubmit)="onSubmit()" enctype="multipart/form-data" novalidate>
+    <!-- Étape 1 : Informations personnelles -->
+    <div *ngIf="currentStep === 1">
+      <label>
+        Prénom
+        <input formControlName="prenom" type="text" placeholder="Entrez votre prénom">
+        <div class="error" *ngIf="submitted && formRegister.get('prenom')?.errors?.['required']">
+          Le prénom est obligatoire.
+        </div>
+      </label>
+
+      <label>
+        Nom
+        <input formControlName="nom" type="text" placeholder="Entrez votre nom">
+        <div class="error" *ngIf="submitted && formRegister.get('nom')?.errors?.['required']">
+          Le nom est obligatoire.
+        </div>
+      </label>
+
+      <label>
+        Date de naissance
+        <input formControlName="dateNaissance" type="date">
+        <div class="error" *ngIf="submitted && formRegister.get('dateNaissance')?.errors?.['required']">
+          La date de naissance est obligatoire.
+        </div>
+      </label>
+
+      <label>Genre</label>
+      <div class="radio-group">
+        <label><input type="radio" formControlName="genre" value="Femme"> Femme</label>
+        <label><input type="radio" formControlName="genre" value="Homme"> Homme</label>
+        <label><input type="radio" formControlName="genre" value="Autre"> Autre</label>
+      </div>
+      <div class="error" *ngIf="submitted && formRegister.get('genre')?.errors?.['required']">
+        Le genre est obligatoire.
+      </div>
+
+      <label>
+        Adresse
+        <input formControlName="adresse" type="text" placeholder="Rue, ville, pays">
+        <div class="error" *ngIf="submitted && formRegister.get('adresse')?.errors?.['required']">
+          L'adresse est obligatoire.
+        </div>
+      </label>
+
+      <label>
+        Téléphone
+        <input formControlName="telephone" type="tel" placeholder="+216 ...">
+        <div class="error" *ngIf="submitted && formRegister.get('telephone')?.errors?.['required']">
+          Le téléphone est obligatoire.
+        </div>
+      </label>
+
+      <label>
+        Email
+        <input formControlName="email" type="email" placeholder="exemple@mail.com">
+        <div class="error" *ngIf="submitted && formRegister.get('email')?.errors?.['required']">
+          L'email est obligatoire.
+        </div>
+        <div class="error" *ngIf="submitted && formRegister.get('email')?.errors?.['email']">
+          L'adresse email n'est pas valide.
+        </div>
+      </label>
+
+      <button type="button" class="btn-next" (click)="nextStep()">Suivant</button>
+    </div>
+
+    <!-- Étape 2 : Sécurité -->
+    <div *ngIf="currentStep === 2">
+      <h2>Sécurité du compte</h2>
+
+      <label>
+        Mot de passe
+        <input type="password" formControlName="password" placeholder="Créer un mot de passe">
+        <div class="error" *ngIf="submitted && formRegister.get('password')?.errors?.['required']">
+          Le mot de passe est obligatoire.
+        </div>
+        <div class="error" *ngIf="submitted && formRegister.get('password')?.errors?.['minlength']">
+          Le mot de passe doit contenir au moins 6 caractères.
+        </div>
+      </label>
+
+      <label>
+        Confirmation
+        <input type="password" formControlName="confirmPassword" placeholder="Confirmer le mot de passe">
+        <div class="error" *ngIf="submitted && formRegister.get('confirmPassword')?.errors?.['required']">
+          La confirmation est obligatoire.
+        </div>
+        <div class="error" *ngIf="submitted && formRegister.errors?.['passwordMismatch']">
+          Les mots de passe ne correspondent pas.
+        </div>
+      </label>
+
+      <div class="form-navigation">
+        <button type="button" class="btn-back" (click)="previousStep()">Retour</button>
+        <button type="button" class="btn-next" (click)="nextStep()">Suivant</button>
+      </div>
+    </div>
+
+    <!-- Étape 3 : CV -->
+    <div *ngIf="currentStep === 3">
+      <h2>Document de candidature</h2>
+
+      <label>Joindre un CV <input type="file" (change)="onFileChange($event)" formControlName="CV">
+        <div class="error" *ngIf="submitted && formRegister.get('CV')?.errors?.['required']">
+          Le Document (CV) est obligatoire.
+        </div>
+      </label>
+      
+      <div class="form-navigation">
+        <button type="button" class="btn-back" (click)="previousStep()">Retour</button>
+        <button type="submit" [disabled]="formRegister.invalid" class="btn-submit">Créer un compte</button>
+      </div>
+    </div>
+  </form>
+</div>

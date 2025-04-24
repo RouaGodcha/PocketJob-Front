@@ -1,7 +1,7 @@
 // Variables de couleurs
-$primary-color: #04328C;
+$primary-color: #e8e6e4;
 $secondary-color: #333;
-$white-color: #fff;
+$white-color: #223d65;
 
 // Footer Principal
 .footer {
@@ -9,8 +9,8 @@ $white-color: #fff;
   bottom: 0;
   left: 0;
   width: 100%;
-  background: $primary-color;
-  color: $white-color;
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+
   padding: 20px 0; // Réduit un peu la hauteur pour s'assurer qu'il ne gêne pas trop le contenu
   text-align: center;
   z-index: 1000; // Pour qu'il reste au-dessus du contenu si besoin

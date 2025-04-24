@@ -11,10 +11,10 @@ import { BackadminModule } from './backadmin/backadmin.module';  // Vérifie le 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgbDatepickerModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { FrontUserModule } from './front-user/front-user.module';
 import { RouterModule } from '@angular/router';
 import { JwtInterceptor } from './_services/jwt.interceptor';
 import { DialogModule } from 'primeng/dialog';
+import { FrontUserModule } from './front-user/front-user.module';
 
 @NgModule({
   declarations: [

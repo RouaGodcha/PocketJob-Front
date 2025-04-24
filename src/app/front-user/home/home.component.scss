@@ -1,261 +1,368 @@
-// Variables couleurs (à adapter à ton thème)
-$primary: #8C1F28;
-$secondary: #2e2e2e;
-$text: #333;
-$light-gray: #f8f8f8;
+.home {
+  font-family: 'Poppins', sans-serif;
+  color: #2c2c2c;
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5rem 3rem;
+    background: linear-gradient(120deg, rgba(20, 10, 124, 0.7), rgba(255, 152, 0, 0.6));
+    border-radius: 2rem;
+    position: relative;
+    overflow: hidden;
 
-section {
-  padding: 4rem 2rem;
-  text-align: center;
-}
+    .content {
+      max-width: 600px;
+      z-index: 2;
 
-// HERO SECTION
-.hero {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(to right, #fff 50%, $light-gray 50%);
-  padding: 5rem 2rem;
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.3;
 
-  .hero-text {
-    flex: 1 1 400px;
-    text-align: left;
-    max-width: 500px;
-
-    h1 {
-      font-size: 2.8rem;
-      font-weight: bold;
-      color: $secondary;
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin: 1rem 0;
-    }
-
-    .btn-hero {
-      background-color: $primary;
-      color: white;
-      border: none;
-      padding: 0.8rem 2rem;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-
-      &:hover {
-        background-color: darken($primary, 10%);
+        span {
+          color: #041434;
+        }
       }
+
+      p {
+        font-size: 1.3rem;
+        margin: 1.5rem 0;
+        color: #f1f1f1;
+      }
+
+      .search-bar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+      
+        input,
+        select {
+          padding: 0.85rem 1rem;
+          border-radius: 12px;
+          border: 1px solid #ddd;
+          font-size: 1rem;
+          transition: border-color 0.3s, box-shadow 0.3s;
+          background: #fff;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      
+          &:focus {
+            border-color: #04328C;
+            box-shadow: 0 0 0 3px rgba(126, 87, 194, 0.2);
+            outline: none;
+          }
+        }
+      
+        button {
+          grid-column: span 2;
+          padding: 1rem;
+          background: linear-gradient(to right, #8492ca, #223d65);
+          color: #fff;
+          font-weight: bold;
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 1.1rem;
+      
+          &:hover {
+            background: linear-gradient(to right, #8492ca, #223d65);
+            transform: scale(1.03);
+          }
+        }
+      
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+          button {
+            grid-column: span 1;
+          }
+        }
+      }
+      
+    }
+
+    .hero-img {
+      z-index: 2;
+
+      img {
+        width: 550px;
+        border-radius: 1rem;
+        filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 150%;
+      height: 150%;
+      background: url('/image/hero-job.jpg') no-repeat center center;
+      background-size: cover;
+      opacity: 0.15;
+      z-index: 0;
     }
   }
 
-  .hero-image {
-    flex: 1 1 300px;
-    text-align: center;
+  .offers, .partners, .testimonials {
+    padding: 4rem 2rem;
+
+    h2 {
+      font-size: 2.2rem;
+      color: #04328C;
+      margin-bottom: 2rem;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .offer-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+
+    .offer-card {
+      width: 270px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(103, 58, 183, 0.25);
+      }
+    
+      h3 {
+        margin-bottom: 0.4rem;
+        color: #333;
+        font-size: 1.1rem;
+      }
+    
+      .company-location {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+      }
+    
+      .description {
+        color: #444;
+        font-size: 0.88rem;
+        margin-bottom: 1rem;
+        height: 3.2em;
+        overflow: hidden;
+      }
+    
+      .details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.8rem;
+    
+        .tag, .duration, .experience {
+          background: #ede7f6;
+          color: #04328C;
+          font-size: 0.75rem;
+          padding: 0.3rem 0.6rem;
+          border-radius: 12px;
+        }
+      }
+    
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #777;
+    
+        .salary {
+          font-weight: 600;
+          color: #43a047;
+        }
+      }
+    }
+    
+  }
+
+  .partner-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
 
     img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-}
-
-// FEATURES SECTION
-.features {
-  background-color: $light-gray;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-
-  .feature {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    width: 250px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    text-align: center;
-
-    i {
-      font-size: 2.5rem;
-      color: $primary;
-      margin-bottom: 1rem;
-    }
-
-    h3 {
-      margin-bottom: 0.5rem;
-      color: $secondary;
-    }
-
-    p {
-      color: $text;
-    }
-  }
-}
-
-// OFFRES SECTION
-.offres {
-  background-color: white;
-
-  h2 {
-    margin-bottom: 2rem;
-    color: $secondary;
-  }
-
-  .offre-card {
-    background: $light-gray;
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin: 1rem auto;
-    max-width: 500px;
-    text-align: left;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-
-    h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      margin-bottom: 0.5rem;
-    }
-
-    .badge {
-      background: $primary;
-      color: white;
-      padding: 0.2rem 0.8rem;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      margin-right: 1rem;
-    }
-
-    button {
-      margin-top: 0.8rem;
-      padding: 0.4rem 1rem;
-      background-color: $secondary;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 0.9rem;
+      height: 80px;
+      transition: transform 0.3s;
 
       &:hover {
-        background-color: lighten($secondary, 10%);
+        transform: scale(1.1);
       }
     }
   }
-}
 
-// TÉMOIGNAGES SECTION
-.temoignages {
-  background-color: $light-gray;
 
-  h2 {
-    margin-bottom: 2rem;
+
+  .testimonial-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+
+    .testimonial {
+      width: 320px;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      text-align: left;
+
+      .message {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        color: #555;
+      }
+
+      .author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        h4 {
+          margin: 0;
+          font-size: 1.1rem;
+        }
+
+        span {
+          font-size: 0.9rem;
+          color: gray;
+        }
+      }
+    }
   }
 
-  .temoignage {
-    max-width: 600px;
-    margin: 1rem auto;
-    font-style: italic;
-
-    p {
-      margin-bottom: 0.5rem;
-    }
-
-    strong {
-      color: $secondary;
-    }
+  footer {
+    margin-top: 4rem;
+    background: #2c2c2c;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
   }
 }
 
-// CTA SECTION
-.cta {
-  background-color: $primary;
-  color: white;
-  border-radius: 20px;
-  padding: 3rem 2rem;
+
+.missions {
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
   text-align: center;
 
   h2 {
+    font-size: 2.4rem;
+    color: #04328C;
     margin-bottom: 1rem;
+    font-weight: 700;
   }
 
-  .cta-buttons {
-    margin-top: 1.5rem;
+  p {
+    max-width: 750px;
+    margin: 0 auto 3rem;
+    color: #666;
+    font-size: 1.1rem;
+  }
 
-    button {
-      background-color: white;
-      color: $primary;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: 20px;
-      font-weight: bold;
-      margin: 0 0.5rem;
-      cursor: pointer;
-      transition: all 0.3s;
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .mission-col {
+    flex: 1 1 300px;
+    max-width: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(103, 58, 183, 0.2);
+    }
+
+    img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .layer {
+      background: transparent;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      transition: background 0.4s ease;
 
       &:hover {
-        background-color: darken(white, 5%);
-        color: darken($primary, 10%);
+        background: rgba(4, 20, 52, 0.6);
+      }
+
+      h3 {
+        color: white;
+        font-size: 1.6rem;
+        font-weight: 600;
+        position: absolute;
+        bottom: 30%;
+        left: 50%;
+        transform: translateX(-50%) translateY(50%);
+        opacity: 0;
+        transition: all 0.4s ease;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      &:hover h3 {
+        opacity: 1;
+        bottom: 50%;
       }
     }
   }
-}
 
-// RESPONSIVE
-@media screen and (max-width: 768px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+      align-items: center;
+    }
 
-    .hero-text {
-      text-align: center;
+    .mission-col {
+      max-width: 90%;
     }
   }
-
-  .features {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-
-    button {
-      margin-bottom: 1rem;
-    }
-  }
-}
-.login-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.login-modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  position: relative;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { Subject, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class AuthUserService {
   
-  private url = `${environment.apiUrl}`;
+  private apiUrl = `${environment.apiUrl}`;
 
   
   constructor(
@@ -21,7 +21,7 @@ export class AuthUserService {
   // Méthode de connexion
 
   login(credentials: { email: string; password: string }) {
-    return this.http.post(`${this.url}/loginUser`, credentials).pipe(
+    return this.http.post(`${this.apiUrl}/loginUser`, credentials).pipe(
       tap((res: any) => {
         // Stocker le token dans localStorage ou un autre service
         localStorage.setItem('token', res.token); // ou res.data.token selon ta réponse Laravel
@@ -33,6 +33,17 @@ export class AuthUserService {
     );
   }
   
-
+  registerCandidat(data: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, data);
+  }
+  /*  hethi kif todkhol b esm candidat yetsajl f navbar email mte3ou */
+  getCandidatProfile(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/candidat`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  }
+  
   
 }

@@ -1,0 +1,20 @@
+<header class="navbar-top">
+  <a class="logo" routerLink="/dashboardCandidat">
+    <img src="assets/logo.png" alt="PocketJob Logo" class="logo-img">
+    <span class="brand-name">PocketJob</span>
+  </a>
+
+  <div class="center-contact">
+    <span class="label"></span>
+    <span class="phone"><i class="fa fa-phone"></i> +216 70 123 456</span>
+  </div>
+
+  <div class="right-info" *ngIf="candidat">
+    <span class="email">
+      <i class="fa fa-user"></i> {{ candidat.email }}
+    </span>
+    <span class="status" [ngClass]="{ 'active': candidat.is_validated, 'pending': !candidat.is_validated }">
+      <i class="fa fa-signal"></i> {{ candidat.is_validated ? 'Validé' : 'En attente' }}
+    </span>
+  </div>
+</header>

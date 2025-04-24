@@ -1,0 +1,264 @@
+$form-primary: #003366; // bleu marine
+$form-accent: #f5f0e6; // beige clair
+$form-highlight: #0074cc; // bleu moyen
+$btn-hover: #002244;
+
+.form-step {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: $form-accent;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+  h1, h2 {
+    text-align: center;
+    color: $form-primary;
+    margin-bottom: 2rem;
+  }
+
+  .etapes {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    span {
+      width: 40px;
+      height: 40px;
+      background: #ccc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      transition: background 0.3s ease;
+
+      &.active {
+        background: $form-primary;
+      }
+    }
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: $form-primary;
+
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.4rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  .date-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+      flex: 1;
+    }
+  }
+
+  .form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+
+    button {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .btn-next,
+  .btn-back,
+  .btn-submit,
+  button[type="button"],
+  button[type="submit"] {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .btn-next,
+  button[type="button"]:not(.btn-back) {
+    background-color: $form-primary;
+    color: white;
+
+    &:hover {
+      background-color: $btn-hover;
+    }
+  }
+
+  .btn-back {
+    background-color: #ccc;
+    color: #333;
+
+    &:hover {
+      background-color: #bbb;
+    }
+  }
+
+  .btn-submit,
+  button[type="submit"] {
+    background-color: $form-highlight;
+    color: white;
+
+    &:hover {
+      background-color: darken($form-highlight, 10%);
+    }
+  }
+
+  .error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    margin-left: 2px;
+    display: block;
+    font-weight: 500;
+  }
+
+  input.ng-invalid.ng-touched,
+  select.ng-invalid.ng-touched,
+  textarea.ng-invalid.ng-touched {
+    border: 1px solid #e74c3c;
+    background-color: #fdecea;
+  }
+}
+
+// Popup de validation
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: popupFade 0.3s ease-in-out;
+
+  h3 {
+    margin-bottom: 1rem;
+    color: #c0392b;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  button {
+    background-color: #c0392b;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #e74c3c;
+    }
+  }
+}
+
+@keyframes popupFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+//
+// Responsive pour mobile
+//
+@media (max-width: 600px) {
+  .form-step {
+    padding: 1rem;
+
+    .etapes {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      span {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .form-navigation {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    form label {
+      font-size: 0.95rem;
+
+      input,
+      textarea {
+        font-size: 0.95rem;
+        padding: 0.6rem;
+      }
+    }
+
+    .date-range {
+      flex-direction: column;
+    }
+  }
+
+  .popup {
+    padding: 1.5rem;
+    width: 90%;
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+    }
+  }
+}

@@ -1,0 +1,89 @@
+
+<div class="form-step">
+    <h1>Demande de Réservation</h1>
+  <div class="etapes">
+    <span [class.active]="currentStep === 1">1</span>
+    <span [class.active]="currentStep === 2">2</span>
+    <span [class.active]="currentStep === 3">3</span>
+  </div>
+
+  <form [formGroup]="reservationForm" (ngSubmit)="submit()">
+
+    <!-- Étape 1 : Mission -->
+    <div *ngIf="currentStep === 1">
+      <label>Nom de la mission
+        <input formControlName="nomMission" type="text" placeholder="Ex: caissier, serveur, vente">
+      </label>
+
+      <label>Période</label>
+      <div class="date-range">
+        <input formControlName="dateDebut" type="date"> jusqu'à
+        <input formControlName="dateFin" type="date">
+      </div>
+
+      <label>Emplacement
+        <input formControlName="emplacement" type="text" placeholder="Ex: Tunisie, Sousse, Monastir">
+      </label>
+
+      <label>Horaires de travail
+        <input formControlName="horaires" type="text" placeholder="Ex: 10h - 18h">
+      </label>
+
+      <button type="button" (click)="nextStep()">Plus loin</button>
+    </div>
+
+    <!-- Étape 2 : Besoins -->
+    <div *ngIf="currentStep === 2">
+      <h2>2. Besoins en personnel</h2>
+
+      <label>
+        Nombre de personnes
+        <input type="number" formControlName="nombrePersonnes" min="1" placeholder="Ex: 3">
+      </label>
+
+      <label>
+        Qualifications requises
+        <textarea formControlName="qualifications" rows="3" placeholder="Ex: expérience en caisse, bilingue..."></textarea>
+      </label>
+
+      <div class="form-navigation">
+        <button type="button" (click)="previousStep()">Retour</button>
+        <button type="button" (click)="nextStep()">Plus loin</button>
+      </div>
+    </div>
+
+    <!-- Étape 3 : Coordonnées -->
+    <div *ngIf="currentStep === 3">
+      <h2>3. Coordonnées de contact</h2>
+
+      <label>Nom de l'entreprise
+        <input formControlName="nomEntreprise" type="text">
+      </label>
+
+      <label>Nom du contact
+        <input formControlName="nomContact" type="text">
+      </label>
+
+      <label>Email
+        <input formControlName="email" type="email">
+      </label>
+
+      <label>Téléphone
+        <input formControlName="telephone" type="tel">
+      </label>
+
+      <div class="form-navigation">
+        <button type="button" (click)="previousStep()">Retour</button>
+        <button type="submit">Envoyer</button>
+      </div>
+    </div>
+  </form>
+  <div class="popup-overlay" *ngIf="showDateError">
+    <div class="popup">
+      <h3>Erreur de date</h3>
+      <p>La date de début ne peut pas être antérieure à aujourd'hui. Veuillez la corriger.</p>
+      <button (click)="closePopup()">OK</button>
+    </div>
+  </div>
+  
+</div>

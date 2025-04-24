@@ -1,0 +1,18 @@
+<div class="offre-details">
+    <h2>{{ offre?.title }}</h2>
+    <p><strong>Entreprise :</strong> {{ offre?.company }}</p>
+    <p><strong>Lieu :</strong> {{ offre?.location }}</p>
+    <p><strong>Type :</strong> {{ offre?.type }}</p>
+    <p><strong>Description :</strong> {{ offre?.description }}</p>
+  
+    <hr>
+  
+    <label>💰 Proposez votre rémunération :</label>
+    <input type="number" [(ngModel)]="propositionSalaire" />
+  
+    <div class="actions">
+      <button (click)="postuler()">Postuler</button>
+      <button (click)="goBack()">← Retour aux offres</button>
+    </div>
+  </div>
+  

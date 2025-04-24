@@ -1,40 +1,49 @@
 <div class="login-container">
-    <div class="login-box">
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <h1>Se connecter</h1>  
-        <button  class="close-btn" (click)="closeModal()">&times;</button>
+  <div class="login-box">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <h1>Se connecter</h1>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
 
-        <div class="input-group">
-          <input type="text"   formControlName="email"required placeholder="E-mail">
-          <i class='bx bxs-user'></i>
-        </div>
-        <div *ngIf="loginForm.controls['email'].invalid && submitted" class="error">
-            Email invalide
-          </div>
+      <div class="input-group">
+        <input type="text" formControlName="email" required placeholder="E-mail" />
+        <i class="bx bxs-user"></i>
+      </div>
+      <div *ngIf="loginForm.controls['email'].invalid && submitted" class="error">
+        Email invalide
+      </div>
 
-  
-        <div class="input-group">
-          <input type="password" formControlName="password" required placeholder="Mot de passe">
-          <i class='bx bxs-lock-alt'></i>
-        </div>
-       
-        <div *ngIf="loginForm.controls['password'].invalid && submitted" class="error">
-            Mot de passe invalide (6 caractères min.)
-          </div>
+      <div class="input-group">
+        <input type="password" formControlName="password" required placeholder="Mot de passe" />
+        <i class="bx bxs-lock-alt"></i>
+      </div>
+      <div *ngIf="loginForm.controls['password'].invalid && submitted" class="error">
+        Mot de passe invalide (6 caractères min.)
+      </div>
 
-        <div class="forgot-password">
-           <a href="#">Mot de passe oublié ?</a>
-        </div>
-  
-        <button type="submit" class="btn" (click)="login()">Se connecter</button>
-        <div *ngIf="errorMessage" class="error-message">
-            {{ errorMessage }}
-          </div>
-  
-        <div class="register-link">
-          <p>Pas encore inscrit ? <a  routerLink="/home/registerUser">Inscription</a></p>
-        </div>
-      </form>
-    </div>
+      <div class="forgot-password">
+        <a href="#">Mot de passe oublié ?</a>
+      </div>
+
+      <button type="submit" class="btn">Se connecter</button>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
   </div>
-  
+</div>
+
+<!-- Partie bas du formulaire stylisée -->
+<div class="bottom-info">
+  <p class="section-title">Pas encore inscrit ?</p>
+
+  <div class="info-block">
+    <p>Vous recherchez des emplois temporaires en tant qu'hôtesse, animatrice, serveur, etc. :</p>
+    <a routerLink="/home/employer">➜ Inscription des employés</a>
+  </div>
+
+  <div class="info-block">
+    <p>Vous êtes une entreprise à la recherche de personnel temporaire :</p>
+    <a routerLink="/home/homeRegister/reservation">➜ Demande de réservation pour les employeurs</a>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.dashboard {
+    padding: 2rem;
+    background: #f4f4f4;
+    border-radius: 15px;
+  
+    h2 {
+      color: #04328C;
+    }
+  
+    .valid {
+      color: green;
+    }
+  
+    .not-valid {
+      color: red;
+    }
+  
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #04328C;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+  

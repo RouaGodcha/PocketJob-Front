@@ -1,0 +1,44 @@
+<section class="offres-container">
+  <h2>Toutes les Offres d'Emploi</h2>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <input type="text" placeholder="Titre ou mot-clé" [(ngModel)]="search.title" />
+    <input type="text" placeholder="Lieu" [(ngModel)]="search.location" />
+    <select [(ngModel)]="search.type">
+      <option value="">Type</option>
+      <option value="Temps plein">Temps plein</option>
+      <option value="Temps partiel">Temps partiel</option>
+      <option value="Freelance">Freelance</option>
+      <option value="CDD">CDD</option>
+      <option value="Intérim">Intérim</option>
+    </select>
+    <input type="text" placeholder="Entreprise" [(ngModel)]="search.company" />
+    <select [(ngModel)]="search.seniority">
+      <option value="">Ancienneté</option>
+      <option value="Débutant">Débutant</option>
+      <option value="Intermédiaire">Intermédiaire</option>
+      <option value="Expérimenté">Expérimenté</option>
+    </select>
+    <button (click)="applyFilters()">Filtrer</button>
+  </div>
+
+  <!-- Liste des offres -->
+  <div class="offres-list" *ngIf="filtered.length > 0; else noResult">
+    <div class="offre-card" *ngFor="let offre of filtered">
+      <h3>{{ offre.title }}</h3>
+      <p>{{ offre.company }} - {{ offre.location }}</p>
+      <div class="tags">
+        <span class="tag">{{ offre.type }}</span>
+        <span *ngIf="offre.seniority" class="tag">{{ offre.seniority }}</span>
+      </div>
+      <button (click)="viewDetails(offre.id)">Voir détails</button>
+    </div>
+  </div>
+
+  <ng-template #noResult>
+    <div class="empty-state">
+      Aucune offre ne correspond à votre recherche.
+    </div>
+  </ng-template>
+</section>

@@ -1,0 +1,16 @@
+<section class="dashboard">
+    <h2>Bienvenue {{ candidat?.nom }}</h2>
+    <p><strong>Email :</strong> {{ candidat?.email }}</p>
+    <p><strong>CV :</strong>
+      <a *ngIf="candidat?.cv" [href]="candidat.cv" target="_blank">Voir mon CV</a>
+      <span *ngIf="!candidat?.cv">Aucun CV</span>
+    </p>
+    <p>
+      <strong>Statut validation :</strong>
+      <span [ngClass]="candidat?.is_validated ? 'valid' : 'not-valid'">
+        {{ candidat?.is_validated ? '✅ Validé' : '❌ En attente' }}
+      </span>
+    </p>
+    <button (click)="goToEdit()">Modifier mon profil</button>
+  </section>
+  

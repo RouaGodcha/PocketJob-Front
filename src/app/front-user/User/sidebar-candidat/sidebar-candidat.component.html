@@ -1,0 +1,47 @@
+<div class="sidebar-wrapper" [class.closed]="isSidebarClosed">
+    <aside class="sidebar-candidat">
+      <ul>
+        <li class="section-title">Tableau de bord</li>
+        <li>
+          <a routerLink="/mon-compte/dashboardcandidat" routerLinkActive="active">
+            <i class="fa fa-chart-line"></i> Tableau de bord
+          </a>
+        </li>
+  
+        <li class="section-title">Vos emplois</li>
+        <li>
+          <a routerLink="/candidat/offres" routerLinkActive="active">
+            <i class="fa fa-briefcase"></i> Offres d'emploi <span class="badge">89</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/candidat/emplois" routerLinkActive="active">
+            <i class="fa fa-check-circle"></i> Vos emplois
+          </a>
+        </li>
+        <li>
+          <a routerLink="/candidat/messages" routerLinkActive="active">
+            <i class="fa fa-envelope"></i> Nouvelles
+          </a>
+        </li>
+  
+        <li class="section-title">Détails du profil</li>
+        <li><a routerLink="/candidat/profil"><i class="fa fa-user-circle"></i> Profil</a></li>
+        <li><a routerLink="/candidat/emplacements"><i class="fa fa-map-marker-alt"></i> Emplacements</a></li>
+        <li><a routerLink="/candidat/formulaire"><i class="fa fa-file-signature"></i> Formulaire</a></li>
+  
+        <li class="section-title">Suppléments</li>
+        <li><a routerLink="/candidat/news"><i class="fa fa-bullhorn"></i> Nouvelles</a></li>
+        <li><a routerLink="/candidat/inviter"><i class="fa fa-user-friends"></i> Inviter</a></li>
+        <li><a routerLink="/candidat/settings"><i class="fa fa-cogs"></i> Paramètres</a></li>
+  
+        <li class="section-title">Aide</li>
+        <li><a (click)="logout()"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
+      </ul>
+    </aside>
+  
+    <button class="sidebar-toggle-btn" (click)="toggleSidebar()">
+      <i class="fa" [ngClass]="isSidebarClosed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+    </button>
+  </div>
+  

@@ -1,0 +1,127 @@
+@import "../../../../scss/components/extend";
+
+.navbar-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  z-index: 1000;
+  
+  margin: 0 auto;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    .logo-img {
+      height: 50px;
+      width: auto;
+      margin-right: 12px;
+    }
+    .logo:hover {
+      opacity: 0.85;
+      cursor: pointer;
+    }
+    
+    .right-info .email:hover {
+      color: #0e1d8e;
+    }
+
+    .brand-name {
+      font-size: 26px;
+      font-weight: bold;
+      color: #04328C; // violet PocketJob
+      font-family: 'Segoe UI', sans-serif;
+    }
+  }
+
+  .center-contact {
+    text-align: center;
+    color: #04328C;
+
+    .label {
+      font-size: 14px;
+    }
+
+    .phone {
+      font-size: 18px;
+      font-weight: bold;
+
+      i {
+        margin-right: 6px;
+      }
+    }
+  }
+
+  .right-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    .email {
+      font-size: 15px;
+      color: #333;
+
+      i {
+        margin-right: 6px;
+      }
+    }
+
+    .status {
+      font-size: 15px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      color: #fff;
+
+      &.active {
+        background-color: #4caf50;
+      }
+
+      &.pending {
+        background-color: #f44336;
+      }
+
+      i {
+        margin-right: 6px;
+      }
+    }
+  }
+}
+.status {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.brand-name {
+  font-size: 30px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .navbar-top {
+    flex-direction: column;
+    height: auto;
+    padding: 15px 20px;
+    align-items: flex-start;
+
+    .center-contact {
+      margin: 10px 0;
+      text-align: left;
+    }
+
+    .right-info {
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+  }
+}
