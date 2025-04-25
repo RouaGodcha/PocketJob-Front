@@ -14,6 +14,9 @@ import { CvComponent } from './User/cv/cv.component';
 import { MessagesComponent } from './User/messages/messages.component';
 import { UserLayoutComponent } from './User/user-layout/user-layout.component';
 import { AuthComponent } from './employer/auth/auth.component';
+import { OffresComponent } from './User/offres/offres.component';
+import { VosEmploiComponent } from './User/vos-emploi/vos-emploi.component';
+import { NewsComponent } from './User/news/news.component';
 
 const routes: Routes = [
   {
@@ -58,7 +61,10 @@ const routes: Routes = [
       { path: 'dashboardcandidat', component: DashboardCandidatComponent }, // accueil candidat
       { path: 'candidatures', component: CandidatureListComponent },
       { path: 'cv', component: CvComponent },
-      { path: 'messages', component: MessagesComponent },
+      { path:'offres-details', component:OffresComponent},
+      { path:'vos-emploi', component:VosEmploiComponent},
+      {path:'news', component:NewsComponent},
+      { path: 'messages', component: MessagesComponent }
 
     ]
   }

@@ -1,0 +1,132 @@
+<div class="offres-container">
+    <h2>Offres d'emploi</h2>
+    <p class="description">
+      Voici des offres d'emploi selon vos disponibilités locales...
+    </p>
+  
+    <div class="filters">
+      <!-- Boutons de filtrage par période -->
+      <button
+        [ngClass]="{ active: selectedPeriode === 'semaine' }"
+        (click)="applyPeriodeFilter('semaine')"
+      >
+        Cette semaine
+      </button>
+  
+      <button
+        [ngClass]="{ active: selectedPeriode === 'semaineProchaine' }"
+        (click)="applyPeriodeFilter('semaineProchaine')"
+      >
+        La semaine prochaine
+      </button>
+  
+      <!-- Bouton de tri à droite -->
+      <button class="sort-button" (click)="sortByDate()">
+        <i class="fa fa-sort-amount-asc"></i> Début du travail
+      </button>
+  
+      <!-- Dropdown: Date -->
+      <div class="dropdown">
+        <button (click)="toggleDateDropdown()" class="dropdown-button">Date</button>
+        <div class="dropdown-panel" *ngIf="dateDropdownOpen">
+          <div class="date-inputs">
+            <label>depuis</label>
+            <input type="date" [(ngModel)]="startDate" [min]="today" />
+            <label>jusqu'à</label>
+            <input type="date" [(ngModel)]="endDate" [min]="today" />
+          </div>
+          <div class="error-message" *ngIf="showError">
+            ⚠️ La date ne peut pas être antérieure à aujourd'hui.
+          </div>
+          <div class="date-actions">
+            <a (click)="resetDateFilter()" class="reset-link">Réinitialiser</a>
+            <button (click)="applyDateFilter()" class="apply-button">Appliquer</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Dropdown: Type d'emploi -->
+      <div class="dropdown">
+        <button (click)="toggleTypeDropdown()" class="dropdown-button">Type d'emploi</button>
+        <div class="dropdown-panel type-panel" *ngIf="typeEmploiDropdownOpen">
+          <div class="checkbox-list">
+            <div *ngFor="let type of typeEmploisDisponibles">
+              <label>
+                <input type="checkbox" [checked]="isTypeChecked(type)" (change)="toggleTypeSelection(type)" />
+                {{ type }}
+              </label>
+            </div>
+          </div>
+          <div class="type-actions">
+            <a (click)="resetTypeFilter()" class="reset-link">Réinitialiser</a>
+            <button (click)="applyTypeFilter()" class="apply-button">Appliquer</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Dropdown: Durée -->
+      <div class="dropdown">
+        <button (click)="toggleDureeDropdown()" class="dropdown-button">Durée</button>
+        <div class="dropdown-panel duree-panel" *ngIf="dureeDropdownOpen">
+          <div class="checkbox-list">
+            <div *ngFor="let duree of dureesDisponibles">
+              <label>
+                <input type="checkbox" [checked]="isDureeChecked(duree)" (change)="toggleDureeSelection(duree)" />
+                {{ duree }}
+              </label>
+            </div>
+          </div>
+          <div class="type-actions">
+            <a (click)="resetDureeFilter()" class="reset-link">Réinitialiser</a>
+            <button (click)="applyDureeFilter()" class="apply-button">Appliquer</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Dropdown: Autre -->
+      <div class="dropdown">
+        <button (click)="toggleAutreDropdown()" class="dropdown-button">Autre</button>
+        <div class="dropdown-panel autre-panel" *ngIf="autreDropdownOpen">
+          <div class="checkbox-list">
+            <div *ngFor="let autre of autresDisponibles">
+              <label>
+                <input type="checkbox" [checked]="isAutreChecked(autre)" (change)="toggleAutreSelection(autre)" />
+                {{ autre }}
+              </label>
+            </div>
+          </div>
+          <div class="type-actions">
+            <a (click)="resetAutreFilter()" class="reset-link">Réinitialiser</a>
+            <button (click)="applyAutreFilter()" class="apply-button">Appliquer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <!-- Affichage des offres -->
+  <div *ngFor="let offre of filteredOffres" class="offre-card" (mouseenter)="hoveredOffre = offre.id" (mouseleave)="hoveredOffre = null">
+    <div class="top">
+      <span>👥 {{ offre.nbCandidats }} candidats</span> /
+      <span>{{ offre.poste }} poste</span>
+    </div>
+    <div class="main">
+      <div class="left">
+        <div class="date">
+          {{ offre.dateFormatee }} <span class="lieu"> à {{ offre.lieu }}</span>
+        </div>
+        <div class="title">
+          <strong>{{ offre.titre }}</strong>  &#64; {{ offre.entreprise }}
+        </div>
+        <a [routerLink]="['/offres/details', offre.id]" class="show-more">▼ Afficher plus</a>
+      </div>
+      <div class="right">
+        <div class="salaire">environ {{ offre.salaire }} €</div>
+        <div class="taux">environ {{ offre.tauxHoraire }}</div>
+        <div class="delete-icon" *ngIf="hoveredOffre === offre.id" (click)="deleteOffre(offre.id)">
+          <i class="fa fa-trash"></i>
+        </div>
+      </div>
+    </div>
+  </div> 
+  </div>
+  

@@ -1,0 +1,38 @@
+<div class="news-wrapper">
+  <h2>Nouvelles</h2>
+  <p class="intro">
+    Vous trouverez ici tous les messages entre vous et un client pour lequel vous êtes ou avez été impliqué dans le processus de recrutement.
+  </p>
+
+  <div *ngIf="loading" class="loader-wrapper">
+    <div class="loader"></div>
+    <span>Chargement des nouvelles...</span>
+  </div>
+
+  <div *ngIf="!loading && newsList.length > 0">
+    <div *ngFor="let news of newsList" class="news-card">
+      <div class="left-content">
+        <div class="entreprise">
+          <i class="fa fa-building text-orange"></i> {{ news.entreprise }}
+        </div>
+        <div class="titre">
+          <strong>{{ news.titre }}</strong>
+        </div>
+        <div class="date-lieu">
+          {{ news.dateDebut }} - {{ news.dateFin }} à {{ news.lieu }}
+        </div>
+        <div class="message-preview">
+          {{ news.message | slice:0:220 }}...
+        </div>
+        <div class="avatars">
+          <img *ngFor="let img of news.avatars" [src]="img" alt="avatar" />
+        </div>
+      </div>
+      <div class="date-pub">{{ news.datePublication }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && newsList.length === 0" class="no-news">
+    Aucune nouvelle pour le moment.
+  </div>
+</div>

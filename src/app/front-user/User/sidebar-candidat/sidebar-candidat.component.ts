@@ -18,6 +18,6 @@ export class SidebarCandidatComponent {
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/home/homeRegister']);
+    this.router.navigate(['/home/loginUser']);
   }
 }

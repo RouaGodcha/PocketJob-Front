@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FrontUserRoutingModule } from './front-user-routing.module';
@@ -56,6 +56,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UserLayoutComponent } from './User/user-layout/user-layout.component';
 import { SidebarCandidatComponent } from './User/sidebar-candidat/sidebar-candidat.component';
 import { AuthComponent } from './employer/auth/auth.component';
+import { OffresComponent } from './User/offres/offres.component';
+import { VosEmploiComponent } from './User/vos-emploi/vos-emploi.component';
+import { NewsComponent } from './User/news/news.component';
+import { ChatInputComponent } from './User/messages/chat-input/chat-input.component';
+import { ConversationListComponent } from './User/messages/conversation-list/conversation-list.component';
 
 
 @NgModule({
@@ -78,6 +83,11 @@ import { AuthComponent } from './employer/auth/auth.component';
     UserLayoutComponent,
     SidebarCandidatComponent,
     AuthComponent,
+    OffresComponent,
+    VosEmploiComponent,
+    NewsComponent,
+    ChatInputComponent,
+    ConversationListComponent,
 
     
   ],
@@ -132,7 +142,10 @@ import { AuthComponent } from './employer/auth/auth.component';
       },
     }),
   ],
-  
+  exports: [
+    ChatInputComponent // optionnel si tu veux le réutiliser ailleurs
+  ],
+   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   
 })
 export class FrontUserModule { }

@@ -1,16 +1,21 @@
-<section class="dashboard">
-    <h2>Bienvenue {{ candidat?.nom }}</h2>
-    <p><strong>Email :</strong> {{ candidat?.email }}</p>
-    <p><strong>CV :</strong>
-      <a *ngIf="candidat?.cv" [href]="candidat.cv" target="_blank">Voir mon CV</a>
-      <span *ngIf="!candidat?.cv">Aucun CV</span>
-    </p>
-    <p>
-      <strong>Statut validation :</strong>
-      <span [ngClass]="candidat?.is_validated ? 'valid' : 'not-valid'">
-        {{ candidat?.is_validated ? '✅ Validé' : '❌ En attente' }}
-      </span>
-    </p>
-    <button (click)="goToEdit()">Modifier mon profil</button>
-  </section>
-  
+<div class="dashboard-container">
+  <h2>Tableau de bord</h2>
+  <p>Sélectionner vos offres d'emploi</p>
+
+  <div *ngFor="let offer of offers" class="offer-card">
+    <div class="offer-info">
+      <div>
+        <div class="dates">Du {{ offer.start }} au {{ offer.end }} à {{ offer.location }}</div>
+        <div class="title">
+          <a [routerLink]="['/offres/details', offer.id]">
+            <strong>{{ offer.title }}</strong> <span>{{ offer.event }}</span>
+          </a>
+        </div>
+      </div>
+      <div class="right-part">
+        <span class="amount">environ {{ offer.amount }} €</span>
+        <span class="arrow" routerLink="/home/Offre-emploi-user">➤</span>
+      </div>
+    </div>
+  </div>
+</div>

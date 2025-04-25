@@ -1,0 +1,26 @@
+
+<div class="vos-emplois-container">
+    <h2>Offres d'emploi</h2>
+    <p class="description">
+      Vous avez accepté ces emplois. Cela signifie que vous êtes actuellement en cours de recrutement et que le client peut vous réserver de manière contraignante jusqu'à la date de décision.
+      Vous pouvez également accepter plusieurs tâches qui se déroulent en même temps.
+      Dès que vous êtes réservé pour un travail, le système le reconnaît et supprime automatiquement votre confirmation pour les travaux qui se chevauchent.
+    </p>
+  
+    <hr />
+  
+    <div *ngIf="emploisAcceptes.length > 0; else noJob">
+      <div class="emploi-card" *ngFor="let emploi of emploisAcceptes">
+        <div class="info">
+          <div><strong>{{ emploi.titre }}</strong> chez {{ emploi.entreprise }}</div>
+          <div>{{ emploi.date | date:'fullDate' }} à {{ emploi.lieu }}</div>
+        </div>
+        <div class="etat">✅ Accepté</div>
+      </div>
+    </div>
+  
+    <ng-template #noJob>
+      <p class="empty-message">Il n'y a actuellement aucun emploi pour lequel vous avez accepté.</p>
+    </ng-template>
+  </div>
+  

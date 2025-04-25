@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidatService } from '../../_services/candidat.service';
 import { Router } from '@angular/router';
+import { DashboardService } from '../../_services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard-candidat',
@@ -9,23 +10,15 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard-candidat.component.scss'
 })
 export class DashboardCandidatComponent implements OnInit {
-  candidat: any;
-  constructor(private candidatService: CandidatService, private router: Router) {}
+  offers: any[] = [];
+
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.candidatService.getProfile().subscribe({
-      next: data => this.candidat = data,
-      error: err => console.error('Erreur de chargement', err)
-    });
-    this.candidat = {
-      nom: 'Ahmed Trabelsi',
-      email: 'ahmed@example.com',
-      cv: 'https://example.com/cv.pdf',
-      is_validated: false
-    };
-  }
-  goToEdit(): void {
-    this.router.navigate(['/mon-compte/edit-profile']);
-  }
+    // Version API réelle
+    // this.dashboardService.getRecentOffers().subscribe(data => this.offers = data);
 
+    // Version test (fake)
+    this.dashboardService.getFakeOffers().subscribe(data => this.offers = data);
+  }
 }

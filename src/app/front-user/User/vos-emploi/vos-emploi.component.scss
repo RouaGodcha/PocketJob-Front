@@ -1,0 +1,127 @@
+.vos-emplois-container {
+    width: 100%;
+    padding: 40px 60px;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+  
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #04328C;
+      margin-bottom: 15px;
+    }
+  
+    .description {
+      font-size: 16px;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      max-width: 1100px;
+    }
+  
+    .empty-message {
+      font-size: 17px;
+      color: #999;
+      font-style: italic;
+      margin-top: 25px;
+      padding: 16px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #ccc;
+      border-radius: 8px;
+    }
+  
+    .emploi-card {
+      width: 100%;
+      padding: 20px 25px;
+      margin-bottom: 16px;
+      background-color: #fdfaff;
+      border: 1px solid #e2d5f7;
+      border-left: 5px solid #5e2bcb;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: box-shadow 0.3s ease;
+  
+      &:hover {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      }
+  
+      .info {
+        color: #333;
+  
+        div:first-child {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+  
+        div:last-child {
+          font-size: 15px;
+          color: #777;
+        }
+      }
+  
+      .etat {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 15px;
+        white-space: nowrap;
+      }
+    }
+  }
+  
+  /* ✅ Responsive tablette */
+  @media screen and (max-width: 1024px) {
+    .vos-emplois-container {
+      padding: 30px 30px;
+  
+      .emploi-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+  
+        .etat {
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+  
+  /* ✅ Responsive mobile */
+  @media screen and (max-width: 600px) {
+    .vos-emplois-container {
+      padding: 25px 20px;
+  
+      h2 {
+        font-size: 22px;
+      }
+  
+      .description {
+        font-size: 14px;
+      }
+  
+      .emploi-card {
+        padding: 18px 16px;
+  
+        .info {
+          div:first-child {
+            font-size: 16px;
+          }
+  
+          div:last-child {
+            font-size: 13.5px;
+          }
+        }
+  
+        .etat {
+          font-size: 13px;
+          padding: 4px 12px;
+        }
+      }
+    }
+  }
+  

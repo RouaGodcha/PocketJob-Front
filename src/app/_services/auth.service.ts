@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from "@auth0/angular-jwt";
@@ -14,6 +14,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+  
   helper = new JwtHelperService();
   url = `${environment.apiUrl}`;
 
@@ -77,6 +78,16 @@ export class AuthService {
       const token = this.localstorageService.getAdminToken();
       return token ? jwtDecode(token) : false;
     }
+
+    getProtectedData(): Observable<any> {
+      const token = this.localstorageService.getAdminToken();
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    
+      return this.http.get(`${this.url}/protected-endpoint`, { headers });
+    }
+    
 }
 
 

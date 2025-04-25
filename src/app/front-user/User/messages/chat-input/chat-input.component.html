@@ -1,0 +1,9 @@
+<div class="chat-input">
+    <input type="text" [(ngModel)]="message" placeholder="Votre message..." (keyup.enter)="onSend()" />
+    <button (click)="onSend()"><i class="fa fa-paper-plane"></i></button>
+    <label class="file-upload">
+      📎
+      <input type="file" (change)="onFileChange($event)" />
+    </label>
+  </div>
+  

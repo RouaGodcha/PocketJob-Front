@@ -1,0 +1,7 @@
+<ul class="conversation-list">
+    <li *ngFor="let conv of conversations" (click)="onSelect(conv)">
+      <img *ngIf="conv.participant.avatar" [src]="conv.participant.avatar" class="avatar" />
+      <span class="name">{{ conv.participant.name }}</span>
+    </li>
+  </ul>
+  
