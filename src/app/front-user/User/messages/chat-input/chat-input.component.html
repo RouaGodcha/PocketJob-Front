@@ -1,9 +1,20 @@
 <div class="chat-input">
-    <input type="text" [(ngModel)]="message" placeholder="Votre message..." (keyup.enter)="onSend()" />
-    <button (click)="onSend()"><i class="fa fa-paper-plane"></i></button>
-    <label class="file-upload">
-      📎
-      <input type="file" (change)="onFileChange($event)" />
-    </label>
-  </div>
-  
+  <input
+    type="text"
+    [(ngModel)]="message"
+    placeholder="Votre message..."
+    (keyup.enter)="onSend($event); $event.preventDefault()"
+    [disabled]="isSending" />
+  <!-- Désactive l'input pendant l'envoi -->
+  <button (click)="onSend($event)" [disabled]="isSending"><i class="fa fa-paper-plane"></i></button>
+
+  <label class="file-upload" for="fileInput">
+    📎
+  </label>
+  <input
+    id="fileInput"
+    type="file"
+    (change)="onFileChange($event)"
+    hidden
+  />
+</div>

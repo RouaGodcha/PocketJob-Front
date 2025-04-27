@@ -9,7 +9,6 @@ import { OffresEmploiComponent } from './offres-emploi/offres-emploi.component';
 import { ReservationComponent } from './auth/register/home-register/reservation/reservation.component';
 import { OffreDetailsComponent } from './offres-emploi/pages/offre-details/offre-details.component';
 import { DashboardCandidatComponent } from './User/dashboard-candidat/dashboard-candidat.component';
-import { CandidatureListComponent } from './User/candidature-list/candidature-list.component';
 import { CvComponent } from './User/cv/cv.component';
 import { MessagesComponent } from './User/messages/messages.component';
 import { UserLayoutComponent } from './User/user-layout/user-layout.component';
@@ -17,12 +16,15 @@ import { AuthComponent } from './employer/auth/auth.component';
 import { OffresComponent } from './User/offres/offres.component';
 import { VosEmploiComponent } from './User/vos-emploi/vos-emploi.component';
 import { NewsComponent } from './User/news/news.component';
+import { ProfilComponent } from './User/profil/profil.component';
+import { InviteComponent } from './User/invite/invite.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component : FrontLayoutComponent,
     children: [
+      {path:'',component : HomeComponent},
       /*Page d'acceuil   */
       {
          path : 'acceuil',component : HomeComponent
@@ -59,13 +61,13 @@ const routes: Routes = [
     component : UserLayoutComponent,
     children: [
       { path: 'dashboardcandidat', component: DashboardCandidatComponent }, // accueil candidat
-      { path: 'candidatures', component: CandidatureListComponent },
-      { path: 'cv', component: CvComponent },
+       { path: 'cv', component: CvComponent },
       { path:'offres-details', component:OffresComponent},
       { path:'vos-emploi', component:VosEmploiComponent},
       {path:'news', component:NewsComponent},
-      { path: 'messages', component: MessagesComponent }
-
+      { path: 'messages', component: MessagesComponent },
+      { path:'profil', component : ProfilComponent },
+      { path:'inviter', component: InviteComponent}
     ]
   }
   

@@ -2,55 +2,21 @@
   <aside class="sidebar-candidat">
     <ul>
       <li class="section-title">Tableau de bord</li>
-      <li>
-        <a routerLink="/mon-compte/dashboardcandidat" routerLinkActive="active">
-          <i class="fa fa-chart-line"></i> <span class="link-text">Tableau de bord</span>
-        </a>
-      </li>
-
+      <li><a routerLink="/mon-compte/dashboardcandidat" routerLinkActive="active"><i class="fa fa-chart-line"></i> Tableau de bord</a></li>
       <li class="section-title">Vos emplois</li>
-      <li>
-        <a routerLink="/mon-compte/offres-details" routerLinkActive="active">
-          <i class="fa fa-briefcase"></i> <span class="link-text">Offres d'emploi</span> <span class="badge">89</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/mon-compte/vos-emploi" routerLinkActive="active">
-          <i class="fa fa-check-circle"></i> <span class="link-text">Vos emplois</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/mon-compte/news" routerLinkActive="active">
-          <i class="fa fa-envelope"></i> <span class="link-text">Nouvelles</span>
-        </a>
-      </li>
-      
-
-
+      <li><a routerLink="/mon-compte/offres-details" routerLinkActive="active"><i class="fa fa-briefcase"></i> Offres d'emploi</a></li>
+      <li><a routerLink="/mon-compte/vos-emploi" routerLinkActive="active"><i class="fa fa-check-circle"></i> Vos emplois</a></li>
+      <li><a routerLink="/mon-compte/news" routerLinkActive="active"><i class="fa fa-envelope"></i> Nouvelles</a></li>
       <li class="section-title">Détails du profil</li>
-      <li><a routerLink="/candidat/profil"><i class="fa fa-user-circle"></i> <span class="link-text">Profil</span></a></li>
-      <li><a routerLink="/candidat/emplacements"><i class="fa fa-map-marker-alt"></i> <span class="link-text">Emplacements</span></a></li>
-      <li><a routerLink="/candidat/formulaire"><i class="fa fa-file-signature"></i> <span class="link-text">Formulaire</span></a></li>
-      <!-- Ajoute dans la sidebar du candidat -->
-      <li>
-        <a routerLink="/mon-compte/messages" routerLinkActive="active">
-          <i class="fa fa-envelope"></i>
-          <span class="link-text">Messagerie</span>
-        </a>
-      </li>
-
+      <li><a routerLink="/mon-compte/profil"><i class="fa fa-user-circle"></i> Profil</a></li>
+      <li><a routerLink="/mon-compte/environment"><i class="fa fa-map-marker-alt"></i> Emplacements</a></li>
+      <li><a routerLink="/mon-compte/messages" routerLinkActive="active"><i class="fa fa-comments"></i> Messagerie</a></li>
       <li class="section-title">Suppléments</li>
-      <li><a routerLink="/candidat/news"><i class="fa fa-bullhorn"></i> <span class="link-text">Nouvelles</span></a></li>
-      <li><a routerLink="/candidat/inviter"><i class="fa fa-user-friends"></i> <span class="link-text">Inviter</span></a></li>
-      <li><a routerLink="/candidat/settings"><i class="fa fa-cogs"></i> <span class="link-text">Paramètres</span></a></li>
-
-
+      <li><a routerLink="/mon-compte/inviter"><i class="fa fa-user-friends"></i> Inviter</a></li>
       <li class="section-title">Aide</li>
-      <li><a (click)="logout()"><i class="fa fa-sign-out-alt"></i> <span class="link-text">Déconnexion</span></a></li>
-
+      <li><a (click)="logout()"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
     </ul>
   </aside>
-
   <button class="sidebar-toggle-btn" (click)="toggleSidebar()">
     <i class="fa" [ngClass]="isSidebarClosed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
   </button>

@@ -1,0 +1,46 @@
+<div class="invite-page">
+    <h1>Inviter tes amis</h1>
+    <p>Partage ton lien personnel pour faire découvrir notre plateforme. Pour chaque ami qui s'inscrit, tu reçois :</p>
+  
+    <ul>
+      <li *ngFor="let reward of rewards">{{ reward }}</li>
+    </ul>
+  
+    <div class="invitation-link">
+      <input type="text" [value]="invitationLink" readonly (click)="copyLink()" />
+      <button (click)="copyLink()">Copier le lien</button>
+    </div>
+  
+    <div class="send-email">
+      <h2>Envoyer une invitation par email</h2>
+      <input type="text" placeholder="Nom de l'ami" [(ngModel)]="friendName" (focus)="clearMessage()" />
+      <input type="email" placeholder="Email de l'ami" [(ngModel)]="email" (focus)="clearMessage()" />
+      <button (click)="sendInvitation()">Envoyer l'invitation</button>
+    </div>
+  
+    <div class="share-social">
+      <h2>Partager sur les réseaux</h2>
+      <div class="social-buttons">
+        <button class="facebook" (click)="openFacebookShare()">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </button>
+        <button class="whatsapp" (click)="openWhatsappShare()">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </button>
+        <button class="instagram" (click)="openInstagramShare()">
+          <i class="fab fa-instagram"></i> Instagram
+        </button>
+        <button class="messenger" (click)="openMessengerShare()">
+          <i class="fab fa-facebook-messenger"></i> Messenger
+        </button>
+        <button class="telegram" (click)="openTelegramShare()">
+          <i class="fab fa-telegram-plane"></i> Telegram
+        </button>
+      </div>
+    </div>
+  
+    <div *ngIf="message" class="message">
+      {{ message }}
+    </div>
+  </div>
+  

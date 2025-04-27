@@ -9,4 +9,5 @@ export const environment = {
   imagePath: HOST_URL + '', // utile si tu charges des images depuis un autre domaine
   apiUrl: API_URL, 
   siteUrl: SITE_URL, // URL du site (non utilisée ici)
+  googleMapsApiKey: '',
 };

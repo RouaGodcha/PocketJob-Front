@@ -4,12 +4,15 @@
   margin: auto;
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
   h2 {
     font-size: 2.4rem;
     color: #04328C;
     text-align: center;
     margin-bottom: 3rem;
+    font-weight: 700;
   }
 
   .filters {
@@ -76,6 +79,8 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       position: relative;
+      overflow: hidden;
+      border: 1px solid #f0f0f0;
 
       &:hover {
         transform: translateY(-5px);
@@ -86,12 +91,15 @@
         font-size: 1.2rem;
         color: #2c2c2c;
         margin-bottom: 0.5rem;
+        font-weight: 600;
+        line-height: 1.4;
       }
 
       p {
         font-size: 0.95rem;
         color: #666;
         margin-bottom: 1rem;
+        line-height: 1.5;
       }
 
       .tags {
@@ -105,6 +113,8 @@
           font-size: 0.75rem;
           padding: 0.4rem 0.7rem;
           border-radius: 12px;
+          text-transform: capitalize;
+          font-weight: 500;
         }
       }
 
@@ -116,12 +126,21 @@
         border: none;
         border-radius: 8px;
         font-weight: 500;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.2s ease;
 
         &:hover {
           background-color: #2c4a85;
+          transform: translateY(-3px);
         }
       }
     }
+  }
+
+  .empty-state {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #999;
+    padding: 3rem 0;
+    font-weight: 600;
   }
 }

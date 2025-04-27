@@ -1,295 +1,319 @@
+// Définition des variables pour une maintenance plus facile
+$primary-color: #5e2bcb;
+$secondary-color: #04328C;
+$neutral-color: #666;
+$hover-color: #eee;
+$border-radius: 8px;
+$border-color: #ccc;
+$error-color: #e74c3c;
+$font-size-small: 14px;
+$font-size-medium: 16px;
+$font-size-large: 18px;
+
+// Mixins pour des styles récurrents
+@mixin button-style {
+  background: #f9f9f9;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 8px 16px;
+  font-size: $font-size-small;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .offres-container {
-    width: 100%;
-    padding: 40px 60px;
-    background: #ffffff;
-  
-    h2 {
-      font-size: 28px;
-      font-weight: 700;
-      color: #04328C;
-      margin-bottom: 10px;
-      border-left: 4px solid #5e2bcb;
-      padding-left: 12px;
-    }
-  
-    .description {
-      font-size: 16px;
-      color: #666;
-      line-height: 1.7;
-      margin-bottom: 25px;
+  width: 100%;
+  padding: 40px 60px;
+  background: #ffffff;
+
+  h2 {
+    font-size: $font-size-large;
+    font-weight: 700;
+    color: $secondary-color;
+    margin-bottom: 10px;
+    border-left: 4px solid $primary-color;
+    padding-left: 12px;
+  }
+
+  .description {
+    font-size: $font-size-medium;
+    color: $neutral-color;
+    line-height: 1.7;
+    margin-bottom: 25px;
+  }
+}
+
+// Filtres
+.filters {
+  @include flex-center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  button,
+  .dropdown-button {
+    @include button-style;
+
+    &.active {
+      background-color: $primary-color;
+      color: #fff;
+      font-weight: bold;
     }
   }
-  
-  /* Filtres */
-  .filters {
+
+  .sort-button {
+    margin-left: auto;
     display: flex;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    i {
+      color: $primary-color;
+    }
+  }
+
+  .dropdown {
+    position: relative;
+
+    .dropdown-panel {
+      position: absolute;
+      top: 45px;
+      left: 0;
+      width: 300px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      z-index: 100;
+
+      .date-inputs,
+      .checkbox-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      label {
+        font-size: $font-size-small;
+        color: #444;
+        font-weight: 500;
+      }
+
+      input[type="date"] {
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid $border-color;
+        font-size: 0.9rem;
+      }
+
+      .error-message {
+        font-size: 13px;
+        color: $error-color;
+        margin-top: 0.5rem;
+      }
+
+      .type-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+
+        .reset-link {
+          font-size: 13px;
+          color: #777;
+          text-decoration: underline;
+          cursor: pointer;
+
+          &:hover {
+            color: #222;
+          }
+        }
+
+        .apply-button {
+          background: $primary-color;
+          color: white;
+          border: none;
+          padding: 6px 12px;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: 500;
+
+          &:hover {
+            background: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Cartes offres
+.offre-card {
+  border: 1px solid #ddd;
+  border-left: 5px solid $primary-color;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  background: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .top {
+    font-size: $font-size-small;
+    color: #555;
+    margin-bottom: 6px;
+  }
+
+  .main {
+    display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 1.5rem;
-    align-items: center;
-    position: relative;
-  
+
+    .left {
+      .date {
+        font-size: 15px;
+        color: $neutral-color;
+
+        .lieu {
+          font-weight: 600;
+        }
+      }
+
+      .title {
+        font-size: $font-size-large;
+        font-weight: bold;
+        color: #2c2c2c;
+        margin: 0.6rem 0;
+      }
+
+      .show-more {
+        font-size: $font-size-small;
+        color: $primary-color;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .right {
+      text-align: right;
+      min-width: 120px;
+
+      .salaire {
+        color: #009e60;
+        font-weight: bold;
+        font-size: $font-size-medium;
+      }
+
+      .taux {
+        font-size: 13px;
+        color: #888;
+      }
+
+      .delete-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 16px;
+        color: #c0392b;
+        cursor: pointer;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #e74c3c;
+        }
+      }
+    }
+  }
+}
+
+// Media Queries
+@media screen and (max-width: 768px) {
+  .offres-container {
+    padding: 30px 20px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .sort-button {
+      position: relative;
+      align-self: flex-end;
+      margin-top: 1rem;
+    }
+
     button,
     .dropdown-button {
-      background: #f9f9f9;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-  
-      &:hover {
-        background-color: #eee;
-      }
-  
-      &.active {
-        background-color: #5e2bcb;
-        color: #fff;
-        font-weight: bold;
-      }
+      width: 100%;
     }
-  
-    .sort-button {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      position: absolute;
-      right: 0;
-      top: 0;
-  
-      i {
-        color: #5e2bcb;
-      }
-    }
-  
-    .dropdown {
-      position: relative;
-  
-      .dropdown-panel {
-        position: absolute;
-        top: 45px;
-        left: 0;
-        width: 300px;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 1rem;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-        z-index: 100;
-  
-        .date-inputs,
-        .checkbox-list {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-  
-        label {
-          font-size: 14px;
-          color: #444;
-          font-weight: 500;
-        }
-  
-        input[type="date"] {
-          padding: 6px;
-          border-radius: 6px;
-          border: 1px solid #ccc;
-          font-size: 0.9rem;
-        }
-  
-        .error-message {
-          font-size: 13px;
-          color: #e74c3c;
-          margin-top: 0.5rem;
-        }
-  
-        .type-actions {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 1rem;
-  
-          .reset-link {
-            font-size: 13px;
-            color: #777;
-            text-decoration: underline;
-            cursor: pointer;
-  
-            &:hover {
-              color: #222;
-            }
-          }
-  
-          .apply-button {
-            background: #5e2bcb;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-  
-            &:hover {
-              background: #4521a5;
-            }
-          }
-        }
+  }
+
+  .offre-card .main {
+    flex-direction: column;
+    .right {
+      text-align: left;
+
+      .delete-icon {
+        bottom: 10px;
+        right: 10px;
+        top: auto;
       }
     }
   }
-  
-  /* Cartes offres */
+}
+
+@media screen and (max-width: 480px) {
+  .offres-container {
+    padding: 20px 12px;
+
+    h2 {
+      font-size: 22px;
+    }
+
+    .description {
+      font-size: 14px;
+    }
+  }
+
   .offre-card {
-    border: 1px solid #ddd;
-    border-left: 5px solid #5e2bcb;
-    border-radius: 12px;
-    padding: 1rem 1.2rem;
-    margin-bottom: 1rem;
-    background: #fff;
-    transition: all 0.3s ease;
-    position: relative;
-  
-    &:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-    }
-  
-    .top {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 6px;
-    }
-  
+    padding: 0.8rem;
+
     .main {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-  
-      .left {
-        .date {
-          font-size: 15px;
-          color: #666;
-  
-          .lieu {
-            font-weight: 600;
-          }
-        }
-  
-        .title {
-          font-size: 18px;
-          font-weight: bold;
-          color: #2c2c2c;
-          margin: 0.6rem 0;
-        }
-  
-        .show-more {
-          font-size: 14px;
-          color: #5e2bcb;
-          text-decoration: none;
-          cursor: pointer;
-  
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+      .left .title {
+        font-size: 16px;
       }
-  
-      .right {
-        text-align: right;
-        min-width: 120px;
-  
-        .salaire {
-          color: #009e60;
-          font-weight: bold;
-          font-size: 16px;
-        }
-  
-        .taux {
-          font-size: 13px;
-          color: #888;
-        }
-  
-        .delete-icon {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          font-size: 16px;
-          color: #c0392b;
-          cursor: pointer;
-          transition: color 0.3s;
-  
-          &:hover {
-            color: #e74c3c;
-          }
-        }
+
+      .right .salaire {
+        font-size: 15px;
       }
     }
   }
-  @media screen and (max-width: 768px) {
-    .offres-container {
-      padding: 30px 20px;
-    }
-  
-    .filters {
-      flex-direction: column;
-      align-items: flex-start;
-  
-      .sort-button {
-        position: relative;
-        align-self: flex-end;
-        margin-top: 1rem;
-      }
-  
-      button,
-      .dropdown-button {
-        width: 100%;
-      }
-    }
-  
-    .offre-card .main {
-      flex-direction: column;
-      .right {
-        text-align: left;
-        .delete-icon {
-          bottom: 10px;
-          right: 10px;
-          top: auto;
-        }
-      }
-    }
+
+  .dropdown-panel {
+    width: 100% !important;
+    left: 0;
   }
-  
-  @media screen and (max-width: 480px) {
-    .offres-container {
-      padding: 20px 12px;
-  
-      h2 {
-        font-size: 22px;
-      }
-  
-      .description {
-        font-size: 14px;
-      }
-    }
-  
-    .offre-card {
-      padding: 0.8rem;
-  
-      .main {
-        .left .title {
-          font-size: 16px;
-        }
-  
-        .right .salaire {
-          font-size: 15px;
-        }
-      }
-    }
-  
-    .dropdown-panel {
-      width: 100% !important;
-      left: 0;
-    }
-  }
-  
+}

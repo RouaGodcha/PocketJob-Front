@@ -1,0 +1,10 @@
+<div class="chat-window">
+    <div *ngFor="let msg of messages" [ngClass]="{'me': isMe(msg)}" class="message-item">
+      <img *ngIf="msg.sender.avatar" [src]="msg.sender.avatar" class="avatar" />
+      <div class="message-content">
+        <p class="sender-name">{{ msg.sender.name }}</p>
+        <p class="message-text">{{ msg.text }}</p>
+      </div>
+    </div>
+  </div>
+  

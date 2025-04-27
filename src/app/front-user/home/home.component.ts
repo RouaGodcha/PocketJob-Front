@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
       message: 'Une plateforme intuitive qui facilite vraiment le recrutement temporaire.',
       name: 'Adem Gara',
       role: 'Employeur',
-      photo: '/image/user3.jpg'
+      photo: '/image/user3.jpeg'
     },
     {
       message: 'Rapide, simple et efficace. Je recommande à 100% !',

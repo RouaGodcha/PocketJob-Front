@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 import { JwtInterceptor } from './_services/jwt.interceptor';
 import { DialogModule } from 'primeng/dialog';
 import { FrontUserModule } from './front-user/front-user.module';
-
+import { GoogleMapsModule } from '@angular/google-maps';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +26,7 @@ import { FrontUserModule } from './front-user/front-user.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+   
     InputTextModule,
     FrontUserModule,
     BackadminModule,  // Assure-toi que ce module est bien importé ici
@@ -35,6 +36,7 @@ import { FrontUserModule } from './front-user/front-user.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
+    GoogleMapsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

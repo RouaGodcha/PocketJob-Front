@@ -17,7 +17,6 @@ import { ReservationComponent } from './auth/register/home-register/reservation/
 import { BackadminRoutingModule } from '../backadmin/backadmin-routing.module';
 import { OffreDetailsComponent } from './offres-emploi/pages/offre-details/offre-details.component';
 import { DashboardCandidatComponent } from './User/dashboard-candidat/dashboard-candidat.component';
-import { CandidatureListComponent } from './User/candidature-list/candidature-list.component';
 import { CvComponent } from './User/cv/cv.component';
 import { MessagesComponent } from './User/messages/messages.component';
 import { NavbarCandidatComponent } from './User/navbar-candidat/navbar-candidat.component';
@@ -61,6 +60,10 @@ import { VosEmploiComponent } from './User/vos-emploi/vos-emploi.component';
 import { NewsComponent } from './User/news/news.component';
 import { ChatInputComponent } from './User/messages/chat-input/chat-input.component';
 import { ConversationListComponent } from './User/messages/conversation-list/conversation-list.component';
+import { ProfilComponent } from './User/profil/profil.component';
+import { InviteComponent } from './User/invite/invite.component';
+import { ChatWindowComponent } from './User/messages/chat-window/chat-window.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -76,7 +79,6 @@ import { ConversationListComponent } from './User/messages/conversation-list/con
     ReservationComponent,
     OffreDetailsComponent,
     DashboardCandidatComponent,
-    CandidatureListComponent,
     CvComponent,
     MessagesComponent,
     NavbarCandidatComponent,
@@ -88,6 +90,10 @@ import { ConversationListComponent } from './User/messages/conversation-list/con
     NewsComponent,
     ChatInputComponent,
     ConversationListComponent,
+    ProfilComponent,
+
+    InviteComponent,
+    ChatWindowComponent,
 
     
   ],
@@ -133,7 +139,7 @@ import { ConversationListComponent } from './User/messages/conversation-list/con
     TabViewModule,
     ToastModule,
     ColorPickerModule,
-    
+  
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

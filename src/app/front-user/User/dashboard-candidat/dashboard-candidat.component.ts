@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CandidatService } from '../../_services/candidat.service';
-import { Router } from '@angular/router';
+
 import { DashboardService } from '../../_services/dashboard.service';
 
 @Component({

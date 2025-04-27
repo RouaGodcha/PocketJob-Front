@@ -1,6 +1,7 @@
 // messages.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Message, Conversation } from './message.model';
+import { Message, Conversation, Participant } from './message.model';
+import { MessagerieService } from '../../_services/messagerie.service';
 
 @Component({
   selector: 'app-messages',
@@ -13,59 +14,53 @@ export class MessagesComponent implements OnInit {
   conversations: Conversation[] = [];
   messages: Message[] = [];
   activeConversation: Conversation | null = null;
+  currentUser: Participant = {
+    id: 1,
+    type: 'candidat',
+    name: 'Moi (Candidat)',
+    avatar: '/image/avatar_canadidat.jpg'
+  };
+  constructor(private messagerieService: MessagerieService) {}
 
   ngOnInit(): void {
-    this.loading = true;
-  
-    // 🔹 Simule une réponse API avec fake data
-    setTimeout(() => {
-      this.conversations = [
-        {
-          id: 1,
-          participant: { id: 2, name: 'Entreprise A', avatar: 'assets/avatar1.jpg' },
-          messages: [
-            { text: 'Bonjour, vous êtes dispo demain ?', senderId: 2, receiverId: 1, date: new Date() }
-          ]
-        },
-        {
-          id: 2,
-          participant: { id: 3, name: 'Entreprise B', avatar: 'assets/avatar2.jpg' },
-          messages: [
-            { text: 'Merci pour votre réponse.', senderId: 3, receiverId: 1, date: new Date() }
-          ]
-        }
-      ];
-      this.loading = false;
-    }, 1000); // délai simulé
+    this.loadConversations();
   }
-  
+
+  loadConversations() {
+    this.messagerieService.getConversations().subscribe(convs => {
+      this.conversations = convs;
+      this.loading = false;
+    });
+  }
+
   onSelectConversation(conversation: Conversation) {
     this.activeConversation = conversation;
     this.messages = conversation.messages;
-    console.log('Conversation sélectionnée :', conversation);
-
   }
+  onSendMessage(text: string) {
+    if (!text.trim() || !this.activeConversation) return;
 
-  onSendMessage(msg: string) {
-    if (!msg || !this.activeConversation) return;
-
-    const newMsg: Message = {
-      text: msg,
-      senderId: 1,
-      receiverId: this.activeConversation.participant.id,
-      date: new Date()
+    const newMessage: Message = {
+      id: Date.now(),
+      text,
+      sender: this.currentUser,
+      receiver: this.activeConversation.participant,
+      date: new Date(),
+      isRead: false
     };
 
-    this.messages.push(newMsg);
-    this.activeConversation.messages.push(newMsg);
-
-    // TODO: appel API pour enregistrer le message
-    console.log('Message envoyé :', newMsg);
-
+    this.messagerieService.sendMessage(this.activeConversation.id, newMessage).subscribe(msg => {
+      this.messages.push(msg);
+    });
   }
 
   onUploadFile(file: File) {
-    console.log('Fichier envoyé :', file);
-    // TODO: API upload de fichier
+    console.log('Upload file:', file);
+    // À implémenter plus tard pour upload fichier
   }
+
+  isMe(msg: Message): boolean {
+    return msg.sender.id === 1; // Remplacer 1 par l'ID du current user
+  }
+  
 }

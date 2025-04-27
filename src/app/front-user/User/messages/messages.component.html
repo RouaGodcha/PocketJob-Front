@@ -1,26 +1,27 @@
 <div class="messagerie-container">
-    <div *ngIf="loading" class="loading-spinner">
-      <i class="fa fa-spinner fa-spin fa-2x text-primary"></i> Chargement...
-    </div>
-  
-    <div class="contacts" *ngIf="!loading">
-      <app-conversation-list
-        [conversations]="conversations"
-        (select)="onSelectConversation($event)">
-      </app-conversation-list>
-    </div>
-  
-    <div class="chat-box" *ngIf="activeConversation">
-      <app-chat-window [messages]="messages"></app-chat-window>
-      <app-chat-input
-  (send)="onSendMessage($event)"
-  (upload)="onUploadFile($event)">
-</app-chat-input>
-
-    </div>
-  
-    <div class="no-selection" *ngIf="!activeConversation && !loading">
-      <p>Sélectionnez une conversation</p>
-    </div>
+  <div *ngIf="loading" class="loading-spinner">
+    <i class="fa fa-spinner fa-spin fa-2x text-primary"></i> Chargement...
   </div>
+
+  <div class="contacts" *ngIf="!loading">
+    <app-conversation-list
+      [conversations]="conversations"
+      (select)="onSelectConversation($event)">
+    </app-conversation-list>
+  </div>
+
+  <div class="chat-box" *ngIf="activeConversation">
+    <app-chat-window [messages]="messages"></app-chat-window>
+    <app-chat-input
+      (send)="onSendMessage($event)"
+      (upload)="onUploadFile($event)">
+    </app-chat-input>
+  </div>
+
+
   
+
+  <div class="no-selection" *ngIf="!activeConversation && !loading">
+    <p>Sélectionnez une conversation</p>
+  </div>
+</div>

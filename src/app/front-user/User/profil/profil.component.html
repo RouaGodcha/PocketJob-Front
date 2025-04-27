@@ -1,0 +1,105 @@
+<div class="profil-container">
+
+    <h2>Formulaire personnel</h2>
+  
+    <!-- Données personnelles -->
+    <div class="section">
+      <div class="section-header">
+        <h3>Données personnelles</h3>
+        <button *ngIf="!isEditingInfo" class="edit-btn" (click)="modifierInfos()">Modifier les données personnelles</button>
+      </div>
+      <p class="info-text">La modification des données doit être examinée et confirmée par PocketJob.</p>
+  
+      <div class="grid">
+        <div class="field">
+          <label>Prénom</label>
+          <input type="text" [(ngModel)]="profil.prenom" [disabled]="!isEditingInfo">
+        </div>
+        <div class="field">
+          <label>Nom de famille</label>
+          <input type="text" [(ngModel)]="profil.nom" [disabled]="!isEditingInfo">
+        </div>
+        <div class="field">
+          <label>Date de naissance</label>
+          <input type="Date" [(ngModel)]="profil.dateNaissance" [disabled]="!isEditingInfo">
+        </div>
+        <div class="field">
+          <label>Nationalité</label>
+          <input type="text" [(ngModel)]="profil.nationalite" [disabled]="!isEditingInfo">
+        </div>
+      </div>
+  
+      <div *ngIf="isEditingInfo" class="btn-actions">
+        <button class="save-btn" (click)="saveInfos()">💾 Enregistrer</button>
+        <button class="cancel-btn" (click)="annulerInfos()">❌ Annuler</button>
+      </div>
+    </div>
+  
+    <!-- Adresse actuelle -->
+    <div class="section">
+      <div class="section-header">
+        <h3>Adresse actuelle</h3>
+        <button *ngIf="!isEditingAdresse" class="edit-btn" (click)="modifierAdresse()">Modifier l'adresse</button>
+      </div>
+      <p class="info-text">La modification des données doit être examinée et confirmée par PocketJob.</p>
+  
+      <div class="grid">
+        <div class="field">
+          <label>Rue, N°</label>
+          <input type="text" [(ngModel)]="profil.rue" [disabled]="!isEditingAdresse">
+        </div>
+        <div class="field">
+          <label>Ajout d'adresse (facultatif)</label>
+          <input type="text" [(ngModel)]="profil.adresseComplementaire" [disabled]="!isEditingAdresse" placeholder="Bloc A, étage...">
+        </div>
+        <div class="field">
+          <label>Code Postal</label>
+          <input type="text" [(ngModel)]="profil.codePostal" [disabled]="!isEditingAdresse">
+        </div>
+        <div class="field">
+          <label>Ville</label>
+          <input type="text" [(ngModel)]="profil.ville" [disabled]="!isEditingAdresse">
+        </div>
+        <div class="field">
+          <label>Résidence</label>
+          <input type="text" [(ngModel)]="profil.residence" [disabled]="!isEditingAdresse">
+        </div>
+      </div>
+  
+      <div *ngIf="isEditingAdresse" class="btn-actions">
+        <button class="save-btn" (click)="saveAdresse()">💾 Enregistrer</button>
+        <button class="cancel-btn" (click)="annulerAdresse()">❌ Annuler</button>
+      </div>
+    </div>
+  
+    <!-- CV et Qualifications -->
+    <div class="section">
+      <div class="section-header">
+        <h3>CV et Qualifications</h3>
+        <button *ngIf="!isEditingCv" class="edit-btn" (click)="modifierCv()">Modifier le CV / Qualifications</button>
+      </div>
+      <p class="info-text">Veuillez télécharger votre CV et ajouter vos compétences principales.</p>
+  
+      <div class="grid">
+        <div class="field">
+          <label>CV actuel :</label>
+          <a [href]="profil.cvUrl" target="_blank">Voir le CV</a>
+        </div>
+        <div class="field">
+          <label>Charger un nouveau CV :</label>
+          <input type="file" (change)="onFileSelected($event)" [disabled]="!isEditingCv">
+        </div>
+        <div class="field">
+          <label>Compétences / Qualifications :</label>
+          <textarea rows="4" [(ngModel)]="profil.qualifications" [disabled]="!isEditingCv"></textarea>
+        </div>
+      </div>
+  
+      <div *ngIf="isEditingCv" class="btn-actions">
+        <button class="save-btn" (click)="saveCv()">💾 Enregistrer</button>
+        <button class="cancel-btn" (click)="annulerCv()">❌ Annuler</button>
+      </div>
+    </div>
+  
+  </div>
+  
