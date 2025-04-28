@@ -20,8 +20,7 @@ export class OffreDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
-    
-    // ✅ Fake data fallback (optionnel)
+
     const fakeOffres = [
       {
         id: 1,
@@ -31,25 +30,16 @@ export class OffreDetailsComponent implements OnInit {
         type: 'Temps partiel',
         seniority: 'Débutant',
         description: 'Service en salle, prise de commande...',
-        entreprise: { nom: 'Brasserie du Parc' }
-      },
-      {
-        id: 2,
-        title: 'Préparateur de commandes',
-        company: 'Amazon Logistics',
-        location: 'Sfax',
-        type: 'Temps plein',
-        seniority: 'Intermédiaire',
-        description: 'Préparation de colis...',
-        entreprise: { nom: 'Amazon Logistics' }
-      }
-    ];
+        mapUrl: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51810.148111710376!2d10.691105868038033!3d35.74750473767396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13020cc09c631e5d%3A0x94b845be8275085e!2sHilton%20Skanes%20Monastir%20Beach%20Resort!5e0!3m2!1sfr!2stn!4v1745860237714!5m2!1sfr!2stn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+        entreprise: { nom: 'Brasserie du Parc',
+          companyImage: '/image/serveurPark.jpg',  // Add the company logo image URL
 
-    // D'abord chargement via API
+         }
+      },
+    ];
     this.offreService.getOffreById(id).subscribe({
       next: (offre) => this.offre = offre,
       error: () => {
-        // Si erreur → on essaie avec fake data
         this.offre = fakeOffres.find(o => o.id === id);
         if (!this.offre) {
           alert('Aucune offre trouvée avec cet ID');
@@ -60,9 +50,8 @@ export class OffreDetailsComponent implements OnInit {
   }
 
   postuler(): void {
-    const isAuthenticated = localStorage.getItem('token'); // ou un vrai service d'auth
+    const isAuthenticated = localStorage.getItem('token');
     if (!isAuthenticated) {
-      // Redirection vers inscription candidat
       this.router.navigate(['/home/homeRegister/inscription']);
       return;
     }

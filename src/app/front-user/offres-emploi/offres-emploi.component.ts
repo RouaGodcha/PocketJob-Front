@@ -17,8 +17,8 @@ export class OffresEmploiComponent implements OnInit {
   };
 
   offres: any[] = [];
-  filtered: any[] = [];
-
+  filtered = [...this.offres];
+  selectedOffre: any = null;
   fakeOffres = [
     {
       id: 1,
@@ -64,6 +64,24 @@ export class OffresEmploiComponent implements OnInit {
         nom: 'Clinique Santé Plus',
         responsable: { nom: 'Dr Karim Jlassi' }
       }
+    },
+    {
+      id: 1,
+      title: 'Développeur Web',
+      company: 'TechCorp',
+      location: 'Tunis',
+      type: 'Temps plein',
+      seniority: 'Intermédiaire',
+      mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43960.85817615571!2d10.691105868038033!3d35.74750473767396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13020cc09c631e5d%3A0x94b845be8275085e!2sHilton%20Skanes%20Monastir%20Beach%20Resort!5e0!3m2!1sfr!2stn!4v1745859518875!5m2!1sfr!2stn'
+    },
+    {
+      id: 2,
+      title: 'Designer UI/UX',
+      company: 'Creatives',
+      location: 'Sousse',
+      type: 'Freelance',
+      seniority: 'Débutant',
+      mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d44324.262109770165!2d10.633056!3d35.825556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13020dcd833d7c4b%3A0xbfcf7bce4e1f2f7b!2sSousse!5e0!3m2!1sfr!2stn!4v1745860000000!5m2!1sfr!2stn'
     }
   ];
 
@@ -85,8 +103,12 @@ export class OffresEmploiComponent implements OnInit {
   }
 
   viewDetails(id: number): void {
-    console.log('ID cliqué :', id);
-    this.router.navigate(['home/offres/details-offre', id]); // ✅ CHEMIN COMPLET
+    this.router.navigate(['/home/offres/details-offre', id]);
+  }
+  
+
+  closeDetails() {
+    this.selectedOffre = null;
   }
   
 }

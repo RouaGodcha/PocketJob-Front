@@ -36,9 +36,46 @@
     </div>
   </div>
 
+  <!-- Détails de l'offre sélectionnée -->
+  <div *ngIf="selectedOffre" class="offre-detail">
+    <h2>{{ selectedOffre.title }}</h2>
+    <p>{{ selectedOffre.company }} - {{ selectedOffre.location }}</p>
+    
+    <div class="map-container">
+      <iframe 
+        [src]="selectedOffre.mapUrl" 
+        width="100%" 
+        height="400" 
+        style="border:0;"
+        allowfullscreen 
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <button (click)="closeDetails()">Fermer</button>
+  </div>
+
   <ng-template #noResult>
     <div class="empty-state">
       Aucune offre ne correspond à votre recherche.
     </div>
   </ng-template>
 </section>
+
+
+
+<!-- Partie bas du formulaire stylisée -->
+<div class="bottom-info">
+  <p class="section-title">Pas encore inscrit ?</p>
+
+  <div class="info-block">
+    <p>Vous recherchez des emplois temporaires en tant qu'hôtesse, animatrice, serveur, etc. :</p>
+    <a routerLink="/home/employer">➜ Inscription des employés</a>
+  </div>
+
+  <div class="info-block">
+    <p>Vous êtes une entreprise à la recherche de personnel temporaire :</p>
+    <a routerLink="/home/homeRegister/reservation">➜ Demande de réservation pour les employeurs</a>
+  </div>
+</div>

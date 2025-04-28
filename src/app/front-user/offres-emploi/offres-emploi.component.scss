@@ -1,146 +1,218 @@
 .offres-container {
   padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: auto;
+  background: #f9f9fc;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
 
   h2 {
-    font-size: 2.4rem;
-    color: #04328C;
-    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #0A1659;
     margin-bottom: 3rem;
-    font-weight: 700;
+    animation: fadeInDown 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-50px);
   }
 
   .filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     margin-bottom: 3rem;
 
     input, select {
-      padding: 0.85rem 1rem;
-      border-radius: 10px;
+      padding: 0.9rem 1.2rem;
       border: 1px solid #ccc;
+      border-radius: 12px;
+      min-width: 200px;
       font-size: 1rem;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s ease;
+      background: white;
 
       &:focus {
-        border-color: #04328C;
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+        border-color: #0A1659;
+        box-shadow: 0 0 10px rgba(10, 22, 89, 0.4);
       }
     }
 
     button {
-      grid-column: span 2;
-      background: linear-gradient(to right, #223d65, #4e66a3);
+      background: linear-gradient(135deg, #0A1659, #223d65);
       color: white;
-      font-weight: 600;
+      padding: 1rem 2rem;
       border: none;
       border-radius: 12px;
-      padding: 1rem;
-      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.3s, background 0.3s;
 
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-    }
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-
-      button {
-        grid-column: span 1;
+        background: linear-gradient(135deg, #223d65, #4e66a3);
+        transform: scale(1.05);
       }
     }
   }
 
   .offres-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    justify-content: center;
+    padding: 2rem 0;
 
     .offre-card {
-      width: 280px;
-      background: #fff;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid #f0f0f0;
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      text-align: left;
+      transform: translateY(30px);
+      opacity: 0;
+      animation: cardAppear 1s ease forwards;
+      animation-delay: calc(0.2s * var(--i));
+      transition: transform 0.4s;
 
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+        transform: translateY(-10px) scale(1.03);
       }
 
       h3 {
-        font-size: 1.2rem;
-        color: #2c2c2c;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        line-height: 1.4;
+        font-size: 1.6rem;
+        color: #0A1659;
+        margin-bottom: 0.8rem;
       }
 
       p {
-        font-size: 0.95rem;
-        color: #666;
+        color: #555;
         margin-bottom: 1rem;
-        line-height: 1.5;
       }
 
       .tags {
         display: flex;
         gap: 0.5rem;
-        flex-wrap: wrap;
+        margin-bottom: 1rem;
 
         .tag {
-          background: #e3f2fd;
-          color: #04328C;
-          font-size: 0.75rem;
-          padding: 0.4rem 0.7rem;
-          border-radius: 12px;
-          text-transform: capitalize;
-          font-weight: 500;
+          background: #e0e7ff;
+          color: #3f51b5;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.9rem;
         }
       }
 
       button {
-        margin-top: 1rem;
-        padding: 0.7rem 1rem;
-        background-color: #223d65;
-        color: #fff;
+        background: linear-gradient(135deg, #0A1659, #223d65);
+        color: white;
+        padding: 0.8rem 1.5rem;
         border: none;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s, transform 0.3s;
 
         &:hover {
-          background-color: #2c4a85;
-          transform: translateY(-3px);
+          background: linear-gradient(135deg, #223d65, #4e66a3);
+          transform: scale(1.05);
         }
       }
     }
   }
 
   .empty-state {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #999;
-    padding: 3rem 0;
-    font-weight: 600;
+    margin-top: 3rem;
+    font-size: 1.3rem;
+    color: #888;
+    animation: fadeIn 1.5s ease forwards;
+  }
+}
+
+// ✨ Partie bas du formulaire : Inscription ✨
+.bottom-info {
+  margin-top: 5rem;
+  padding: 4rem 2rem;
+  background: linear-gradient(145deg, #f9f9fc, #dde7fb);
+  border-radius: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 1.5s ease forwards;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: transform 0.5s;
+
+  .section-title {
+    font-size: 2.5rem;
+    color: #0A1659;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .info-block {
+    margin-bottom: 2.5rem;
+
+    p {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: #0A1659;
+      font-weight: 700;
+      font-size: 1.2rem;
+      position: relative;
+      display: inline-block;
+      transition: all 0.3s ease;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: #0A1659;
+        transition: width 0.3s;
+      }
+
+      &:hover {
+        color: #223d65;
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+/* ✨ Animations ✨ */
+@keyframes fadeInDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
