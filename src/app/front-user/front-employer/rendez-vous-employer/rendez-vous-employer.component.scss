@@ -1,0 +1,80 @@
+.rendezvous-container {
+    max-width: 850px;
+    margin: auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    animation: fadeIn 0.5s ease;
+  
+    h2 {
+      text-align: center;
+      color: #030BA6;
+      margin-bottom: 1.5rem;
+    }
+  
+    .loading,
+    .empty {
+      text-align: center;
+      font-size: 1rem;
+      color: #999;
+    }
+  
+    .entretien-card {
+      background: #f5f5f5;
+      border-left: 5px solid #6C9BD9;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+  
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+  
+        h3 {
+          margin: 0;
+          color: #22086f;
+        }
+  
+        .status {
+          padding: 0.3rem 0.6rem;
+          border-radius: 8px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          text-transform: uppercase;
+  
+          &.Confirmé {
+            background: #c8e6c9;
+            color: #2e7d32;
+          }
+  
+          &.Annulé {
+            background: #ffcdd2;
+            color: #c62828;
+          }
+  
+          &.En\ attente {
+            background: #fff9c4;
+            color: #f9a825;
+          }
+        }
+      }
+  
+      .body p {
+        margin: 0.4rem 0;
+      }
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

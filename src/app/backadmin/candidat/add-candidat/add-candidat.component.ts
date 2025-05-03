@@ -85,10 +85,12 @@ export class AddCandidatComponent implements OnInit {
 
 
   attemptAddCandidat(event : any){}
-  cancel(){
+  cancel() {
     this.showSuccess = false;
     this.addCandidatForm.reset();
+    this.close.emit();  // Emit close event to hide modal if needed
   }
+  
 
   closeModal() {
     history.back(); 

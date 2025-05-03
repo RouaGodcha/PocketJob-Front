@@ -1,0 +1,22 @@
+<div class="rendezvous-container">
+    <h2>Calendrier des Entretiens</h2>
+  
+    <div *ngIf="loading" class="loading">Chargement...</div>
+  
+    <div *ngIf="!loading && entretiens.length === 0" class="empty">
+      Aucun entretien prévu pour vos candidats.
+    </div>
+  
+    <div class="entretien-card" *ngFor="let entretien of entretiens">
+      <div class="header">
+        <h3>{{ entretien.candidat }}</h3>
+        <span class="status" [ngClass]="entretien.status">{{ entretien.status }}</span>
+      </div>
+      <div class="body">
+        <p><strong>Date :</strong> {{ entretien.date }}</p>
+        <p><strong>Heure :</strong> {{ entretien.heure }}</p>
+        <p><strong>Poste :</strong> {{ entretien.poste }}</p>
+      </div>
+    </div>
+  </div>
+  

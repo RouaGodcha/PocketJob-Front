@@ -1,20 +1,31 @@
+// Variables
 $form-primary: #003366; // bleu marine
 $form-accent: #f5f0e6; // beige clair
 $form-highlight: #0074cc; // bleu moyen
 $btn-hover: #002244;
+$error-color: #e74c3c;
+$popup-danger: #c0392b;
 
+// Mixin pour transitions
+@mixin transition($properties...) {
+  transition: $properties 0.3s ease-in-out;
+}
+
+// Base
 .form-step {
   max-width: 700px;
   margin: 2rem auto;
-  background: $form-accent;
+  background: linear-gradient(135deg, $form-accent, #ffffff);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease forwards;
 
   h1, h2 {
     text-align: center;
     color: $form-primary;
     margin-bottom: 2rem;
+    letter-spacing: 1px;
   }
 
   .etapes {
@@ -24,19 +35,21 @@ $btn-hover: #002244;
     margin-bottom: 2rem;
 
     span {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       background: #ccc;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      font-size: 1.1rem;
       color: white;
-      transition: background 0.3s ease;
+      @include transition(background, transform);
 
       &.active {
         background: $form-primary;
+        transform: scale(1.2);
       }
     }
   }
@@ -44,18 +57,26 @@ $btn-hover: #002244;
   form label {
     display: block;
     margin-bottom: 1.5rem;
-    font-weight: bold;
+    font-weight: 600;
     color: $form-primary;
 
     input,
     textarea {
       display: block;
       width: 100%;
-      padding: 0.8rem;
-      margin-top: 0.4rem;
+      padding: 0.9rem;
+      margin-top: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 0.5rem;
       font-size: 1rem;
+      background: white;
+      @include transition(border-color, box-shadow);
+
+      &:focus {
+        border-color: $form-highlight;
+        box-shadow: 0 0 5px rgba($form-highlight, 0.5);
+        outline: none;
+      }
     }
   }
 
@@ -74,9 +95,11 @@ $btn-hover: #002244;
     justify-content: space-between;
     margin-top: 2rem;
     flex-wrap: wrap;
+    gap: 1rem;
 
     button {
-      margin-bottom: 1rem;
+      flex: 1;
+      min-width: 120px;
     }
   }
 
@@ -85,13 +108,17 @@ $btn-hover: #002244;
   .btn-submit,
   button[type="button"],
   button[type="submit"] {
-    padding: 0.8rem 1.5rem;
+    padding: 0.9rem 1.5rem;
     font-size: 1rem;
     font-weight: bold;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background 0.3s ease;
+    @include transition(background-color, transform);
+
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .btn-next,
@@ -124,49 +151,50 @@ $btn-hover: #002244;
   }
 
   .error {
-    color: #e74c3c;
+    color: $error-color;
     font-size: 0.9rem;
     margin-top: 4px;
     margin-left: 2px;
-    display: block;
     font-weight: 500;
+    animation: shake 0.3s ease;
   }
 
   input.ng-invalid.ng-touched,
   select.ng-invalid.ng-touched,
   textarea.ng-invalid.ng-touched {
-    border: 1px solid #e74c3c;
+    border: 1px solid $error-color;
     background-color: #fdecea;
   }
 }
 
-// Popup de validation
+// Popup
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.4s ease forwards;
 }
 
 .popup {
   background: #fff;
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 1rem;
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   text-align: center;
-  animation: popupFade 0.3s ease-in-out;
+  animation: popupScale 0.5s ease;
 
   h3 {
     margin-bottom: 1rem;
-    color: #c0392b;
+    color: $popup-danger;
   }
 
   p {
@@ -175,24 +203,25 @@ $btn-hover: #002244;
   }
 
   button {
-    background-color: #c0392b;
+    background-color: $popup-danger;
     color: #fff;
     border: none;
     padding: 0.7rem 1.5rem;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.2s ease;
+    @include transition(background-color);
 
     &:hover {
-      background-color: #e74c3c;
+      background-color: lighten($popup-danger, 10%);
     }
   }
 }
 
-@keyframes popupFade {
+// Animations
+@keyframes popupScale {
   from {
-    transform: scale(0.9);
+    transform: scale(0.8);
     opacity: 0;
   }
   to {
@@ -201,27 +230,48 @@ $btn-hover: #002244;
   }
 }
 
-//
-// Responsive pour mobile
-//
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+}
+
+// Responsive
 @media (max-width: 600px) {
   .form-step {
-    padding: 1rem;
+    padding: 1.5rem;
 
     .etapes {
       flex-wrap: wrap;
       gap: 0.5rem;
 
       span {
-        width: 32px;
-        height: 32px;
-        font-size: 0.8rem;
+        width: 34px;
+        height: 34px;
+        font-size: 0.9rem;
       }
     }
 
     .form-navigation {
       flex-direction: column;
-      gap: 1rem;
       align-items: stretch;
 
       button {
@@ -235,7 +285,7 @@ $btn-hover: #002244;
       input,
       textarea {
         font-size: 0.95rem;
-        padding: 0.6rem;
+        padding: 0.7rem;
       }
     }
 
@@ -246,19 +296,17 @@ $btn-hover: #002244;
 
   .popup {
     padding: 1.5rem;
-    width: 90%;
 
     h3 {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
     }
 
     p {
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
 
     button {
       width: 100%;
-      padding: 0.8rem;
     }
   }
 }

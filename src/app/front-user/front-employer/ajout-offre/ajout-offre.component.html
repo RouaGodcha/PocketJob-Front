@@ -1,0 +1,67 @@
+<div class="ajouter-offre-container">
+    <h2>Ajouter une offre d'emploi</h2>
+    <form [formGroup]="offreForm" (ngSubmit)="onSubmit()">
+      <div class="form-group" [class.invalid]="isInvalid('titre')">
+        <label>Titre de l'offre</label>
+        <input formControlName="titre" type="text" placeholder="Ex: Serveur(se), Développeur web...">
+        <div class="error" *ngIf="isInvalid('titre')">Ce champ est requis</div>
+      </div>
+  
+      <div class="form-group" [class.invalid]="isInvalid('natureEmploi')">
+        <label>Nature de l'emploi</label>
+        <input formControlName="natureEmploi" type="text" placeholder="Ex: Temps plein, mi-temps">
+        <div class="error" *ngIf="isInvalid('natureEmploi')">Ce champ est requis</div>
+      </div>
+  
+      <div class="form-group" [class.invalid]="isInvalid('typeContrat')">
+        <label>Type de contrat</label>
+        <select formControlName="typeContrat">
+          <option value="">-- Sélectionner --</option>
+          <option value="CDD">CDD</option>
+          <option value="CDI">CDI</option>
+          <option value="Mission">Mission temporaire</option>
+        </select>
+        <div class="error" *ngIf="isInvalid('typeContrat')">Ce champ est requis</div>
+      </div>
+  
+      <div class="form-group" [class.invalid]="isInvalid('dateDebut')">
+        <label>Date de début</label>
+        <input formControlName="dateDebut" type="date">
+        <div class="error" *ngIf="isInvalid('dateDebut')">Ce champ est requis</div>
+      </div>
+  
+      <div class="form-group">
+        <label>Date de fin</label>
+        <input formControlName="dateFin" type="date">
+      </div>
+  
+      <div class="form-group" [class.invalid]="isInvalid('lieu')">
+        <label>Lieu de l'emploi</label>
+        <input formControlName="lieu" type="text">
+        <div class="error" *ngIf="isInvalid('lieu')">Ce champ est requis</div>
+      </div>
+  
+      <!-- IFRAME MAP -->
+      
+  
+      <div class="form-group" [class.invalid]="isInvalid('profilRecherche')">
+        <label>Profil recherché</label>
+        <textarea formControlName="profilRecherche" rows="3" placeholder="Compétences, expérience..."></textarea>
+        <div class="error" *ngIf="isInvalid('profilRecherche')">Ce champ est requis</div>
+      </div>
+  
+      <div class="form-group" [class.invalid]="isInvalid('description')">
+        <label>Description détaillée</label>
+        <textarea formControlName="description" rows="5" placeholder="Détails sur l'offre, entreprise..."></textarea>
+        <div class="error" *ngIf="isInvalid('description')">Ce champ est requis</div>
+      </div>
+  
+      <div class="form-group">
+        <label>Subventions proposées (facultatif)</label>
+        <input formControlName="subventions" type="text" placeholder="Ex: Prime, logement, transport...">
+      </div>
+  
+      <button type="submit">Publier l'offre</button>
+    </form>
+  </div>
+  

@@ -3,14 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
+  
   standalone: false,
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+  styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   submitted = false;
   currentStep = 1;
   employerForm: FormGroup;
+  mapUrl: string = ''; // Initialize with an empty string instead of undefined
+  private googleApiKey = 'TA_CLE_API'; // Replace with your actual API key
 
   constructor(private fb: FormBuilder) {
     this.employerForm = this.fb.group({
@@ -31,14 +34,24 @@ export class AuthComponent {
     });
   }
 
-  nextStep() {
-    if (this.currentStep < 3) this.currentStep++;
+  ngOnInit(): void {
+    // Map initiale
+    this.updateMap();
   }
+  nextStep() {
+    if (this.employerForm.valid || this.forceStepValidation(this.currentStep)) {
+      this.currentStep++;
+    } else {
+      this.submitted = true;
+    }
+  }
+  
 
   previousStep() {
-    if (this.currentStep > 1) this.currentStep--;
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
   }
-
   submit() {
     this.submitted = true;
     if (this.employerForm.valid) {
@@ -48,5 +61,22 @@ export class AuthComponent {
       this.employerForm.markAllAsTouched();
       console.warn('Formulaire invalide ❌');
     }
+  }
+
+  // Mise à jour de la carte avec l'adresse de l'entreprise
+  updateMap() {
+    const adresse = this.employerForm.get('adresseEntreprise')?.value;
+    this.mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(adresse)}&output=embed`;
+  }
+  
+  forceStepValidation(step: number) {
+    // Permet de contrôler les validations par étape
+    if (step === 1) {
+      return this.employerForm.get('nomEntreprise')?.valid && this.employerForm.get('adresseEntreprise')?.valid && this.employerForm.get('secteur')?.valid;
+    }
+    if (step === 2) {
+      return this.employerForm.get('nomResponsable')?.valid && this.employerForm.get('email')?.valid && this.employerForm.get('telephone')?.valid && this.employerForm.get('password')?.valid;
+    }
+    return true;
   }
 }

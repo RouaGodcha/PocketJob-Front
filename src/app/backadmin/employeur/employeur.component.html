@@ -14,14 +14,6 @@
             label="Ajouter"
             routerLink="/dashboard/users/employers/add-employer"
           ></button>
-          <button
-          class="btn-primary"
-          pButton
-          pRipple
-          icon="pi pi-plus"
-          label="modofier"
-          routerLink="/dashboard/users/employers/update-employer"
-        ></button>
         </div>
       </div>
     </div>
@@ -111,43 +103,38 @@
                 <td>{{ employer.created_at | date: 'dd/MM/yyyy' }}</td>
                 <td class="text-center">
                   <button
-                    pButton
-                    icon="pi pi-folder"
-                    tooltip="Pages"
-                    tooltipPosition="top"
-                    class="btn-icon btn-icon--outlin-primary"
-                    (click)="openPages(employer.id)"
-                  ></button>
+                type="button"
+                  pButton
+                  icon="pi pi-eye"
+                  pTooltip="Détails"
+                  tooltipPosition="left"
+                  class="btn-icon btn-icon--outlin-primary"
+                  (click)="EmployerDetails(employer.id)"
+                ></button>
 
-                  <button
-                    pButton
-                    icon="pi pi-eye"
-                    tooltip="Détails"
-                    tooltipPosition="top"
-                    class="btn-icon btn-icon--outlin-primary"
-                    [routerLink]="['/dashboard/users/emplyer/Viewemployer', employer.id]"
-                  ></button>
-
-                  <button
-                    *ngIf="employer.status !== 'DELETED'"
-                    pButton
-                    icon="pi pi-pencil"
-                    tooltip="Modifier"
-                    tooltipPosition="top"
-                    class="btn-icon btn-icon--outlin-primary"
-                    (click)="displayUpdateEmployer(employer)"
-                  ></button>
-
+                 
+                <button
+                type="button"
+                pButton
+                icon="pi pi-pencil"
+                pTooltip="Modifier"
+                tooltipPosition="left"
+                class="btn-icon btn-icon--outlin-primary"
+                (click)="UpdateEmployer(employer)"
+              ></button>
+              
                   <button
                     *ngIf="employer.status !== 'DELETED'"
                     pButton
+                    type="button"
                     icon="pi pi-trash"
                     tooltip="Supprimer"
                     tooltipPosition="top"
                     class="btn-icon btn-icon--outlin-primary"
-                    (click)="toggleDeleteEmployer(employer)"
+                    (click)="deleteEmployer(employer)"
                   ></button>
 
+                
                   <button
                     *ngIf="employer.status === 'DELETED'"
                     pButton

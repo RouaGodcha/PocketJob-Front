@@ -67,6 +67,11 @@ export class ModulesService {
     return this.http.post(`${this.apiUrl}/module/${subjectId}/update`, payload, { observe: 'response' });
   }
 
+  public getJobTypesList(payload: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.apiUrl}/job_types`, payload, { observe: 'response' });
+  }
+  
+
   /**
    * Récupère les dates officielles (utilisé par exemple pour les emplois liés à un planning)
    * @param data Paramètres éventuels pour filtrer les dates

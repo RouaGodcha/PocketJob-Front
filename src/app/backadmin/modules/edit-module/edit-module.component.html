@@ -1,105 +1,137 @@
-<div class="list-orders-item-area add-chapter">
-    <div class="introduction-area p-d-flex p-jc-between">
+<div class="container">
+    <div class="list-orders-item-area add-chapter">
+      <div class="introduction-area p-d-flex p-jc-between">
         <div class="big-title-blc">
-            <h1 class="big-title title-align-center">
-                <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" 
-                (click)="backToList()"></a>
-                Ajouter une offre de travail
-            </h1>
+          <!-- 🔙 Retour et titre -->
+          <div class="modal-header">
+            <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+            <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+        
+            <h1 class="title">Modifier un candidat</h1>
+             </div>
         </div>
-    </div>
-    <div class="table-area">
-        <form [formGroup]="editModuleForm">
-            <div class="row">
-                <div class="col-lg-4 pe-md-0">
-                    <div class="card form-area bg-white part-one">
-                        <div class="card-body">
-                            <div class="form-style-1">
-                                <label class="form-label">Diplôme</label>
-                                <p-dropdown [options]="diplomas" formControlName="diploma_id" [autoDisplayFirst]="false"
-                                    placeholder="Sélectionner un diplôme *" optionLabel="name" optionValue="id"
-                                    [showClear]="false"></p-dropdown>
-                                <span class="error"
-                                    *ngIf="editModuleForm.controls['diploma_id'].hasError('required') && isSubmitted">
-                                    Champ obligatoire !
-                                </span>
-                            </div>
-                            <div class="form-style-1">
-                                <label class="form-label">Coefficient</label>
-                                <input type="number" placeholder="Coefficient *" formControlName="coefficient">
-                                <span class="error"
-                                    *ngIf="editModuleForm.controls['coefficient'].hasError('required') && isSubmitted">
-                                    Champ obligatoire !
-                                </span>
-                            </div>
-                            <div class="form-style-1">
-                                <label class="form-label">Couleur</label>
-                                <div class="color-picker">
-                                    <p-colorPicker formControlName="color" ></p-colorPicker>
-                                </div>
-                                <span class="error"
-                                    *ngIf="editModuleForm.controls['color'].hasError('required') && isSubmitted">
-                                    Champ obligatoire !
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+      </div>
+  
+      <div class="table-area">
+        <form [formGroup]="updateModuleForm">
+          <div class="row">
+            <div class="col-lg-4 pe-md-0">
+              <div class="card form-area bg-white part-one">
+                <div class="card-body">
+                  <!-- Diplôme -->
+                  <div class="form-style-1">
+                    <label class="form-label">Diplôme</label>
+                    <p-dropdown
+                      [options]="diplomas"
+                      formControlName="diploma_id"
+                      [autoDisplayFirst]="false"
+                      placeholder="Sélectionner un diplôme *"
+                      optionLabel="name"
+                      optionValue="id"
+                      [showClear]="false">
+                    </p-dropdown>
+                    <span class="error" *ngIf="updateModuleForm.controls['diploma_id'].hasError('required') && isSubmitted">
+                      Champ est obligatoire !
+                    </span>
+                  </div>
+  
+                  <!-- Type d'Emploi -->
+                  <div class="form-style-1">
+                    <label class="form-label">Type d'emploi</label>
+                    <p-dropdown
+                      [options]="jobTypes"
+                      formControlName="job_type"
+                      placeholder="Sélectionner le type d'emploi">
+                    </p-dropdown>
+                  </div>
                 </div>
-                <div class="col-lg-8">
-                    <div class="card form-area bg-white">
-                        <div class="card-body">
-                            <div class="form-style-1">
-                                <label class="form-label">Image</label>
-                            </div>
-                            <div class="form-style-1" *ngIf="imageUrl">
-                                <div class="gallerie">
-                                    <div class="gallerie__item">
-                                        <img class="img-image" [src]="imageUrl" alt="image du module">
-                                        <i class="pi pi-times" (click)="removeImage()"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-style-1">
-                                <input id="image" type="file" placeholder="Image" class="input-file image"
-                                    accept="image/png, image/jpeg" (change)="uploadImage($event)">
-                                <label for="image" *ngIf="editModuleForm.controls['image'].value">
-                                    {{editModuleForm.controls['image'].value.name}}
-                                </label>
-                                <label for="image" *ngIf="!editModuleForm.controls['image'].value">
-                                    Image
-                                </label>
-                                <span class="error"
-                                    *ngIf="editModuleForm.controls['image'].hasError('required') && isSubmitted">
-                                    Champ obligatoire !
-                                </span>
-                            </div>
-                            <div class="form-style-1">
-                                <label class="form-label">Titre</label>
-                                <input type="text" placeholder="Titre *" formControlName="name">
-                                <span class="error"
-                                    *ngIf="editModuleForm.controls['name'].hasError('required') && isSubmitted">
-                                    Champ obligatoire !
-                                </span>
-                            </div>
-                            <div class="form-style-1">
-                                <label class="form-label">Description</label>
-                                <textarea placeholder="Description" formControlName="description">
-                                </textarea>
-                                <span class="error"
-                                    *ngIf="editModuleForm.controls['description']?.hasError('required') && isSubmitted">
-                                    Champ obligatoire !
-                                </span>
-                            </div>
-                            <div class="card-footer bg-white">
-                                <p-button [disabled]="loadingAdd" [icon]="loadingAdd ? 'pi pi-spin pi-spinner' : ''"
-                                    label="Modifier" styleClass="btn btn-primary submit"
-                                    (onClick)="submitForm()">
-                                </p-button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+  
+            <div class="col-lg-8">
+              <div class="card form-area bg-white">
+                <div class="card-body">
+                  <!-- Image -->
+                  <div class="form-style-1">
+                    <label class="form-label">Image</label>
+                  </div>
+                  <div class="form-style-1" *ngIf="imageUrl">
+                    <div class="gallerie">
+                      <div class="gallerie__item">
+                        <img class="img-image" [src]="imageUrl" alt="image du module">
+                        <i class="pi pi-times" (click)="removeImage()"></i>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="form-style-1">
+                    <input
+                      id="image"
+                      type="file"
+                      placeholder="Image"
+                      class="input-file image"
+                      accept="image/png, image/jpeg"
+                      (change)="uploadImage($event)">
+                    <label for="image" *ngIf="updateModuleForm.controls['image'].value">
+                      {{ updateModuleForm.controls['image'].value.name }}
+                    </label>
+                    <label for="image" *ngIf="!updateModuleForm.controls['image'].value">
+                      Image
+                    </label>
+                  </div>
+  
+                  <!-- Titre -->
+                  <div class="form-style-1">
+                    <label class="form-label">Titre</label>
+                    <input type="text" placeholder="Titre *" formControlName="name">
+                  </div>
+  
+                  <!-- Durée du contrat -->
+                  <div class="form-style-1">
+                    <label class="form-label">Durée du contrat</label>
+                    <input type="text" placeholder="Durée du contrat (en mois)" formControlName="contract_duration">
+                  </div>
+  
+                  <!-- Salaire -->
+                  <div class="form-style-1">
+                    <label class="form-label">Salaire</label>
+                    <input type="number" placeholder="Rémunération en €" formControlName="salary">
+                  </div>
+  
+                  <!-- Compétences requises -->
+                  <div class="form-style-1">
+                    <label class="form-label">Compétences requises</label>
+                    <textarea placeholder="Compétences requises pour ce poste" formControlName="required_skills"></textarea>
+                  </div>
+  
+                  <!-- Lieu de travail -->
+                  <div class="form-style-1">
+                    <label class="form-label">Lieu de travail</label>
+                    <input type="text" placeholder="Lieu de travail" formControlName="work_location">
+                  </div>
+  
+                  <!-- Description -->
+                  <div class="form-style-1">
+                    <label class="form-label">Description</label>
+                    <textarea placeholder="Description" formControlName="description"></textarea>
+                  </div>
+  
+                  <!-- Bouton Modifier -->
+                  <div class="card-footer bg-white">
+                    <p-button
+                      [disabled]="loadingUpdate"
+                      [icon]="loadingUpdate ? 'pi pi-spin pi-spinner' : ''"
+                      label="Modifier"
+                      styleClass="btn btn-primary submit"
+                      (onClick)="submitForm()">
+                    </p-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
+      </div>
     </div>
-</div>
+  </div>
+  

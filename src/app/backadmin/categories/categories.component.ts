@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService } from '../_services/categories.service';
 import Swal from 'sweetalert2';
 
@@ -29,6 +29,7 @@ export class CategoriesComponent  implements OnInit {
   constructor(
     private categoriesService: CategoriesService,
     private route : ActivatedRoute,
+    private router: Router,
   ){}
 
   ngOnInit(): void {
@@ -51,19 +52,31 @@ export class CategoriesComponent  implements OnInit {
   UpdateCategorie(){}
 
 
-  getListCategories(){
-    const data = {
-      page: this.page,
-      paginate: 1,
-      per_page: this.per_page,
+  getListCategories() {
+    // Fake Data
+    const fakeData = {
+      body: {
+        data: [
+          { id: 1, name: 'Category 1', description: 'Description for Category 1', image: 'image1.jpg', created_at: '2025-01-01' },
+          { id: 2, name: 'Category 2', description: 'Description for Category 2', image: 'image2.jpg', created_at: '2025-02-01' },
+          { id: 3, name: 'Category 3', description: 'Description for Category 3', image: '', created_at: '2025-03-01' },
+          { id: 4, name: 'Category 4', description: 'Description for Category 4', image: 'image4.jpg', created_at: '2025-04-01' },
+          // Add more categories as needed
+        ],
+        paginator: {
+          total: 4,
+          last_page: 1
+        }
+      }
     };
-    this.categoriesService.indexCategories(data).subscribe((res: any) => {
-      this.categories = res.body.data;
-      this.total = res.body.paginator.total;
-      this.last_page = res.body.paginator.last_page;
-      this.loading = false;
-    });
+  
+    // Use fake data instead of real API call
+    this.categories = fakeData.body.data;
+    this.total = fakeData.body.paginator.total;
+    this.last_page = fakeData.body.paginator.last_page;
+    this.loading = false;
   }
+  
 
 
 
@@ -75,6 +88,9 @@ export class CategoriesComponent  implements OnInit {
     updateCategorie(categorie: any) {
       this.showUpdate = true;
       this.categorieToUpdate = categorie;
+      this.router.navigate([`/dashboard/all-news/categories/update-categorie/`, categorie.id]);
+ 
+
     }
     
     // Suppression d'une catégorie

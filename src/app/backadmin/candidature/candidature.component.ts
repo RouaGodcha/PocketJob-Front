@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidatureService } from '../_services/candidature.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-candidature',
@@ -31,6 +32,15 @@ export class CandidatureComponent implements OnInit {
     { label: 'Refusé', value: 'refuse' },
   ];
 
+  // Données factices
+  fakeData = [
+    { candidatNom: 'John Doe', offreReference: 'REF123', entrepriseNom: 'Entreprise A', domaine: 'Informatique', statut: 'en_attente' },
+    { candidatNom: 'Jane Smith', offreReference: 'REF124', entrepriseNom: 'Entreprise B', domaine: 'Marketing', statut: 'accepte' },
+    { candidatNom: 'Alex Johnson', offreReference: 'REF125', entrepriseNom: 'Entreprise C', domaine: 'Finance', statut: 'refuse' },
+    { candidatNom: 'Maria Garcia', offreReference: 'REF126', entrepriseNom: 'Entreprise D', domaine: 'Design', statut: 'en_attente' },
+    { candidatNom: 'Carlos Perez', offreReference: 'REF127', entrepriseNom: 'Entreprise E', domaine: 'Développement', statut: 'accepte' }
+  ];
+
   constructor(private candidatureService: CandidatureService, private router: Router) {}
 
   ngOnInit(): void {
@@ -57,11 +67,17 @@ export class CandidatureComponent implements OnInit {
       ...this.filters,
     };
 
-    this.candidatureService.getCandidatures(params).subscribe((response) => {
-      this.tableData = response.data;
-      this.total = response.total;
-      this.loading = false;
-    });
+    // Remplacer l'appel réel par des données factices pour le test
+    this.tableData = this.fakeData;  // Utilisation des données factices
+    this.total = this.fakeData.length; // Total des éléments factices
+    this.loading = false;
+
+    // Appel API réel (commentez la ligne ci-dessous pour désactiver les données réelles)
+    // this.candidatureService.getCandidatures(params).subscribe((response) => {
+    //   this.tableData = response.data;
+    //   this.total = response.total;
+    //   this.loading = false;
+    // });
   }
 
   modifier(c: any) {
@@ -72,6 +88,35 @@ export class CandidatureComponent implements OnInit {
     if (confirm('Voulez-vous vraiment annuler cette candidature ?')) {
       this.annulerCandidature(c.id);
     }
+  }
+
+  deleteCandidature(candidature: any) {
+    Swal.fire({
+      text: 'Voulez-vous supprimer cette candidature  ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
+      customClass: {
+        confirmButton: 'btn-primary',
+        cancelButton: 'btn-cancel',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.candidatureService.deleteCandidature(candidature.id).subscribe(() => {
+          Swal.fire({
+            text: 'Candidature supprimé avec succès',
+            icon: 'success',
+            customClass: {
+              confirmButton: 'btn-primary',
+            },
+          }).then(() => {
+            this.loadData();
+          });
+        });
+      }
+    });
   }
 
   annulerCandidature(id: number) {

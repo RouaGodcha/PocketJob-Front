@@ -1,4 +1,4 @@
-<div class="list-orders-item-area users-area" >
+<div class="list-orders-item-area users-area">
   <div class="introduction-area">
     <div class="p-d-flex p-jc-between">
       <div class="big-title-blc">
@@ -10,25 +10,10 @@
           routerLink="/dashboard/users/candidats/add-candidat"
           pButton
           pRipple
-          icon="pi pi-plus">
+          icon="pi pi-plus"
+        >
           Ajouter
         </a>
-        <a
-        class="btn-primary"
-        routerLink="/dashboard/users/candidats/update-candidat"
-        pButton
-        pRipple
-        icon="pi pi-plus">
-        modifier
-      </a>
-      <a
-      class="btn-primary"
-      routerLink="/dashboard/users/candidats/Viewcandidats"
-      pButton
-      pRipple
-      icon="pi pi-plus">
-      details
-    </a>
       </div>
     </div>
   </div>
@@ -103,32 +88,35 @@
                 ></button>
 
                 <button
+                type="button"
                   pButton
                   icon="pi pi-eye"
                   pTooltip="Détails"
                   tooltipPosition="left"
                   class="btn-icon btn-icon--outlin-primary"
-                  [routerLink]="['dashboard/users/candidats/Viewcandidats', candidat.id]"
                   (click)="candidatDetails(candidat.id)"
                 ></button>
 
                 <button
-                  pButton
-                  icon="pi pi-pencil"
-                  pTooltip="Modifier"
-                  tooltipPosition="left"
-                  class="btn-icon btn-icon--outlin-primary"
-                  (click)="displayUpdateCandidats(candidat)"
-                ></button>
+                type="button"
+                pButton
+                icon="pi pi-pencil"
+                pTooltip="Modifier"
+                tooltipPosition="left"
+                class="btn-icon btn-icon--outlin-primary"
+                (click)="updateCandidat(candidat)"
+              ></button>
+              
 
                 <button
-                  pButton
-                  icon="pi pi-trash"
-                  pTooltip="Supprimer"
+                  type="button"
+                  pTooltip="Supprimer un candidat"
                   tooltipPosition="left"
+                  pButton
                   class="btn-icon btn-icon--outlin-primary"
-                  (click)="toggleDeleteCandidat(candidat)"
-                  ></button>
+                  icon="pi pi-trash"
+                  (click)="deleteCandidat(candidat)"
+                ></button>
               </td>
             </tr>
           </ng-template>
@@ -148,38 +136,3 @@
     </div>
   </div>
 </div>
-
-<!-- Modal d'ajout -->
-<app-add-candidat
-  *ngIf="isModalOpen"
-  (close)="isModalOpen = false"
-  (success)="onCandidatAdded($event)">
-</app-add-candidat> 
-
-<p-dialog 
-header="Supprimer"
-[(visible)]="showDelete"
-[modal]="true"
-[style]="{width : '636px'}">
-<div class="create-client-content clien-area">
-  <p>
-    supprimer avec succees 
-  </p>
-</div>
-<ng-template pTemplate="footer">
-  <div class="footer_style">
-    <p-button
-    label="Cancel"
-    styleClass="p-button-text btn btn-cancel"
-    (click)="toggleDeleteCandidat()">
-  </p-button>
-
-  <p-button
-          label="Supprimer"
-          styleClass="btn btn-primary"
-          (click)="deleteCandidat()"
-        >
-        </p-button>
-  </div>
-</ng-template>
-</p-dialog>

@@ -69,9 +69,10 @@ const routes: Routes = [
       { path:'profil', component : ProfilComponent },
       { path:'inviter', component: InviteComponent}
     ]
-  }
-  
-      
+  },
+
+
+   
     ];
 
 @NgModule({

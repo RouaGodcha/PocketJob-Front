@@ -1,0 +1,150 @@
+@import "../../../../scss/components/extend";
+
+/* --- Couleurs personnalisées --- */
+$color-primary: #4C9AFF;
+$color-white: #fff;
+$color-dark: #333;
+$color-gray: #8f8c8c;
+$color-hover: rgba(0, 0, 0, 0.1);
+$color-border: #e0e0e0;
+$color-placeholder: #a6a6a6;
+$color-red-guardsman: #D94D4D;
+
+header.navbar-employer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(180deg, #2d0f5c, #693a9e);
+  padding: 0 25px;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: $color-white;
+
+  .left-section {
+    .site-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: $color-white;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    .info-bloc {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: right;
+
+      .employer-name {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .status {
+        font-size: 14px;
+
+        &.connected {
+          color: #4caf50;
+        }
+
+        &.disconnected {
+          color: $color-red-guardsman;
+        }
+      }
+
+      .address {
+        font-size: 13px;
+        color: $color-gray;
+      }
+    }
+
+    .dropdown {
+      position: relative;
+
+      .user-icon {
+        background-color: $color-primary;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-image: url("../../../../assets/img/profile.svg");
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+      }
+
+      .dropdown-list {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        display: none;
+        background-color: $color-white;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        padding: 10px;
+        width: 180px;
+        z-index: 200;
+
+        &.active {
+          display: block;
+        }
+
+        button {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          padding: 10px;
+          border: none;
+          background: none;
+          font-size: 14px;
+          color: $color-dark;
+          cursor: pointer;
+          transition: background 0.3s;
+
+          &:hover {
+            background-color: $color-hover;
+          }
+
+          .logout-text {
+            color: $color-red-guardsman;
+            margin-left: 10px;
+            text-align: left;
+            font-size: 14px;
+            padding-right: 20px;
+          }
+
+          .config-text {
+            margin-left: 10px;
+            text-align: left;
+            font-size: 14px;
+            color: $color-gray;
+            padding-right: 20px;
+          }
+        }
+
+        .logout-btn {
+          color: $color-red-guardsman;
+          @include backgroundImage($smart-tags-associes-icon, 100%, 50%, auto);
+          @include flex();
+        }
+
+        .config-btn {
+          @include backgroundImage($setting-icon, 97%, 50%, auto);
+        }
+      }
+    }
+  }
+}

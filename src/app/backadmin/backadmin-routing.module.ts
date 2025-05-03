@@ -38,11 +38,12 @@ import { CandidatureComponent } from './candidature/candidature.component';
 import { UpdateCandidatureComponent } from './candidature/update-candidature/update-candidature.component';
 import { AdminsComponent } from './admins/admins.component';
 import { ViewAdminComponent } from './admins/view-admin/view-admin.component';
-import { AppointmentsComponent } from './appointments/appointments.component';
 import { PubliciteComponent } from './publicite/publicite.component';
 import { AddPublicitesComponent } from './publicite/add-publicites/add-publicites.component';
 import { UpdatePublicitesComponent } from './publicite/update-publicites/update-publicites.component';
 import { MessagerieComponent } from './messagerie/messagerie.component';
+import { ViewEmployeurComponent } from './employeur/view-employeur/view-employeur.component';
+import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 
 const routes: Routes = 
 [
@@ -89,11 +90,6 @@ const routes: Routes =
         path: 'configurations',
         component: ConfigurationsComponent,
       },
-
-      
-
-      
-
       // USER MODULE
       {
         path: 'users',
@@ -113,11 +109,11 @@ const routes: Routes =
                 path : 'add-candidat', component : AddCandidatComponent
               },
               {
-                path : 'update-candidat', component : UpdateCandidatComponent
+                path : 'update-candidat/:id', component : UpdateCandidatComponent
               },
               /* detailes de candidats  */
               {
-                path : 'Viewcandidats', component : ViewCandidatComponent
+                path : 'Viewcandidats/:id', component : ViewCandidatComponent
               }
             ]
           },
@@ -127,16 +123,13 @@ const routes: Routes =
             children : [
               { path : '' , component : EmployeurComponent},
               { path : 'add-employer',component : AddEmployerComponent},
-              { path :'update-employer' , component : UpdateEmployerComponent}
+              { path :'update-employer/:id' , component : UpdateEmployerComponent},
+              {path :'details/:id', component : ViewEmployeurComponent}
             ]
           }
         ],
        
-      },
-     
-      
-      
-
+      },   
       // HOME (PocketJob) ==> postes
       {
         path: 'pocketjob',
@@ -147,9 +140,18 @@ const routes: Routes =
               { path: '', component: PostesComponent },
               { path: 'add-postes', component: AddPostesComponent },
               { path : 'update-postes', component : UpdatePostesComponent},
-              { path :'update-postesupdate-postes-react', component : UpdatePostesReactionComponent}
+              { path :'update-postes-react', component : UpdatePostesReactionComponent}
             ],
           },
+          {
+            path: 'newposte',
+            children: [
+              { path: '', component: NewPosteComponent },
+              { path: 'add-poste', component: AddNewsComponent },
+              { path : 'update-poste' , component : UpdateNewsComponent},
+              { path : 'news-details',component : ViewNewsComponent}
+            ]
+          }
         ]
       },
 
@@ -171,22 +173,14 @@ const routes: Routes =
             children: [
               { path: '', component: CategoriesComponent },
               { path: 'add-categorie', component: AddCategorieComponent },
-              { path: 'update-categorie', component: UpdateCategorieComponent }
+              { path: 'update-categorie/:id', component: UpdateCategorieComponent }
             ]
           },
           {
             path: 'medias',
             component: MediasComponent,
           },
-          {
-            path: 'newposte',
-            children: [
-              { path: '', component: NewPosteComponent },
-              { path: 'add-poste', component: AddNewsComponent },
-              { path : 'update-poste' , component : UpdateNewsComponent},
-              { path : 'news-details',component : ViewNewsComponent}
-            ]
-          }
+         
         ]
       },
 
@@ -214,7 +208,7 @@ const routes: Routes =
             children: [
               { path: '', component: ModulesComponent },
               { path: 'add-module', component: AddModuleComponent },
-              { path : 'edit-module', component: EditModuleComponent}
+              { path : 'edit-offre/:id', component: EditModuleComponent}
             ],
             
           },
@@ -230,13 +224,13 @@ const routes: Routes =
           }
         ],
       }, 
-       // QCMS
-
+       // rendez-vous
        {
-        path :'appointments',
-        component : AppointmentsComponent
+        path :'rendez-vous',
+        component : RendezVousComponent
        },
 
+       
        // gestion de publicités 
 
        {

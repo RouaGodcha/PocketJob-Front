@@ -10,4 +10,4 @@ export const environment = {
   apiUrl: API_URL, 
   siteUrl: SITE_URL, // URL du site (non utilisée ici)
   googleMapsApiKey: '',
-};
+ };

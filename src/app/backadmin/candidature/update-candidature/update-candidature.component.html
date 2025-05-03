@@ -59,3 +59,18 @@
     </form>
   </div>
   
+  <!-- Popup Dialog for Success -->
+<p-dialog header="Succès" [(visible)]="displaySuccess" [modal]="true" [closable]="false" [style]="{width: '400px'}">
+  <p>La candidature a été modifiée avec succès!</p>
+  <p-footer>
+    <button type="button" pButton label="OK" icon="pi pi-check" (click)="closeDialog()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Popup Dialog for Error -->
+<p-dialog header="Erreur" [(visible)]="displayError" [modal]="true" [closable]="false" [style]="{width: '400px'}">
+  <p>Une erreur est survenue lors de la modification de la candidature.</p>
+  <p-footer>
+    <button type="button" pButton label="OK" icon="pi pi-times" (click)="closeDialog()"></button>
+  </p-footer>
+</p-dialog>

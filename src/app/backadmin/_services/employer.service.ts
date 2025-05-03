@@ -35,7 +35,7 @@ public addEmployer(payload: any): Observable<any> {
   return this.http.post(`${this.apiUrl}/employers`, payload);
 }
 
-getEmployerById(id: number) {
+getEmployerById(id: string) : Observable<any>{
   return this.http.get<any>(`${this.apiUrl}/employers/${id}`);
 }
 
@@ -53,6 +53,10 @@ public updateEmployer(id: number, payload: any): Observable<any> {
 // ✅ Restaurer un employeur supprimé
 public restoreEmployer(id: number): Observable<any> {
   return this.http.put(`${this.apiUrl}/employers/restore/${id}`, {});
+}
+
+public deletEmployer(id: any): Observable<HttpResponse<any>> | any {
+  return this.http.delete(`${this.apiUrl}/employers/delete/${id}`, { observe: 'response' });
 }
   
 }

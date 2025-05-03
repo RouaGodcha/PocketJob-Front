@@ -23,6 +23,8 @@ export class AddModuleComponent implements OnInit {
   diplomaId: any;
   loadingAdd: boolean = false;
   showSuccess = false;
+  overlayStatus: boolean = false;  // Pour contrôler l'état de l'overlay
+
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,
@@ -55,6 +57,15 @@ export class AddModuleComponent implements OnInit {
   cancel(){
     this.showSuccess = false;
     this.addModuleForm.reset();
+  }
+
+  overlayStatusFct() {
+    this.overlayStatus = !this.overlayStatus; // Change l'état de l'overlay
+  }
+
+  // Exemple de fonction pour fermer l'overlay
+  closeOverlay() {
+    this.overlayStatus = false; // Ferme l'overlay
   }
 
   closeModal() {

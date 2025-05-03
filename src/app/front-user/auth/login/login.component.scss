@@ -3,7 +3,7 @@ $primary-color: #04328C;
 $button-color: #28A745;
 $text-color: #333;
 $background-color: #F8F9FA;
-$link-color: #6c3fc9;
+$link-color: #08348C;
 
 .login-container {
   display: flex;
@@ -11,7 +11,7 @@ $link-color: #6c3fc9;
   align-items: center;
   min-height: 100vh;
   padding: 40px 20px;
-  background-color: $background-color;
+  background: #f4f6fa;
   animation: fadeInUp 0.5s ease;
 }
 

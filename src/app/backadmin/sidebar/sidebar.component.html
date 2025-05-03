@@ -18,7 +18,7 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/users"
+          routerLink="/dashboard/users/candidats"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('users'); closeFilters()"
         >
@@ -29,7 +29,7 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/offre-emploi"
+          routerLink="/dashboard/offre-emploi/modules"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('offre-emploi'); closeFilters()"
         >
@@ -48,17 +48,7 @@
           <span class="nav-link-txt"> Candidature </span>
         </a>
 
-        <!-- Actualités -->
-        <a
-          class="nav-link"
-          routerLinkActive="nav-link-active"
-          routerLink="/dashboard/all-news/categories"
-          aria-label="Section Actualités"
-          (click)="showList('news'); closeFilters()"
-        >
-          <span class="nav-link-icon all-news"></span>
-          <span class="nav-link-txt">Actualités</span>
-        </a>
+       
 
         <!-- Publicite -->
         <a
@@ -88,14 +78,26 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/appointments"
+          routerLink="/dashboard/rendez-vous"
           aria-label="Section Actualités"
-          (click)="showList('news'); closeFilters()"
+          (click)="showList('rendez-vous'); closeFilters()"
         >
           <span class="nav-link-icon rendez-vous"></span>
           <span class="nav-link-txt">Rendez-vous</span>
         </a>
+      
 
+         <!-- Actualités -->
+         <a
+         class="nav-link"
+         routerLinkActive="nav-link-active"
+         routerLink="/dashboard/all-news/categories"
+         aria-label="Section Actualités"
+         (click)="showList('news'); closeFilters()"
+       >
+         <span class="nav-link-icon all-news"></span>
+         <span class="nav-link-txt">Actualités</span>
+       </a>
        
 
         
@@ -125,6 +127,13 @@
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Posts</a>
+              <a
+              class="icon news"
+              routerLinkActive="nav-link-active"
+              routerLink="/dashboard/pocketjob/newposte"
+              [routerLinkActiveOptions]="{ exact: false }"
+              (click)="closeFilters()"
+              >Nouveaux Posts</a>
           </li>
         </ul>
       </nav>
@@ -183,7 +192,7 @@
               (click)="closeFilters()"
               >QCMs</a>
           </li>
-          -->
+          
           <li>
             <a
               class="icon fiche"
@@ -192,7 +201,7 @@
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Fiches de Poste</a>
-          </li>
+          </li>-->
         </ul>
       </nav>
     </div>
@@ -223,15 +232,6 @@
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Médias</a>
-          </li>
-          <li>
-            <a
-              class="icon news"
-              routerLinkActive="nav-link-active"
-              routerLink="/dashboard/all-news/newposte"
-              [routerLinkActiveOptions]="{ exact: false }"
-              (click)="closeFilters()"
-              >Nouveaux Posts</a>
           </li>
         </ul>
       </nav>

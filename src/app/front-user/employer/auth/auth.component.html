@@ -1,108 +1,130 @@
 <div class="form-step">
-    <h1>Inscription Employeur</h1>
-  
-    <div class="etapes">
-      <span [class.active]="currentStep === 1">1</span>
-      <span [class.active]="currentStep === 2">2</span>
-      <span [class.active]="currentStep === 3">3</span>
-    </div>
-  
-    <form [formGroup]="employerForm" (ngSubmit)="submit()">
-  
-      <!-- ÉTAPE 1 : Informations Entreprise -->
-      <div *ngIf="currentStep === 1">
-        <label>
-          Nom de l'entreprise
-          <input type="text" formControlName="nomEntreprise" placeholder="Ex: TechCorp" />
-        </label>
-        <div *ngIf="submitted && employerForm.controls['nomEntreprise'].invalid" class="error">
-          Ce champ est requis
-        </div>
-  
-        <label>
-          Adresse
-          <input type="text" formControlName="adresseEntreprise" placeholder="Ex: 123 Avenue, Tunis" />
-        </label>
-        <div *ngIf="submitted && employerForm.controls['adresseEntreprise'].invalid" class="error">
-          Ce champ est requis
-        </div>
-  
-        <label>
-          Secteur d'activité
-          <input type="text" formControlName="secteur" placeholder="Ex: Technologie, Restauration..." />
-        </label>
-        <div *ngIf="submitted && employerForm.controls['secteur'].invalid" class="error">
-          Ce champ est requis
-        </div>
-  
-        <div class="form-navigation">
-          <button type="button" (click)="nextStep()">Suivant</button>
-        </div>
-      </div>
-  
-      <!-- ÉTAPE 2 : Profil Recruteur -->
-      <div *ngIf="currentStep === 2">
-        <label>
-          Nom du recruteur
-          <input type="text" formControlName="nomResponsable" />
-        </label>
-        <div *ngIf="submitted && employerForm.controls['nomResponsable'].invalid" class="error">
-          Ce champ est requis
-        </div>
-  
-        <label>
-          Email professionnel
-          <input type="email" formControlName="email" />
-        </label>
-        <div *ngIf="submitted && employerForm.controls['email'].invalid" class="error">
-          Format d'email invalide
-        </div>
-  
-        <label>
-          Téléphone
-          <input type="tel" formControlName="telephone" />
-        </label>
-        <div *ngIf="submitted && employerForm.controls['telephone'].invalid" class="error">
-          Ce champ est requis
-        </div>
-  
-        <label>
-          Mot de passe
-          <input type="password" formControlName="password" />
-        </label>
-        <div *ngIf="submitted && employerForm.controls['password'].invalid" class="error">
-          Minimum 6 caractères requis
-        </div>
-  
-        <div class="form-navigation">
-          <button type="button" (click)="previousStep()">Retour</button>
-          <button type="button" (click)="nextStep()">Suivant</button>
-        </div>
-      </div>
-  
-      <!-- ÉTAPE 3 : Disponibilité et Validation -->
-      <div *ngIf="currentStep === 3">
-        <label>
-          Disponibilité pour contact
-          <textarea formControlName="disponibilite" placeholder="Ex: Du lundi au vendredi, 9h - 18h"></textarea>
-        </label>
-        <div *ngIf="submitted && employerForm.controls['disponibilite'].invalid" class="error">
-          Ce champ est requis
-        </div>
-  
-        <label class="checkbox">
-          <input type="checkbox" formControlName="terms" />
-          J'accepte les conditions d'utilisation
-        </label>
-        <div *ngIf="submitted && employerForm.controls['terms'].invalid" class="error">
-          Vous devez accepter les conditions
-        </div>
-  
-        <div class="form-navigation">
-          <button type="button" (click)="previousStep()">Retour</button>
-          <button type="submit">S'inscrire</button>
-        </div>
-      </div>
-    </form>
+  <h1>Inscription Employeur</h1>
+
+  <div class="etapes">
+    <span [class.active]="currentStep === 1">1</span>
+    <span [class.active]="currentStep === 2">2</span>
+    <span [class.active]="currentStep === 3">3</span>
   </div>
-  
+
+  <form [formGroup]="employerForm" (ngSubmit)="submit()">
+    
+    <!-- ÉTAPE 1 : Informations Entreprise -->
+    <div *ngIf="currentStep === 1">
+      <label>
+        Nom de l'entreprise
+        <input type="text" formControlName="nomEntreprise" placeholder="Ex: TechCorp" />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['nomEntreprise'].invalid" class="error">
+        Ce champ est requis
+      </div>
+
+      <label>
+        Adresse
+        <input type="text" formControlName="adresseEntreprise" placeholder="Ex: 123 Avenue, Tunis" (input)="updateMap()" />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['adresseEntreprise'].invalid" class="error">
+        Ce champ est requis
+      </div>
+
+      <label>
+        Localisation sur la carte
+        <div class="map-container">
+          <iframe
+            width="100%"
+            height="300"
+            style="border:0"
+            [src]="mapUrl | safeUrl"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </label>
+
+      <label>
+        Secteur d'activité
+        <input type="text" formControlName="secteur" placeholder="Ex: Technologie, Restauration..." />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['secteur'].invalid" class="error">
+        Ce champ est requis
+      </div>
+
+      <div class="form-navigation">
+        <button type="button" (click)="nextStep()">Suivant</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 2 : Profil Recruteur -->
+    <div *ngIf="currentStep === 2">
+      <label>
+        Nom du recruteur
+        <input type="text" formControlName="nomResponsable" />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['nomResponsable'].invalid" class="error">
+        Ce champ est requis
+      </div>
+
+      <label>
+        Email professionnel
+        <input type="email" formControlName="email" />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['email'].invalid" class="error">
+        Format d'email invalide
+      </div>
+
+      <label>
+        Téléphone
+        <input type="tel" formControlName="telephone" />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['telephone'].invalid" class="error">
+        Ce champ est requis
+      </div>
+      <label>
+        E-mail
+        <input type="email" formControlName="email" />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['email'].invalid" class="error">
+        Ce champ est requis
+      </div>
+
+      <label>
+        Mot de passe
+        <input type="password" formControlName="password" />
+      </label>
+      <div *ngIf="submitted && employerForm.controls['password'].invalid" class="error">
+        Minimum 6 caractères requis
+      </div>
+
+      <div class="form-navigation">
+        <button type="button" (click)="previousStep()">Retour</button>
+        <button type="button" (click)="nextStep()">Suivant</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 3 : Disponibilité et Validation -->
+    <div *ngIf="currentStep === 3">
+      <label>
+        Disponibilité pour contact
+        <textarea formControlName="disponibilite" placeholder="Ex: Du lundi au vendredi, 9h - 18h"></textarea>
+      </label>
+      <div *ngIf="submitted && employerForm.controls['disponibilite'].invalid" class="error">
+        Ce champ est requis
+      </div>
+
+      <label class="checkbox">
+        <input type="checkbox" formControlName="terms" />
+        J'accepte les conditions d'utilisation
+      </label>
+      <div *ngIf="submitted && employerForm.controls['terms'].invalid" class="error">
+        Vous devez accepter les conditions
+      </div>
+
+      <div class="form-navigation">
+        <button type="button" (click)="previousStep()">Retour</button>
+        <button type="submit" routerLink="/Frontemployer">S'inscrire</button>
+      </div>
+    </div>
+
+  </form>
+</div>

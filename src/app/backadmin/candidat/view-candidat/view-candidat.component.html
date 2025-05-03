@@ -4,10 +4,11 @@
       <div class="big-title-blc">
         <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
      
-         <h1 class="big-title title-align-center">
-            Details du candidat
-          {{ candidat?.firstname + " " + candidat?.lastname }}
+        <h1 class="big-title title-align-center">
+          Details du candidat
+          {{ candidat?.firstname && candidat?.lastname ? (candidat?.firstname + " " + candidat?.lastname) : 'Candidat non trouvé' }}
         </h1>
+        
       </div>
     </div>
   

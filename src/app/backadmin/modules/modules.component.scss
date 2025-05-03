@@ -37,7 +37,13 @@
   }
 }
 
-
+.big-title-blc {
+  .big-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0A1659;
+  }
+}
 /* Filter Toggle */
 .table-filter {
   display: flex;

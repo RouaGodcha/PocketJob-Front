@@ -1,0 +1,70 @@
+<div class="messenger-layout">
+    <!-- 📥 Liste des conversations -->
+    <div class="sidebar">
+      <div class="header">
+        <h3>📨 Messagerie</h3>
+        <button class="new-message">+ Nouveau</button>
+      </div>
+  
+      <div *ngFor="let convo of conversations"
+           (click)="openConversation(convo.id)"
+           class="conversation-item"
+           [class.active]="selectedConversationId === convo.id">
+  
+        <img [src]="convo.avatar" alt="avatar" class="avatar">
+        <div class="details">
+          <strong>{{ convo.from }}</strong>
+          <div class="preview">{{ convo.preview }}</div>
+        </div>
+        <div class="date">{{ convo.date }}</div>
+      </div>
+    </div>
+  
+    <!-- 💬 Zone de discussion -->
+    <div class="chat-area" *ngIf="selectedConversationId">
+      <div class="chat-header">
+        <div class="user-info">
+          <img [src]="getSelectedContact()?.avatar" alt="avatar">
+          <div class="user-name">{{ getSelectedContact()?.from }}</div>
+        </div>
+        <div class="actions">
+          <button><i class="pi pi-ellipsis-h"></i></button>
+        </div>
+      </div>
+  
+      <div class="chat-box">
+        <div *ngFor="let msg of selectedMessages" class="chat-bubble" [class.sent]="msg.from === 'employeur'">
+          <div class="content">{{ msg.message }}</div>
+          <div class="meta">{{ msg.date | date:'shortTime' }}</div>
+        </div>
+      </div>
+  
+      <div class="send-box">
+        <div class="tools">
+          <label title="Emoji">
+            <i class="pi pi-smile"></i>
+          </label>
+  
+          <label title="Image">
+            <i class="pi pi-image"></i>
+            <input type="file" accept="image/*" />
+          </label>
+  
+          <label title="Audio">
+            <i class="pi pi-microphone"></i>
+            <input type="file" accept="audio/*" />
+          </label>
+        </div>
+  
+        <input type="text" [(ngModel)]="messageInput" placeholder="Écrire un message...">
+  
+        <button class="send-btn" (click)="sendMessage()">
+          <i class="pi pi-send"></i>
+        </button>
+      </div>
+    </div>
+  
+    <div class="chat-placeholder" *ngIf="!selectedConversationId && !loading">
+      <p>💬 Sélectionnez une conversation à gauche</p>
+    </div>
+  </div>

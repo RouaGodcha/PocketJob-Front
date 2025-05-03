@@ -1,0 +1,113 @@
+<!-- profile-employer.component.html -->
+<div class="profile-wrapper">
+    <div class="profile-main">
+      <form class="profile-form" (ngSubmit)="updateProfile()">
+        <div class="form-grid">
+          <!-- Photo upload -->
+          <div class="photo-card">
+            <h4>Logo de l'entreprise</h4>
+            <div class="logo-preview">
+              <img [src]="previewUrl || profile.logoUrl" alt="Logo entreprise" />
+              <input type="file" id="logoInput" (change)="onFileSelected($event)" hidden />
+              <button type="button" class="btn-change-logo" (click)="triggerLogoUpload()">Changer le logo</button>
+            </div>
+            <small>Formats acceptés : JPG, PNG ... </small>
+          </div>
+  
+          <!-- Company Information -->
+          <div class="info-card">
+            <h3>Informations de l'entreprise</h3>
+  
+            <div class="form-row">
+              <label>Nom de l'entreprise</label>
+              <input type="text" [(ngModel)]="profile.companyName" name="companyName" required />
+            </div>
+  
+            <div class="form-row">
+              <label>Email entreprise</label>
+              <input type="email" [(ngModel)]="profile.email" name="email" required />
+            </div>
+  
+            <div class="form-row">
+              <label>Téléphone entreprise</label>
+              <input type="text" [(ngModel)]="profile.phone" name="phone" />
+            </div>
+  
+            <div class="form-row">
+              <label>Adresse</label>
+              <input type="text" [(ngModel)]="profile.address" name="address" />
+            </div>
+  
+            <div class="form-group-two">
+              <div class="form-row">
+                <label>Ville</label>
+                <input type="text" [(ngModel)]="profile.city" name="city" />
+              </div>
+              <div class="form-row">
+                <label>Gouvernorat</label>
+                <input type="text" [(ngModel)]="profile.state" name="state" />
+              </div>
+            </div>
+  
+            <div class="form-group-two">
+              <div class="form-row">
+                <label>Code Postal</label>
+                <input type="text" [(ngModel)]="profile.zipCode" name="zipCode" />
+              </div>
+              <div class="form-row">
+                <label>Pays</label>
+                <input type="text" [(ngModel)]="profile.country" name="country" />
+              </div>
+            </div>
+          </div>
+  
+          <!-- Recruiter Information -->
+          <div class="info-card">
+            <h3>Responsable du recrutement</h3>
+  
+            <div class="form-row">
+              <label>Nom complet</label>
+              <input type="text" [(ngModel)]="profile.recruiter.fullName" name="recruiterFullName" />
+            </div>
+  
+            <div class="form-row">
+              <label>Email</label>
+              <input type="email" [(ngModel)]="profile.recruiter.email" name="recruiterEmail" />
+            </div>
+  
+            <div class="form-row">
+              <label>Téléphone</label>
+              <input type="text" [(ngModel)]="profile.recruiter.phone" name="recruiterPhone" />
+            </div>
+  
+            <div class="form-row">
+              <label>Poste</label>
+              <input type="text" [(ngModel)]="profile.recruiter.position" name="recruiterPosition" />
+            </div>
+          </div>
+
+                 <!-- Carte d'entreprise -->
+<div class="map-card">
+  <h3>Localisation sur la carte</h3>
+  <iframe
+    width="100%"
+    height="250"
+    frameborder="0"
+    style="border:0; border-radius: 12px;"
+    [src]="googleMapUrl"
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+</div>
+        </div>
+
+ 
+
+  
+        <div class="form-footer">
+          <button type="submit" class="btn-save">Mettre à jour</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,19 @@
+<div class="notifications-wrapper">
+    <div class="notif-header">
+      <h3>📢 Mes Notifications</h3>
+    </div>
+  
+    <ul class="notif-list">
+      <li *ngFor="let notif of notifications" class="notif-item" [class.unread]="!notif.is_read">
+        <div class="notif-content">
+            <i class="fa-solid fa-bell"></i>
+
+          <span>{{ notif.message }}</span>
+        </div>
+        <button class="mark-btn" *ngIf="!notif.is_read" (click)="markAsRead(notif.id)">
+          Marquer comme lue
+        </button>
+      </li>
+    </ul>
+  </div>
+  

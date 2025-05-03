@@ -10,33 +10,30 @@
                 <a 
                 class="btn-primary"
                 routerLink="/dashboard/pocketjob/postes/add-postes"
-         
                 pButton
                 pRipple
                 icon="pi pi-plus"
                 (click)="AddPost()">
                 Ajouter
                ></a>
-                <a 
-                class="btn-primary"
-                routerLink="/dashboard/pocketjob/postes/update-postes"
-         
-                pButton
-                pRipple
-                icon="pi pi-plus"
-                (click)="AddPost()">
-                modfer post
-                </a>
-                <a 
-                class="btn-primary"
-                routerLink="/dashboard/pocketjob/postes/update-postesupdate-postes-react"
-         
-                pButton
-                pRipple
-                icon="pi pi-plus"
-                (click)="AddPost()">
-                modifer poste reaction
-                </a>
+               <!--
+               <button
+               type="button"
+               pButton
+               icon="pi pi-pencil"
+               [disabled]="!selectedPost"
+               (click)="updatePost(selectedPost)">
+               Modifier
+               </button>
+              -->
+
+<!-- ton modal UpdatePostesComponent -->
+<app-update-postes
+[visible]="modalVisible"
+[post]="selectedPost"
+(close)="modalVisible = false">
+</app-update-postes>
+
             </div>
         </div>
     </div>
@@ -125,7 +122,7 @@
 
                 <td>{{ post.created_at | date : "dd/MM/yyyy" }}</td>
                 <td class="text-center">
-                    <!-- boutton pour update les raction-->
+                    <!-- boutton pour update les raction
                     <button
                     type="button"
                     pTooltip="{{ 'POSTS.UPDATE_R' | translate }}"
@@ -135,15 +132,15 @@
                     icon="pi pi-file-edit"
                     (click)="updatePostReacts(post)"
                     >
-                    </button>
+                    </button>-->
                      <!-- boutton pour update les post-->
                     <button
                     type="button"
-                    pTooltip="{{ 'POSTS.UPDATE' | translate }}"
+                    pTooltip="Modifier un poste"
                     tooltipPosition="left"
                     pButton
                     class="btn-icon btn-icon--outlin-primary"
-                    icon="pi pi-pencil"
+                    icon="pi pi-file-edit"
                     (click)="updatePost(post)">
     
                     </button>
@@ -151,7 +148,7 @@
                      <!-- boutton pour supp les postes -->
                       <button
                       type="button"
-                      pTooltip="{{ 'POSTS.DELETE' | translate }}"
+                      pTooltip="Supprimer un poste"
                       tooltipPosition="left"
                         pButton
                         class="btn-icon btn-icon--outlin-primary"

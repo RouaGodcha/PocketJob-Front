@@ -1,30 +1,23 @@
-import {
-  Component, EventEmitter, Input, OnInit, Output
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CandidatService } from '../_services/candidat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil, debounceTime } from 'rxjs';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-candidat',
-  standalone : false ,
+  standalone:false,
   templateUrl: './candidat.component.html',
   styleUrls: ['./candidat.component.scss'],
 })
 export class CandidatComponent implements OnInit {
-  @Input() show: boolean = false; // Ajoutez cette ligne
+  @Input() show: boolean = false;
   candidats: any[] = [];
   candidatsToDelete: any;
   showDelete = false;
   isModalOpen = false;
   loading = false;
-  public showingAddCandidat: boolean = false;
-  public showingUpdateCandidat: boolean = false;
-  public selectedCandidatToUpdate: any;
-  
-
-  // Pagination & Recherche
   first = 0;
   total = 0;
   per_page = 10;
@@ -35,6 +28,9 @@ export class CandidatComponent implements OnInit {
   allStatus: any[] = [];
   private destroy$ = new Subject<void>();
   private searchSubject = new Subject<string>();
+  isFakeData = true;
+  selectedCandidat: any = null;
+  modalVisible: boolean = false;
 
   constructor(
     private candidatService: CandidatService,
@@ -89,99 +85,79 @@ export class CandidatComponent implements OnInit {
   }
 
   getCandidatsList() {
-    this.loading = true;
-    this.candidatService.getCandidatsList().subscribe(
-      (res: any) => {
-        this.candidats = res;
+    if (this.isFakeData) {
+      this.loading = true;
+      const fakeCandidats = [
+        { id: 1, firstname: 'Ahmed', lastname: 'Ali', email: 'ahmed.ali@example.com', diplome: 'Baccalauréat', phone: '1234567890', status: 'ACTIVE', created_at: new Date('2023-01-15') },
+        { id: 2, firstname: 'Sara', lastname: 'Ben Ali', email: 'sara.benali@example.com', diplome: 'Master Informatique', phone: '9876543210', status: 'PENDING', created_at: new Date('2023-02-20') },
+        { id: 3, firstname: 'Khaled', lastname: 'Brahim', email: 'khaled.brahim@example.com', diplome: 'Licence', phone: '5647382910', status: 'DISABLED', created_at: new Date('2023-03-10') },
+      ];
+      setTimeout(() => {
+        this.candidats = fakeCandidats;
+        this.total = fakeCandidats.length;
         this.loading = false;
-      },
-      () => {
+      }, 1500);
+    } else {
+      this.candidatService.getCandidatsList(this.page, this.per_page, this.filter).subscribe((data: any) => {
+        this.candidats = data.candidats;
+        this.total = data.total;
         this.loading = false;
-      }
-    );
+      });
+    }
   }
 
   getDiplomesList() {
-    this.candidatService.getDiplomasList({ paginate: 0 }).subscribe(
-      (res: any) => {
-        if (res.body?.result === 'success') {
-          this.diplomas = res.body.data;
-        }
-      },
-      (err) => console.error(err)
-    );
-  }
-
-  updateCandidatsStatus(id: number, event: any) {
-    const formData = { status: event.value };
-    this.candidatService.changeStatus(id, formData).subscribe(
-      () => this.getCandidatsList(),
-      (err : any ) => console.error(err)
-    );
-  }
-
-  displayUpdateUser(candidat : any) {
-
-  }
-
-  candidatDetails(id: number) {
-    this.router.navigate(['/dashboard/candidats/details/' + id], {
-      queryParams: { page: this.page, per_page: this.per_page },
+    this.candidatService.getDiplomasList().subscribe((data: any) => {
+      this.diplomas = data;
     });
   }
 
-  openPages(id: number) {
-    this.router.navigate(['/dashboard/candidats/pages/' + id]);
+  updateCandidatsStatus(id: number, event: any) {
+    this.candidatService.changeStatus(id, event.value).subscribe(() => {
+      this.getCandidatsList();
+    });
   }
 
-  
-  toggleDeleteCandidat(elm: any = false) {
-    if (elm !== false) {
-      this.candidatsToDelete = elm;
-    }
-    this.showDelete = !this.showDelete;
-  }
-
-  displayUpdateCandidats(candidat: any) {
-    this.selectedCandidatToUpdate = candidat;
-    this.isModalOpen = true;
-  }
-
-
-  deleteCandidat(){
-    this.candidatService.deletCandidat(this.candidatsToDelete.id).subscribe(
-      (res: any) => {
-        if (res.body.result === 'success' && res.status === 200) {
-          this.candidatsToDelete = false;
-          this.toggleDeleteCandidat();
+  deleteCandidat(candidat: any) {
+    Swal.fire({
+      text: 'Voulez-vous supprimer ce candidat ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
+      customClass: {
+        confirmButton: 'btn-primary',
+        cancelButton: 'btn-cancel',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.candidatService.deletCandidat(candidat.id).subscribe(() => {
           Swal.fire({
-            text: 'Page supprimé avec succès',
+            text: 'Candidat supprimé avec succès',
             icon: 'success',
-            showCancelButton: false,
             customClass: {
               confirmButton: 'btn-primary',
             },
           }).then(() => {
             this.getCandidatsList();
           });
-        }
-      },
-      (error: any) => {
-        console.error(error);
-        Swal.fire({
-          text: 'error ' + error.status,
-          icon: 'error',
-          showCancelButton: false,
-          customClass: {
-            confirmButton: 'btn-primary',
-          },
         });
       }
-    );
+    });
   }
 
-  onCandidatAdded(event: any) {
-    this.isModalOpen = false;
-    this.getCandidatsList();
+  openPages(id: any) {
+    this.router.navigate([`/dashboard/users/candidats/Viewcandidats/${id}`]);
+  }
+
+  candidatDetails(id: any) {
+   
+    this.router.navigate([`/dashboard/users/candidats/Viewcandidats/${id}`]);
+  }
+
+  updateCandidat(candidat: any) {
+    this.selectedCandidat = candidat;
+    this.router.navigate([`/dashboard/users/candidats/update-candidat`, candidat.id]);
   }
 }

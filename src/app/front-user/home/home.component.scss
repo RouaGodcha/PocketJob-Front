@@ -1,6 +1,7 @@
 .home {
   font-family: 'Poppins', sans-serif;
   color: #2c2c2c;
+  background-color: #f4f6fa;
 
   .hero {
     display: flex;
@@ -11,12 +12,15 @@
     border-radius: 2rem;
     position: relative;
     overflow: hidden;
+    perspective: 1000px; // adds depth for 3D effect
 
     .content {
       max-width: 600px;
       z-index: 2;
 
       h1 {
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); // Shadow for depth
+        transform: perspective(500px) rotateX(5deg); // Adds depth
         font-size: 3.8rem;
         font-weight: 800;
         color: #fff;
@@ -91,7 +95,22 @@
     }
 
     .hero-img {
-      z-index: 2;
+      position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(-100px); // pulls the image back in 3D space
+  transition: transform 0.3s ease;
+
+  .hero:hover .hero-img {
+    transform: translateZ(0); // bring the image forward on hover for effect
+  }
+  
+  .content {
+    z-index: 2; // ensure the content is above the image
+    transform: translateZ(50px); // brings content closer to the user
+  }
 
       img {
         width: 550px;
@@ -121,6 +140,7 @@
 
   .offers, .partners, .testimonials {
     padding: 4rem 2rem;
+    perspective: 1500px; 
 
     h2 {
       font-size: 2.4rem;
@@ -136,7 +156,7 @@
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
-
+    transform: translateZ(-50px); // Move the background further in 3D space
     .offer-card {
       width: 270px;
       background: #fff;
@@ -144,7 +164,21 @@
       border-radius: 15px;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+      animation: float 3s infinite ease-in-out;
       cursor: pointer;
+
+      .offer-card:hover {
+        box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2); // Stronger shadow on hover
+
+        transform: translateY(-10px) scale(1.05); }
+
+      .offer-header, .offer-footer {
+        position: relative;
+        z-index: 1;
+      }
 
       &:hover {
         transform: translateY(-5px);
@@ -362,5 +396,102 @@
         max-width: 90%;
       }
     }
+  }
+}
+
+
+.view-details-btn {
+  margin-top: 1rem;
+  position: relative;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(to right, #8492ca, #223d65);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.4s, transform 0.3s;
+
+  &:hover {
+    background: linear-gradient(to right, #0056b3, #04328C);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(4, 50, 140, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+  .view-details-btn:hover {
+    transform: translateY(-5px); // Moves the button up slightly
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); // adds shadow for depth
+  }
+}
+.animate-fadeUp, .animate-fadeIn {
+  animation-play-state: paused;
+}
+
+.animate-fadeUp {
+  animation: fadeUp 1s ease forwards;
+  opacity: 0; /* caché au départ */
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.hero-img img {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeUp {
+  animation: fadeInUp 0.8s ease forwards;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

@@ -1,17 +1,14 @@
 <div class="container">
-  <!-- Icône de fermeture dans l'en-tête -->
-<div class="modal-header">
-  <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
- <h1 class="title">Ajouter Nouveau Poste</h1>
-   
+  <div class="modal-header">
+    <a class="btn-back" (click)="backToList()">
+      <i class="pi pi-arrow-left"></i>
+    </a>
+    
+    <h1 class="title">Ajouter une actualité</h1>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
-       
-    <div *ngIf="overlayStatus" class="overlay">
-      <!-- Contenu de ton overlay ici -->
-      <button class="overlay-close" (click)="overlayStatusFct()"></button>
-    </div>
-    </div>
-        <div class="table-area">
+   
+   </div>
+<div class="table-area">
         <form [formGroup]="addNewsForm">
           <div class="row">
             <div class="col-lg-4 pe-md-0">

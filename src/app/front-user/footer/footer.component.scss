@@ -1,19 +1,26 @@
-// Variables de couleurs
+// Variables de couleurs 
 $primary-color: #e8e6e4;
 $secondary-color: #333;
 $white-color: #223d65;
+$footer-bg-start: #294973;
+$footer-bg-end: #cee6ff;
+$hover-color: darken($white-color, 10%);
+$facebook-color: #3b5998;
+$instagram-color: #e4405f;
+$twitter-color: #1da1f2;
+$linkedin-color: #0077b5;
+$button-color: #294973;
+$button-hover-color: darken($button-color, 10%);
 
 // Footer Principal
 .footer {
-  
   bottom: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-
-  padding: 20px 0; // Réduit un peu la hauteur pour s'assurer qu'il ne gêne pas trop le contenu
+  background: linear-gradient(135deg, $footer-bg-start 0%, $footer-bg-end 100%);
+  padding: 30px 0;
   text-align: center;
-  z-index: 1000; // Pour qu'il reste au-dessus du contenu si besoin
+  box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
 
   .container {
     width: 90%;
@@ -23,58 +30,182 @@ $white-color: #223d65;
 
   .footer-content {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 40px;
     align-items: center;
-    gap: 20px;
-    text-align: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease-in-out;
 
     @media (max-width: 768px) {
       flex-direction: column;
+      text-align: center;
     }
   }
 
   .footer-brand {
     h2 {
-      font-size: 24px;
+      font-size: 32px;
       font-weight: bold;
+      color: #e8e6e4;
+      margin-bottom: 10px;
+      animation: fadeInDown 1s ease-in-out;
     }
 
     p {
-      font-size: 14px;
+      font-size: 16px;
       opacity: 0.8;
+      animation: fadeInDown 1.2s ease-in-out;
     }
   }
 
   .social-links {
     display: flex;
-    gap: 15px;
+    gap: 20px;
+    justify-content: center;
+    animation: fadeInUp 1.5s ease-in-out;
 
     .social-icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: $white-color;
-      color: $primary-color;
+      width: 60px;
+      height: 60px;
+      color: #fff;
       border-radius: 50%;
-      font-size: 20px;
-      transition: 0.3s;
+      font-size: 28px;
+      transition: 0.3s ease;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
       &:hover {
-        background: darken($white-color, 10%);
+        transform: translateY(-5px);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      &.facebook {
+        background: #223d65;
+        &:hover {
+          background: darken($facebook-color, 10%);
+        }
+      }
+
+      &.instagram {
+        background: #223d65;
+        &:hover {
+          background: darken($instagram-color, 10%);
+        }
+      }
+
+      &.twitter {
+        background: #223d65;
+        &:hover {
+          background: darken($twitter-color, 10%);
+        }
+      }
+
+      &.linkedin {
+        background: #223d65;
+        &:hover {
+          background: darken($linkedin-color, 10%);
+        }
+      }
+    }
+  }
+
+  // About PocketJob
+  .about-pj {
+    text-align: left;
+    margin-top: 30px;
+
+    h4 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #e8e6e4;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #e8e6e4;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+  }
+
+  // Formulaire d'inscription à la newsletter
+  .newsletter {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h4 {
+      font-size: 18px;
+      color: #e8e6e4;
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 60%;
+      max-width: 400px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      transition: 0.3s;
+
+      &::placeholder {
+        color: #ccc;
+      }
+
+      &:focus {
+        border: 2px solid $primary-color;
+      }
+    }
+
+    button {
+      background-color: $button-color;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $button-hover-color;
+      }
+    }
+  }
+
+  // Liens supplémentaires (Mentions légales, etc.)
+  .footer-links {
+    margin-top: 30px;
+    a {
+      color: #e8e6e4;
+      font-size: 14px;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $primary-color;
       }
     }
   }
 
   .contact-info {
+    margin-top: 20px;
     p {
       font-size: 16px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
       gap: 10px;
+      color: $white-color;
+      opacity: 0.8;
+      animation: fadeInUp 2s ease-in-out;
 
       i {
         font-size: 20px;
@@ -83,8 +214,34 @@ $white-color: #223d65;
   }
 
   .footer-bottom {
-    margin-top: 10px;
+    margin-top: 30px;
     font-size: 14px;
     opacity: 0.8;
+    color: #e8e6e4;
+    animation: fadeInUp 2.5s ease-in-out;
+  }
+}
+
+// Animation pour un effet de montée
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation pour un effet de descente
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

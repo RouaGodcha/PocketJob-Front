@@ -1,0 +1,154 @@
+@import "../../../../scss/components/extend"; 
+
+/* 🔥 Background centré avec dégradé */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  padding: 20px;
+}
+
+/* 📌 Conteneur */
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* 📌 Conteneur du modal et éléments principaux */
+.list-orders-item-area.add-chapter {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+
+  .big-title-blc {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .btn-back {
+        font-size: 1.2rem;
+        color: #000;
+        cursor: pointer;
+      }
+
+      .btn-close {
+        font-size: 1.5rem;
+        color: #000;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        &:hover {
+          color: #ff4d4f;
+        }
+      }
+
+      .big-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #0A1659;
+      }
+    }
+  }
+
+  .table-area {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 900px;
+    animation: fadeIn 0.3s ease-in-out;
+
+    /* Responsiveness for mobile devices */
+    @media (max-width: 768px) {
+      padding: 20px;
+      max-width: 100%;
+    }
+
+    /* 📋 Formulaires */
+    .card {
+      margin-bottom: 20px;
+      border: none;
+    }
+
+    .form-style-1 {
+      margin-bottom: 20px;
+
+      .form-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      input,
+      textarea,
+      .p-dropdown {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #333;
+      }
+
+      textarea {
+        height: 100px;
+      }
+
+      .error {
+        font-size: 12px;
+        color: red;
+      }
+    }
+  }
+
+  .btn-primary.submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Animation de fondu */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

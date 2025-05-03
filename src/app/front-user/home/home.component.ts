@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 interface Offer {
-  id: number; // 👈 Ajouté
+  id: number;
   title: string;
   company: string;
   location: string;
   type: string;
   startDate?: string;
   seniority?: string;
+  mapUrl?: string;
+  salary?: string;  // Add the salary property
 }
 
 
 @Component({
   selector: 'app-home',
+  template: `
+ <app-chatbot></app-chatbot>
+ <!-- reste de la template -->
+ `,
   standalone: false,
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -25,14 +31,15 @@ export class HomeComponent implements OnInit {
   showFilters = false;
 
   filteredOffers: Offer[] = [];
+  selectedOffer: Offer | null = null;
 
   fakeOffers: Offer[] = [
-    { id: 1,title: 'Serveur en restauration', company: 'Brasserie du Parc', location: 'Lyon', type: 'Temps partiel' },
-    { id: 2,title: 'Préparateur de commande', company: 'Amazon', location: 'Lille', type: 'Temps plein' },
-    { id: 3,title: 'Aide-soignant', company: 'Clinique Santé Plus', location: 'Paris', type: 'Intérim' },
-    { id: 4,title: 'Vendeur en boutique', company: 'Zara', location: 'Marseille', type: 'CDD' },
+    { id: 1, title: 'Serveur en restauration', company: 'Brasserie du Parc', location: 'Lyon', type: 'Temps partiel', mapUrl: 'https://www.google.com/maps/embed?...' },
+    { id: 2, title: 'Préparateur de commande', company: 'Amazon', location: 'Lille', type: 'Temps plein', mapUrl: 'https://www.google.com/maps/embed?...' },
+    { id: 3, title: 'Aide-soignant', company: 'Clinique Santé Plus', location: 'Paris', type: 'Intérim', mapUrl: 'https://www.google.com/maps/embed?...' },
+    { id: 4, title: 'Vendeur en boutique', company: 'Zara', location: 'Marseille', type: 'CDD', mapUrl: 'https://www.google.com/maps/embed?...' },
   ];
-
+  
   fakePartners = [
     { name: 'Aziza', logo: '/image/partners/amazon.png' },
     { name: 'HM', logo: '/image/partners/zara.png' },
@@ -43,16 +50,14 @@ export class HomeComponent implements OnInit {
   fakeMissions = [
     { label: 'Serveur', icon: '/image/fakeOffers/travaille11.jpg' },
     { label: 'Hôte(sse) d’accueil événementiel', icon: '/image/fakeOffers/travaille.jpg' },
-    { label: 'Vente', icon: '/image/fakeOffers/travaille44.jpg '},
-    { label: 'caissier', icon: '/image/fakeOffers/travaille5.jpg' },
-    { label: 'Garde d’enfants', icon: '/image/fakeOffers/travaille3.jpg '},
-    // Nouveaux exemples :
-  { label: 'Manutentionnaire', icon: '/image/fakeOffers/travaille6.jpg' },
-  { label: 'Personnel de service', icon: '/image/fakeOffers/travaile6.jpg' },
-  { label: 'Livreur', icon: '/image/fakeOffers/travaille7.jpg' },
-  { label: 'Aide-cuisinier', icon: '/image/fakeOffers/travaille8.jpg' },
-  { label: 'Gestion de mails', icon: '/image/fakeOffers/travaill9.jpg' },
-  
+    { label: 'Vente', icon: '/image/fakeOffers/travaille44.jpg' },
+    { label: 'Caissier', icon: '/image/fakeOffers/travaille5.jpg' },
+    { label: 'Garde d’enfants', icon: '/image/fakeOffers/travaille3.jpg' },
+    { label: 'Manutentionnaire', icon: '/image/fakeOffers/travaille6.jpg' },
+    { label: 'Personnel de service', icon: '/image/fakeOffers/travaile6.jpg' },
+    { label: 'Livreur', icon: '/image/fakeOffers/travaille7.jpg' },
+    { label: 'Aide-cuisinier', icon: '/image/fakeOffers/travaille8.jpg' },
+    { label: 'Gestion de mails', icon: '/image/fakeOffers/travaill9.jpg' },
   ];
 
   fakeTestimonials = [
@@ -87,6 +92,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router) {}
 
+  ngOnInit(): void {
+    this.filteredOffers = this.fakeOffers;
+  }
+
   onSearch() {
     console.log("Recherche simple par:", this.searchKeyword, this.searchRegion);
   }
@@ -109,10 +118,22 @@ export class HomeComponent implements OnInit {
   }
 
   goToOffer(id: number) {
-    this.router.navigate(['/offres', id]);
+    const offer = this.filteredOffers.find(o => o.id === id);
+    if (offer) {
+      this.selectedOffer = offer;
+    }
+    this.router.navigate(['/home/offres/details-offre', id]); // Navigate to the offer details page
   }
 
-  ngOnInit(): void {
-    this.filteredOffers = this.fakeOffers;
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const elements = document.querySelectorAll('.animate-fadeUp, .animate-fadeIn');
+    elements.forEach((el: any) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        el.style.animationPlayState = 'running';
+      }
+    });
   }
 }
+

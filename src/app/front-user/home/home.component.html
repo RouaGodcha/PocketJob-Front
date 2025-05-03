@@ -1,8 +1,10 @@
 <app-navbar></app-navbar>
+<app-chatbot></app-chatbot>
+<!-- Ton contenu habituel -->
 
 <div class="home">
   <!-- HERO SECTION -->
-  <section class="hero">
+  <section class="hero animate-fadeUp">
     <div class="content">
       <h1>Trouvez des missions rapidement<br><span>ou recrutez en quelques clics !</span></h1>
       <p>PocketJob facilite la mise en relation entre employeurs et candidats pour des missions temporaires.</p>
@@ -35,19 +37,27 @@
   </section>
 
   <!-- OFFRES RÉCENTES -->
-  <section class="offers">
+  <section class="offers animate-fadeUp">
     <h2>Offres récentes</h2>
     <div class="offer-list">
-      <div class="offer-card" *ngFor="let offer of filteredOffers" (click)="goToOffer(offer.id)">
-        <h3>{{ offer.title }}</h3>
-        <p>{{ offer.company }} - {{ offer.location }}</p>
-        <span class="tag">{{ offer.type }}</span>
+      <div class="offer-card" *ngFor="let offer of filteredOffers">
+        <div class="offer-header">
+          <h3>{{ offer.title }}</h3>
+          <span class="tag">{{ offer.type }}</span>
+        </div>
+        <p class="company-location">{{ offer.company }} - {{ offer.location }}</p>
+        <div class="offer-footer">
+          <span>{{ offer.seniority }} | {{ offer.salary }}</span>
+          <button class="view-details-btn" (click)="goToOffer(offer.id)">
+            Voir détails
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ENTREPRISES PARTENAIRES -->
-  <section class="partners">
+  <section class="partners animate-fadeUp">
     <h2>Entreprises partenaires</h2>
     <div class="partner-logos">
       <img *ngFor="let partner of fakePartners" [src]="partner.logo" [alt]="partner.name" />
@@ -55,21 +65,21 @@
   </section>
 
   <!-- TYPES DE MISSIONS -->
-  <section class="missions">
-    <h2>Personnel certifiée pour toute travaux temporaire.</h2>
+  <section class="missions animate-fadeUp">
+    <h2>Personnel certifié pour tout travail temporaire.</h2>
     <p>PocketJob fournit du personnel pour tous types d'événements et d'emplois temporaires pour une durée de 30 minutes jusqu'à 3 mois.</p>
     <div class="row">
       <div class="mission-col" *ngFor="let mission of fakeMissions">
         <img [src]="mission.icon" />
         <div class="layer">
-        <h3>{{ mission.label }}</h3>
-      </div>
+          <h3>{{ mission.label }}</h3>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- TÉMOIGNAGES -->
-  <section class="testimonials">
+  <section class="testimonials animate-fadeUp">
     <h2>Ce qu’ils disent de nous</h2>
     <div class="testimonial-list">
       <div class="testimonial" *ngFor="let t of fakeTestimonials">

@@ -1,0 +1,18 @@
+<div class="conversation-container">
+    <h2>Conversation avec le candidat</h2>
+  
+    <div *ngIf="loading" class="loading">Chargement...</div>
+  
+    <div class="conversation-box" *ngIf="!loading">
+      <div *ngFor="let msg of messages" [class.sent]="msg.from === 'employeur'" class="message-bubble">
+        <div class="msg-content">{{ msg.message }}</div>
+        <div class="msg-meta">{{ msg.date | date:'short' }}</div>
+      </div>
+    </div>
+  
+    <div class="send-box">
+      <input type="text" [(ngModel)]="messageInput" placeholder="Votre message..." />
+      <button (click)="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+  

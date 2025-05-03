@@ -64,6 +64,8 @@ import { ProfilComponent } from './User/profil/profil.component';
 import { InviteComponent } from './User/invite/invite.component';
 import { ChatWindowComponent } from './User/messages/chat-window/chat-window.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { SafeUrlPipe } from './shared/pipes/safe-url.pipe';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 
 
 @NgModule({
@@ -91,10 +93,10 @@ import { GoogleMapsModule } from '@angular/google-maps';
     ChatInputComponent,
     ConversationListComponent,
     ProfilComponent,
-
     InviteComponent,
     ChatWindowComponent,
-
+    ChatbotComponent,
+   
     
   ],
   imports: [
@@ -105,6 +107,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     PanelModule,
     NgChartsModule,
     RouterModule,
+    SafeUrlPipe,
     ReactiveFormsModule,
     HttpClientModule,
     BackadminRoutingModule,
@@ -149,7 +152,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     }),
   ],
   exports: [
-    ChatInputComponent // optionnel si tu veux le réutiliser ailleurs
+    ChatInputComponent,  // optionnel si tu veux le réutiliser ailleurs
   ],
    schemas: [CUSTOM_ELEMENTS_SCHEMA],
   

@@ -1,0 +1,21 @@
+<div class="candidats-container">
+    <h2>Mes Candidats</h2>
+  
+    <div *ngIf="loading" class="loading">Chargement...</div>
+  
+    <div *ngIf="!loading && candidats.length === 0" class="empty">Aucun candidat pour vos offres actuellement.</div>
+  
+    <div class="candidat-card" *ngFor="let candidat of candidats">
+      <div class="card-header">
+        <h3>{{ candidat.nom }} {{ candidat.prenom }}</h3>
+        <span class="email">{{ candidat.email }}</span>
+      </div>
+      <div class="card-body">
+        <p><strong>Poste postulé :</strong> {{ candidat.offre.titre }}</p>
+        <p><strong>Rémunération demandée :</strong> {{ candidat.remuneration }} TND</p>
+        <p><strong>Message :</strong> {{ candidat.message || '-' }}</p>
+        <p><strong>Date :</strong> {{ candidat.created_at | date:'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+  </div>
+  

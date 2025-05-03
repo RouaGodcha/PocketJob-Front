@@ -7,12 +7,12 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-view-candidat',
   standalone: false,
   templateUrl: './view-candidat.component.html',
-  styleUrl: './view-candidat.component.scss'
+  styleUrls: ['./view-candidat.component.scss'] // corrected "styleUrl" to "styleUrls"
 })
 export class ViewCandidatComponent {
   candidat?: Candidat;
-  careers: any[] = []; // Contient les expériences professionnelles
-  niveau: any[] = []; // Contient les diplômes
+  careers: any[] = []; // Properly initialized as an empty array
+  niveau: any[] = []; // Properly initialized as an empty array
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +38,14 @@ export class ViewCandidatComponent {
   }
 
   ngOnInit(): void {
-    // Charger les données du candidat ici
+    const candidatId = Number(this.route.snapshot.paramMap.get('id'));
+    if (candidatId) {
+      this.candidatService.getCandidateById(candidatId).subscribe(candidat => {
+        this.candidat = candidat;
+        this.careers = candidat.careers || [];
+        this.niveau = candidat.niveau || [];
+      });
+    }
   }
 
   backToList(): void {

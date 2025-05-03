@@ -17,6 +17,8 @@ export class SidebarComponent implements OnInit {
   showListKit: boolean = false;
   showListUsers: boolean = false;  // Nouvelle variable pour gérer les filtres utilisateurs
   showListCandidature : boolean = false;
+  showListRendezVous: boolean = false;
+  showListPublicite: boolean = false;
   currentFilter: any;
   state = {
     users: false,
@@ -43,7 +45,9 @@ export class SidebarComponent implements OnInit {
     this.showListOffres = false;
     this.showListKit = false;
     this.showListUsers = false; 
-    this.showListCandidature =false; // Fermer les filtres utilisateurs
+    this.showListCandidature =false; 
+    this.showListRendezVous=false// Fermer les filtres utilisateurs
+    this.showListPublicite = false;
     this.closeFilters();
   }
 
@@ -70,32 +74,42 @@ export class SidebarComponent implements OnInit {
       this.showListNews = false;
       this.showListOffres = false;
       this.showListKit = false;
+      this.showListPublicite = false;
       this.showListUsers = false;
+      this.showListRendezVous=false;
       this.showListCandidature =false; 
     } else if (listName === 'news') {
       this.showListNews = !this.showListNews;
       this.showListPocketJob = false;
       this.showListOffres = false;
       this.showListKit = false;
+      this.showListPublicite = false;
       this.showListUsers = false;
+      this.showListRendezVous=false;
       this.showListCandidature =false; 
     } else if (listName === 'offre-emploi') {
       this.showListOffres = !this.showListOffres;
       this.showListPocketJob = false;
       this.showListNews = false;
       this.showListKit = false;
+      this.showListPublicite = false;
+      this.showListRendezVous=false;
       this.showListUsers = false;
       this.showListCandidature =false; 
     } else if (listName === 'users') {
       this.showListUsers = !this.showListUsers;
       this.showListPocketJob = false;
       this.showListNews = false;
+      this.showListRendezVous=false;
       this.showListOffres = false;
+      this.showListPublicite = false;
       this.showListKit = false;
       this.showListCandidature =false; 
     } else {
       this.showListPocketJob = false;
       this.showListNews = false;
+      this.showListRendezVous=false;
+      this.showListPublicite = false;
       this.showListOffres = false;
       this.showListKit = false;
       this.showListUsers = false;

@@ -16,6 +16,7 @@ import { JwtInterceptor } from './_services/jwt.interceptor';
 import { DialogModule } from 'primeng/dialog';
 import { FrontUserModule } from './front-user/front-user.module';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { FrontEmployerModule } from './front-user/front-employer/front-employer.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,9 +27,9 @@ import { GoogleMapsModule } from '@angular/google-maps';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-   
     InputTextModule,
     FrontUserModule,
+    FrontEmployerModule,
     BackadminModule,  // Assure-toi que ce module est bien importé ici
     NgbDatepickerModule,
     NgbNavModule,

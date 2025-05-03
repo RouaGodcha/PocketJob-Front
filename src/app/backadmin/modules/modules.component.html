@@ -1,11 +1,11 @@
-<div class="list-orders-item-area">
+
     <!-- Title and Button Area -->
     <div class="introduction-area">
       <div class="p-d-flex p-jc-between">
         <div class="big-title-blc">
-          <h1 class="big-title">Liste des modèles d'offres d'emploi</h1>
+          <h1 class="big-title">Liste des Offres d'emploi  </h1>
         </div>
-        <div class="btns-group two-btns text-end">
+        <div class="btns-group two-btns">
           <a class="btn-primary"
              pButton
              pRipple
@@ -15,7 +15,6 @@
         </div>
       </div>
     </div>
-  
     <!-- Table Area -->
     <div class="table-area chapters_table">
       <div class="card">
@@ -90,6 +89,7 @@
                 <th>Lieu de travail</th>
                 <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
                 <th pSortableColumn="created_at">Créé le <p-sortIcon field="created_at"></p-sortIcon></th>
+                <th>Statut</th>
                 <th class="text-center">Actions</th>
               </tr>
             </ng-template>
@@ -119,6 +119,7 @@
                     optionValue="value">
                   </p-dropdown>
                 </td>
+                
                 <td class="text-center">
                   <button pButton
                           type="button"
@@ -126,7 +127,7 @@
                           tooltipPosition="left"
                           class="btn-icon btn-icon--outlin-primary"
                           icon="pi pi-pencil"
-                          (click)="goToUpdate(module.id)">
+                          (click)="UpdateOffre(module.id)">
                   </button>
                   <button pButton
                           type="button"
@@ -143,17 +144,16 @@
             <!-- Empty / Loading Messages -->
             <ng-template pTemplate="emptymessage">
               <tr *ngIf="loading">
-                <td colspan="11">
+                <td colspan="12">
                   <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
                 </td>
               </tr>
               <tr *ngIf="!loading && !modules.length">
-                <td colspan="11" class="text-center">{{ 'AUCUN MODULE' }}</td>
+                <td colspan="12" class="text-center">{{ 'AUCUN MODULE' }}</td>
               </tr>
             </ng-template>
           </p-table>
         </div>
       </div>
     </div>
-  </div>
-  
+    

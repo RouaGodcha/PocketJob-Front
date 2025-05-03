@@ -1,0 +1,51 @@
+<div class="employer-dashboard">
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <div>
+        <h2>Bienvenue, {{ userName }}</h2>
+        <p>Gérez vos offres, suivez vos candidats et optimisez vos recrutements temporaires.</p>
+      </div>
+      <div class="balance-card">
+        <p>Solde Actif</p>
+        <h3>{{ activeBalance | currency:'USD' }}</h3>
+      </div>
+    </header>
+
+    <!-- Statistiques -->
+    <section class="stat-grid">
+      <div class="stat-card">
+        <h4><i class="fas fa-bullhorn"></i> Offres Actives</h4>
+        <p>{{ stats.offres }}</p>
+      </div>
+      <div class="stat-card">
+        <h4><i class="fas fa-users"></i> Candidatures Reçues</h4>
+        <p>{{ stats.candidatures }}</p>
+      </div>
+      <div class="stat-card">
+        <h4><i class="fas fa-calendar-check"></i> Entretiens à venir</h4>
+        <p>{{ stats.entretiens }}</p>
+      </div>
+      <div class="stat-card">
+        <h4><i class="fas fa-envelope-open-text"></i> Messages non lus</h4>
+        <p>{{ stats.messages }}</p>
+      </div>
+    </section>
+
+    <!-- Graphique -->
+    <section class="analytics">
+      <div class="chart-box">
+        <h4><i class="fas fa-chart-line"></i> Statistiques d'activité</h4>
+        <canvas id="activityChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Notifications -->
+    <section class="notifications">
+      <h4><i class="fas fa-bell"></i> Notifications Récentes</h4>
+      <ul>
+        <li *ngFor="let n of notifications">{{ n }}</li>
+      </ul>
+    </section>
+  </main>
+</div>

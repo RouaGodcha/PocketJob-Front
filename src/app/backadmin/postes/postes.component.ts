@@ -29,6 +29,8 @@ postToUpdateReacts: any = false;   // Élément à mettre à jour pour une autre
 orderBy: string | undefined;       // Champ de tri
 orderByType: string = 'ASC';       // Type de tri (Ascendant/Descendant)
 
+selectedPost: any = null;
+modalVisible: boolean = false;
  
   constructor(
     private route:ActivatedRoute,
@@ -40,7 +42,78 @@ orderByType: string = 'ASC';       // Type de tri (Ascendant/Descendant)
   }
   ngOnInit(): void {
     this.initPagination();
+  
+    // 👇 Ajouter plusieurs FAUX posts pour tester
+    this.posts = [
+      {
+        id: 1,
+        description: 'Poste développeur Front-end avec Angular.',
+        favorites: 12,
+        comments: [{}, {}, {}, {}], // 4 commentaires
+        user: {
+          firstname: 'Sami',
+          lastname: 'Ben Ahmed'
+        },
+        created_at: new Date(),
+        files: [
+          {
+            path: 'https://via.placeholder.com/150/0000FF/FFFFFF/?text=Poste+1'
+          }
+        ]
+      },
+      {
+        id: 2,
+        description: 'Poste développeur Back-end avec Laravel.',
+        favorites: 8,
+        comments: [{}, {}], // 2 commentaires
+        user: {
+          firstname: 'Aya',
+          lastname: 'Trabelsi'
+        },
+        created_at: new Date(),
+        files: [
+          {
+            path: 'https://via.placeholder.com/150/FF0000/FFFFFF/?text=Poste+2'
+          }
+        ]
+      },
+      {
+        id: 3,
+        description: 'Poste Chef de Projet Web.',
+        favorites: 5,
+        comments: [{}, {}, {}, {}, {}, {}], // 6 commentaires
+        user: {
+          firstname: 'Mehdi',
+          lastname: 'Kacem'
+        },
+        created_at: new Date(),
+        files: [
+          {
+            path: 'https://via.placeholder.com/150/00FF00/FFFFFF/?text=Poste+3'
+          }
+        ]
+      },
+      {
+        id: 4,
+        description: 'Poste Graphiste Designer.',
+        favorites: 10,
+        comments: [{}], // 1 commentaire
+        user: {
+          firstname: 'Leila',
+          lastname: 'Fares'
+        },
+        created_at: new Date(),
+        files: [
+          {
+            path: 'https://via.placeholder.com/150/FFFF00/000000/?text=Poste+4'
+          }
+        ]
+      }
+    ];
+  
+    this.total = this.posts.length; // Important pour que la pagination soit correcte
   }
+  
   
   initPagination(){
 
@@ -54,15 +127,29 @@ orderByType: string = 'ASC';       // Type de tri (Ascendant/Descendant)
       this.getListPosts();
     });
   }
-
   getListPosts() {
     const data = {
       page: this.page,
       paginate: 1,
       per_page: this.per_page,
+      orderBy: this.orderBy,
+      orderByType: this.orderByType,
     };
+  
+    this.loading = true;
+    this.postesService.indexPosts(data).subscribe({
+      next: (res) => {
+        this.posts = res.body?.data || []; // res.body car tu observes la réponse complète
+        this.total = res.body?.total || 0;
+        this.loading = false;
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.loading = false;
+      },
+    });
   }
-
+  
   lazyLoad($event: any){
     if (this.setPaginator) {
       $event.first = (this.page - 1) * 10;
@@ -87,9 +174,9 @@ orderByType: string = 'ASC';       // Type de tri (Ascendant/Descendant)
     this.getListPosts();
 
   }
-  updatePost(Post: any) {
-    this.showUpdate = true;
-    this.postToUpdate = Post;
+  updatePost(post: any) {
+    this.selectedPost = post;
+    this.modalVisible = true;
   }
   closeUpdate() {
     this.showUpdate = false;
@@ -196,12 +283,5 @@ orderByType: string = 'ASC';       // Type de tri (Ascendant/Descendant)
     }
     return url;
   }
-  
-  /* Cette fonction ouvre un fichier (PDF, image, etc.) */
-  
-
-  
-
- 
 
 }

@@ -1,0 +1,61 @@
+<div class="list-orders-item-area">
+    <div class="introduction-area p-d-flex p-jc-between">
+      <div class="big-title-blc">
+        <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
+        <h1 class="big-title title-align-center">
+          Détails de l'employeur / Entreprise
+          <span *ngIf="employer?.name">{{ employer.name }}</span>
+          <span *ngIf="!employer?.name">Employeur non trouvé</span>
+        </h1>
+      </div>
+    </div>
+  
+    <div class="table-area">
+      <div class="card">
+        <div class="card-body">
+          <div class="row form-area">
+            <div class="col-md-6">
+              <div class="form-style-1">
+                <label class="form-label">Nom de l'entreprise</label>
+                <input disabled type="text" [value]="employer?.name || 'Non défini'">
+              </div>
+              <div class="form-style-1">
+                <label class="form-label">Domaine</label>
+                <input disabled type="text" [value]="employer?.domaine || 'Non défini'">
+              </div>
+              <div class="form-style-1">
+                <label class="form-label">Adresse</label>
+                <input disabled type="text" [value]="employer?.adresse || 'Non défini'">
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-style-1">
+                <label class="form-label">Type Professionnel</label>
+                <input disabled type="text" [value]="employer?.typeProfessionnel || 'Non défini'">
+              </div>
+              <div class="form-style-1">
+                <label class="form-label">Status</label>
+                <input disabled type="text" [value]="employer?.status || 'Non défini'">
+              </div>
+              <div class="form-style-1">
+                <label class="form-label">Date de création</label>
+                <input disabled type="text" [value]="employer?.created_at | date: 'dd/MM/yyyy'">
+              </div>
+            </div>
+          </div>
+  
+          <div *ngIf="employer?.description" class="form-style-1">
+            <label class="form-label">Description</label>
+            <textarea disabled>{{ employer?.description || 'Non défini' }}</textarea>
+          </div>
+  
+          <div *ngIf="employer?.image" class="form-style-1">
+            <label class="form-label">Image</label>
+            <img [src]="employer?.image" alt="Image de l'employeur" class="img-thumbnail">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

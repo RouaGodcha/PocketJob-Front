@@ -2,17 +2,14 @@
     <div class="list-orders-item-area add-chapter">
         <div class="introduction-area p-d-flex p-jc-between">
             <div class="big-title-blc">
-                <div class="modal-header">
                 <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
-
-                <h1 class="big-title title-align-center">
-                    
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
-       
-                    Ajouter une offre de travail
-                </h1>
+   
+                <h1 class="title">Ajouter Offre d'emploi</h1>   
+                <div *ngIf="overlayStatus" class="overlay">
+                  <!-- Contenu de ton overlay ici -->
+                  <button class="overlay-close" (click)="overlayStatusFct()"></button>
+                </div>
             </div>
-        </div>
         </div>
     
         <div class="table-area">
@@ -38,7 +35,6 @@
                                     </span>
                                 </div>
 
-    
                                 <!-- Type d'Emploi -->
                                 <div class="form-style-1">
                                     <label class="form-label">Type d'emploi</label>
@@ -82,30 +78,19 @@
                                     <label for="image" *ngIf="!addModuleForm.controls['image'].value">
                                         Image
                                     </label>
-                                    <!--
-                                    <span class="error" *ngIf="addModuleForm.controls['image'].hasError('required') && isSubmitted">
-                                        Champ est obligatoire !
-                                    </span>
-                                    -->
                                 </div>
     
                                 <!-- Titre -->
                                 <div class="form-style-1">
                                     <label class="form-label">Titre</label>
                                     <input type="text" placeholder="Titre *" formControlName="name">
-                                    <!--
-                                    <span class="error" *ngIf="addModuleForm.controls['name'].hasError('required') && isSubmitted">
-                                        Champ obligatoire !
-                                    </span>
-                                    -->
                                 </div>
     
                                 <!-- Durée du contrat -->
                                 <div class="form-style-1">
                                     <label class="form-label">Durée du contrat</label>
                                     <input type="text" placeholder="Durée du contrat (en mois)" formControlName="contract_duration">
-                                    
-                                    <span class="error" *ngIf="addModuleForm.controls['name'].hasError('required') && isSubmitted">
+                                    <span class="error" *ngIf="addModuleForm.controls['contract_duration'].hasError('required') && isSubmitted">
                                         Champ obligatoire !
                                     </span>
                                 </div>
@@ -114,7 +99,7 @@
                                 <div class="form-style-1">
                                     <label class="form-label">Salaire</label>
                                     <input type="number" placeholder="Rémunération en €" formControlName="salary">
-                                    <span class="error" *ngIf="addModuleForm.controls['name'].hasError('required') && isSubmitted">
+                                    <span class="error" *ngIf="addModuleForm.controls['salary'].hasError('required') && isSubmitted">
                                         Champ obligatoire !
                                     </span>
                                 </div>
@@ -129,7 +114,7 @@
                                 <div class="form-style-1">
                                     <label class="form-label">Lieu de travail</label>
                                     <input type="text" placeholder="Lieu de travail" formControlName="work_location">
-                                    <span class="error" *ngIf="addModuleForm.controls['name'].hasError('required') && isSubmitted">
+                                    <span class="error" *ngIf="addModuleForm.controls['work_location'].hasError('required') && isSubmitted">
                                         Champ obligatoire !
                                     </span>
                                 </div>
@@ -148,7 +133,6 @@
                                         label="Ajouter"
                                         styleClass="btn btn-primary submit"
                                         (onClick)="submitForm()">
-             
                                     </p-button>
                                 </div>
                             </div>
@@ -158,5 +142,4 @@
             </form>
         </div>
     </div>
-    
 </div>

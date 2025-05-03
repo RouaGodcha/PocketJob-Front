@@ -1,0 +1,43 @@
+<!-- sidebar-employeur.component.html -->
+<aside class="sidebar-employeur" [class.open]="sidebarOpen">
+  <div class="profile-section">
+    <img src="/profile.jpg" alt="Employeur" class="avatar" />
+    <div class="name-email">
+      <h3>Employeur</h3>
+      <p>employeurpocketjob.com</p>
+    </div>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/Frontemployer/dashboardEmployer" routerLinkActive="active">
+      <i class="icon-dashboard"></i><span>Tableau de bord</span>
+    </a>
+    <a routerLink="/Frontemployer/ajout-offre" routerLinkActive="active">
+      <i class="icon-add-offer"></i><span>Ajouter une offre</span>
+    </a>
+    <a routerLink="/Frontemployer/candidats-employer" routerLinkActive="active">
+      <i class="icon-candidates"></i><span>Mes Candidats</span>
+    </a>
+    <a routerLink="/Frontemployer/rendez-vous-employer" routerLinkActive="active">
+      <i class="icon-calendar"></i><span>Calendrier Entretiens</span>
+    </a>
+    <a routerLink="/Frontemployer/messagerie-employer/conversations-employer/1" routerLinkActive="active">
+      <i class="icon-message"></i><span>Messagerie</span>
+    </a>
+    <a routerLink="/Frontemployer/notifications-employer" routerLinkActive="active">
+      <i class="icon-notifications"></i><span>Notifications</span>
+    </a>
+    <a routerLink="/Frontemployer/employer-profile" routerLinkActive="active">
+      <i class="icon-account"></i><span>Profile</span>
+    </a>
+  </nav>
+
+  <div class="bottom-section">
+    <button class="logout-button" routerLink="/home/acceuil">
+      <i class="icon-logout"></i><span>Déconnexion</span>
+    </button>
+  </div>
+</aside>
+
+<!-- Toggle button for mobile -->
+<button class="sidebar-toggle" (click)="toggleSidebar()">☰</button>

@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
   selector: 'app-update-candidature',
   standalone: false,
   templateUrl: './update-candidature.component.html',
-  styleUrl: './update-candidature.component.scss'
+  styleUrls: ['./update-candidature.component.scss']
 })
 export class UpdateCandidatureComponent implements OnInit {
   candidature = {
@@ -26,21 +26,20 @@ export class UpdateCandidatureComponent implements OnInit {
     { label: 'Accepté', value: 'accepte' },
     { label: 'Refusé', value: 'refuse' }
   ];
-  showSuccess: any;
+
+  // Popup visibility flags
+  displaySuccess: boolean = false;
+  displayError: boolean = false;
 
   constructor(
     private messageService: MessageService,
     private candidatureService: CandidatureService,
     private router: Router,
-    private fb : FormBuilder,
+    private fb: FormBuilder,
     private route: ActivatedRoute
-  ) {
-    
-    
-  }
+  ) {}
 
   ngOnInit(): void {
-
     this.updateCandidatureForm = this.fb.group({
       nomCandidat: ['', Validators.required],
       offreReference: ['', Validators.required],
@@ -48,6 +47,7 @@ export class UpdateCandidatureComponent implements OnInit {
       domaine: ['', Validators.required],
       statut: ['', Validators.required],
     });
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadCandidature(id);
@@ -61,60 +61,46 @@ export class UpdateCandidatureComponent implements OnInit {
       });
     }
   }
-  updateCandidature() {
 
+  updateCandidature() {
     this.isSubmitted = true;
 
     if (this.updateCandidatureForm.invalid) {
-      return; // stop si formulaire invalide
+      return; // stop if form is invalid
     }
 
     const formData = this.updateCandidatureForm.value;
-  // Appel à l’API ou traitement
-  
     this.candidatureService.updateCandidature(this.candidature).subscribe(
       response => {
-        // ✅ Affiche le toast
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Succès',
-          detail: 'Candidature modifiée avec succès ✅',
-          life: 3000 ,// durée du toast en ms
-          closable :true
-        });
-  
-        // ❌ Supprime la redirection automatique si tu veux garder l'utilisateur sur place
-        // this.router.navigate(['/dashboard/candidatures']);
+        // Display success dialog
+        this.displaySuccess = true;
       },
       error => {
-        // En cas d'erreur, tu peux afficher un autre toast
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erreur',
-          detail: 'Une erreur est survenue lors de la modification ❌',
-          life: 3000
-        });
+        // Display error dialog
+        this.displayError = true;
         console.error('Erreur lors de la mise à jour de la candidature', error);
       }
     );
   }
-  
-  
+
   backToList(): void {
-    history.back(); // Revenir à la page précédente
+    history.back();
     console.log('Retour à la liste');
   }
-  cancel(){
-    this.showSuccess = false;
-    this.updateCandidatureForm.reset();
-    this.router.navigate(['/dashboard/candidature']);
-  
-  }
-
 
   closeModal() {
-    history.back(); 
-    this.cancel();   
+    history.back();
+    this.cancel();
   }
-  
+
+  cancel() {
+    this.updateCandidatureForm.reset();
+    this.router.navigate(['/dashboard/candidature']);
+  }
+
+  // Close dialog method
+  closeDialog() {
+    this.displaySuccess = false;
+    this.displayError = false;
+  }
 }

@@ -89,11 +89,12 @@ import { AddAdminComponent } from './admins/add-admin/add-admin.component';
 import { UpdateAdminComponent } from './admins/update-admin/update-admin.component';
 import { ViewAdminComponent } from './admins/view-admin/view-admin.component';
 import { UpdatePasswordComponent } from './admins/update-password/update-password.component';
-import { AppointmentsComponent } from './appointments/appointments.component';
 import { PubliciteComponent } from './publicite/publicite.component';
 import { AddPublicitesComponent } from './publicite/add-publicites/add-publicites.component';
 import { UpdatePublicitesComponent } from './publicite/update-publicites/update-publicites.component';
 import { MessagerieComponent } from './messagerie/messagerie.component';
+import { ViewEmployeurComponent } from './employeur/view-employeur/view-employeur.component';
+import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 
 @NgModule({
   declarations: [
@@ -142,11 +143,12 @@ import { MessagerieComponent } from './messagerie/messagerie.component';
     ViewAdminComponent,
     UpdatePasswordComponent,
     DashboardComponent,
-    AppointmentsComponent,
     PubliciteComponent,
     AddPublicitesComponent,
     UpdatePublicitesComponent,
     MessagerieComponent,
+    ViewEmployeurComponent,
+    RendezVousComponent,
     
   ],
   imports: [
@@ -163,6 +165,7 @@ import { MessagerieComponent } from './messagerie/messagerie.component';
     SharedModule,
     SlickCarouselModule,
     TableModule,
+    DialogModule,
     SkeletonModule,
     ButtonModule,
     RippleModule,

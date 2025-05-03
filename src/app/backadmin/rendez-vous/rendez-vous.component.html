@@ -1,0 +1,49 @@
+<div class="rdv-page">
+    <h2 class="rdv-title">📅 Les Rendez-vous Disponibles</h2>
+  
+    <div class="container-rdv"> 
+      <div *ngFor="let rdv of filteredRendezVous" class="rdv-card">
+        <div><strong>Entreprise:</strong> {{ rdv.entreprise }}</div>
+        <div><strong>Candidat:</strong> {{ rdv.candidat }}</div>
+        <div><strong>Date:</strong> {{ rdv.date }} à {{ rdv.heure }}</div>
+        <div><strong>Statut:</strong> {{ rdv.statut }}</div>
+  
+        <div class="rdv-actions">
+          <button class="edit-btn" (click)="editRendezVous(rdv)">✏️</button>
+          <button class="cancel-btn" style="background-color:aliceblue;" (click)="cancelRendezVous(rdv)">❌</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal d'édition -->
+    <p-dialog header="Modifier" [(visible)]="displayEditModal" [modal]="true" [style]="{width: '320px'}" [closable]="false">
+      <div *ngIf="editingRdv" class="modal-form">
+        <label>Entreprise</label>
+        <input type="text" [(ngModel)]="editingRdv.entreprise" />
+  
+        <label>Candidat</label>
+        <input type="text" [(ngModel)]="editingRdv.candidat" />
+  
+        <label>Date</label>
+        <input type="date" [(ngModel)]="editingRdv.date" />
+  
+        <label>Heure</label>
+        <input type="time" [(ngModel)]="editingRdv.heure" />
+  
+        <label>Statut</label>
+        <select [(ngModel)]="editingRdv.statut">
+          <option value="en attente">En attente</option>
+          <option value="validé">Validé</option>
+          <option value="en cours">En cours</option>
+          <option value="expiré">Expiré</option>
+          <option value="annulé">Annulé</option>
+        </select>
+  
+        <div class="modal-actions">
+          <button class="save-btn" (click)="saveEditedRendezVous()">💾</button>
+          <button class="close-btn" (click)="cancelEdit()">✖️</button>
+        </div>
+      </div>
+    </p-dialog>
+  </div>
+  

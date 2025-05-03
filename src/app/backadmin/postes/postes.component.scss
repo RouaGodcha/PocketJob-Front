@@ -1,93 +1,214 @@
 @import "../../../scss/components/extend";
 
-/* # Users ::
+/* # Généralités ::
 ------------------------------------*/
 .page-link {
   background-color: #00f !important;
 }
+
 .table-filter {
   display: flex;
   flex-direction: row-reverse;
 }
 
+.list-orders-item-area {
+  padding: 1rem;
 
-/* # $Mobile ::
-------------------------------------*/
-@media (max-width: 767px) {
-  .list-orders-item-area {
-    &.users-area {
-      .introduction-area {
-        position: static;
-        margin: 0 0 20px;
-        height: initial;
-        .p-jc-between {
-          display: block;
-        }
-        .btns-group {
-          @include flex;
-          margin: 10px 0 0;
+  .introduction-area {
+    margin-bottom: 1.5rem;
+
+    .p-d-flex {
+      align-items: center;
+
+      .big-title-blc {
+        .big-title {
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: #0A1659;
         }
       }
-      .recherche-bloc {
-        width: 100%;
-        .p-input-icon-left {
-          > input {
-            width: 100% !important;
+
+      .btns-group {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+
+        .btn-primary {
+          background-color: #3364c6;
+          color: white;
+          padding: 8px 16px;
+          border-radius: 5px;
+          border: none;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+          font-size: 0.9rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+
+          &:hover {
+            background-color: darken(#3364c6, 10%);
+            transform: scale(1.05);
           }
         }
       }
     }
   }
 }
-.chapters_table table,
-.chapters_table th,
-.chapters_table td,
-.chapters_table tr {
-  text-align: center !important;
-}
-.chapters_table td {
-  max-width: 92px;
-  p {
-    margin: 0;
-  }
-  .details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 5px;
-    div {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      width: 100%;
-      p{
+
+/* # Table Postes ::
+------------------------------------*/
+.chapters_table {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: center;
+      background-color: #f6f8fa;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 10px;
+      color: #2f455c;
+    }
+
+    td {
+      text-align: center;
+      padding: 8px;
+      font-size: 0.85rem;
+      vertical-align: middle;
+
+      p {
         margin: 0;
-        // text-wrap: nowrap;
+        word-break: break-word;
+      }
+
+      
+
+     
+
+        div {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          p {
+            font-size: 0.8rem;
+            color: #555;
+          }
+        }
+      
+
+      .img-image {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+      
+      .img-image:hover {
+        transform: scale(1.05);
+      }
+      
+      .details {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 4px;
+      }
+      
+      .badge-ref {
+        background-color: #0A1659;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      
+      .text-center {
+        text-align: center;
+      }
+      .pi-file-pdf {
+        font-size: 2rem;
+        color: #e63946;
+      }
+
+     
+
+      button.btn-icon {
+        background: transparent;
+        border: none;
+        color: #3364c6;
+        margin: 0 5px;
+
+        &:hover {
+          color: darken(#3364c6, 10%);
+          transform: scale(1.1);
+        }
       }
     }
   }
 }
-.btn-primary {
-    background-color:  #3364c6; /* Couleur verte pour "Ajouter" */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    
-    &:hover {
-      background-color: darken(#BFBAB0, 10%); /* Changer la couleur au survol */
-      transform: scale(1.05); /* Légère augmentation de taille au survol */
+
+/* # Responsive Mobile ::
+------------------------------------*/
+@media (max-width: 767px) {
+  .list-orders-item-area {
+    .introduction-area {
+      .p-d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .big-title-blc {
+          margin-bottom: 10px;
+        }
+
+        .btns-group {
+          width: 100%;
+          justify-content: flex-end;
+        }
+      }
     }
-  
-    &.right {
-      float: right; /* Aligner le bouton à droite */
+
+    .chapters_table {
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      td {
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+
+        &:before {
+          content: attr(data-label);
+          position: absolute;
+          left: 0;
+          width: 50%;
+          padding-left: 10px;
+          font-weight: bold;
+          white-space: nowrap;
+          color: #555;
+        }
+      }
     }
   }
-.chapters_table .badge-ref {
-  margin-left: auto !important;
 }
+
+/* # Sort Icons ::
+------------------------------------*/
 ::ng-deep {
   .sort-icon {
     svg {
@@ -95,11 +216,8 @@
       height: 12px;
     }
   }
+
   .form-area .form-style-1 .p-dropdown {
     width: 400px;
   }
-}
-.img-image {
-  width: 50px;
-  height: 50px;
 }

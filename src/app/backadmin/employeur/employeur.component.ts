@@ -3,6 +3,7 @@ import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { EmployerService } from '../_services/employer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employeur',
@@ -51,38 +52,67 @@ export class EmployeurComponent  implements OnInit{
     private translate: TranslateService,
     private route: ActivatedRoute
   ) {}
-  ngOnInit(){
+  ngOnInit() {
+    // Fake employer data
+    this.employer = [
+      {
+        id: 1,
+        name: 'Entreprise A',
+        domaine: { name: 'Informatique' },
+        type: 'Startup',
+        document: { name: 'Bac +5' },
+        adresse: 'Tunis, Rue 1',
+        qualification: { name: 'Développeur' },
+        creator: { firstname: 'Ahmed', lastname: 'Ali' },
+        email: 'contact@entrepriseA.com',
+        phone: '12345678',
+        status: 'ACTIVE',
+        created_at: '2025-04-28T10:00:00'
+      },
+      {
+        id: 2,
+        name: 'Entreprise B',
+        domaine: { name: 'Marketing' },
+        type: 'PME',
+        document: { name: 'Bac +3' },
+        adresse: 'Sfax, Rue 2',
+        qualification: { name: 'Chef de projet' },
+        creator: { firstname: 'Sofia', lastname: 'Mouhli' },
+        email: 'contact@entrepriseB.com',
+        phone: '87654321',
+        status: 'PENDING',
+        created_at: '2025-04-25T15:30:00'
+      }
+      // Add more data as needed for testing
+    ];
+  
+    // Total records for pagination
+    this.total = this.employer.length;
+  
     this.allStatus = [
-        { name: 'ACTIVE', value: 'ACTIVE' },
-        { name: 'PENDING', value: 'PENDING' },
-        { name: 'DISABLED', value: 'DISABLED' },
-        { name: 'BLOQUÉ', value: 'BLOQUE' },
-        { name: 'SUSPENDU', value: 'SUSPENDU' },
-        { name: 'SUPPRIMÉ', value: 'SUPPRIME' }
-      ];
-
+      { name: 'ACTIVE', value: 'ACTIVE' },
+      { name: 'PENDING', value: 'PENDING' },
+      { name: 'DISABLED', value: 'DISABLED' },
+      { name: 'BLOQUÉ', value: 'BLOQUE' },
+      { name: 'SUSPENDU', value: 'SUSPENDU' },
+      { name: 'SUPPRIMÉ', value: 'SUPPRIME' }
+    ];
+  
+    // Mocked search logic
+    this.searchSubject.pipe(debounceTime(300), takeUntil(this.destroy$)).subscribe((query: string) => {
+      this.filter = query;
       this.getEmployerList();
-      this.searchSubject
-      .pipe(debounceTime(300), takeUntil(this.destroy$))
-      .subscribe((query: string) => {
-        this.filter = query;
-        this.getEmployerList();
-      });
+    });
   }
 
 
   getEmployerList() {
-    this.loading = true;
-    this.employerService.getEmployerList({ page: this.page, per_page: this.per_page, filter: this.filter }).subscribe(
-      (res: any) => {
-        this.employer = res.data || res;
-        this.total = res.total || res.length || 0;
-        this.loading = false;
-      },
-      () => {
-        this.loading = false;
-      }
-    );
+    this.loading = false; // No loading animation needed for mock data
+    // Filter logic for fake data
+    if (this.filter) {
+      this.employer = this.employer.filter(emp => emp.name.toLowerCase().includes(this.filter.toLowerCase()));
+    }
+    this.total = this.employer.length; // Update total based on filtered results
   }
   // pour modifer le status 
   updateEmployerStatus(id: number, event: any) {
@@ -92,26 +122,50 @@ export class EmployeurComponent  implements OnInit{
       (err : any ) => console.error(err)
     );
   }
-  employerDetails(id: number) {
-    this.router.navigate(['/dashboard/employer/details/' + id], {
+  EmployerDetails(id: number) {
+    this.router.navigate([`/dashboard/users/employers/details/${id}`], {
       queryParams: { page: this.page, per_page: this.per_page },
     });
   }
 
   openPages(id: number) {
-    this.router.navigate(['/dashboard/employer/pages/' + id]);
+    this.router.navigate([`/dashboard/users/employers/details/${id}`]);
   }
 
-  displayUpdateEmployer(employer: any) {
+  UpdateEmployer(employer: any) {
   this.selectedEmployerToUpdate = employer; // Store the selected employer
-  this.showingUpdateEmployer = true; // Show the AddEmployerComponent for editing
+  this.router.navigate([`/dashboard/users/employers/update-employer`,employer.id]);
+
 }
 
-  toggleDeleteEmployer(elm: any = false){
-    if (elm !== false) {
-      this.employerToDelete = elm;
-    }
-    this.showDelete = !this.showDelete;
+
+deleteEmployer(employer: any) {
+    Swal.fire({
+      text: 'Voulez-vous supprimer ce employeur ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
+      customClass: {
+        confirmButton: 'btn-primary',
+        cancelButton: 'btn-cancel',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.employerService.deletEmployer(employer.id).subscribe(() => {
+          Swal.fire({
+            text: 'Employeur supprimé avec succès',
+            icon: 'success',
+            customClass: {
+              confirmButton: 'btn-primary',
+            },
+          }).then(() => {
+            this.getEmployerList();
+          });
+        });
+      }
+    });
   }
 
   lazyLoad(event : any){
