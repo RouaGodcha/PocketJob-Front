@@ -1,61 +1,72 @@
-.navbar-top {
+.navbar-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #9F7AEA, #4C51BF);
+  
+  height: 70px;
+  padding: 0 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
-  background: linear-gradient(to bottom, #ffffff, #f6f6f6);
-  border-bottom: 1px solid #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 50px;
   z-index: 1000;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 
-  .logo {
+  .navbar-left {
     display: flex;
     align-items: center;
-    text-decoration: none;
 
-    .logo-img {
-      height: 50px;
-      width: auto;
-      margin-right: 12px;
-    }
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
 
-    .brand-name {
-      font-size: 26px;
-      font-weight: bold;
-      color: #04328C;
-      font-family: 'Segoe UI', sans-serif;
+      .logo-img {
+        height: 45px;
+        margin-right: 10px;
+      }
+
+      .brand-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #04328C;
+      }
     }
   }
 
-  .center-contact {
-    text-align: center;
+  .navbar-center {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
     color: #04328C;
-    .phone {
-      font-size: 18px;
-      font-weight: bold;
+
+    .phone-icon {
+      margin-right: 8px;
+    }
+
+    .phone-text {
+      font-size: 16px;
     }
   }
 
-  .right-info {
+  .navbar-right {
     display: flex;
     align-items: center;
-    gap: 30px;
-    .email,
-    .status {
+    gap: 20px;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 15px;
       color: #333;
     }
 
     .status {
-      font-size: 15px;
-      font-weight: 500;
       padding: 5px 12px;
       border-radius: 20px;
+      font-size: 14px;
       color: #fff;
 
       &.active {
@@ -68,6 +79,7 @@
     }
   }
 }
+
 
 @media (max-width: 992px) {
   .navbar-top {

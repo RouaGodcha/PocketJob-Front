@@ -27,7 +27,7 @@
         .nav-link-txt {
           display: none;
           font-family: "Poppins-Medium", serif;
-          @include fonts(13px, 13px, $color-black-shark);
+          @include fonts(13px, 13px, #03045e);
           margin: 0 0 0 6px;
           text-transform: capitalize;
           overflow: hidden;
@@ -123,7 +123,7 @@
           .hover-list {
             display: block !important;
             position: absolute;
-            background: black;
+            background: #03045e;
             color: white;
             padding: 5px 15px;
             border-radius: 5px;
@@ -816,7 +816,7 @@
       padding: 0.375rem 0.75rem;
       font-weight: 400;
       @include fonts(12px, 1.5, $color-gray-trout);
-      background-color: $color-black;
+      background-color: #03045e;
       background-clip: padding-box;
       border: 1px solid $color-ghost-gray;
       -webkit-appearance: none;

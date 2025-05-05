@@ -5,15 +5,14 @@
 </div>  
   <!--formulaire -->
   <form class="form-signin" [formGroup]="loginForm" >
-      <h1>Welcome Admin!</h1>
-      
-    
+    <h1 class="admin-title"> Bienvenue Admin !</h1>
     <!-- message d'erreur -->
     <div class="success-message"
       *ngIf="(f['password']?.hasError('auth') || f['email']?.hasError('auth')) && dataState === 'email';">
       <div class="alert alert-danger" role="alert">
         Email non existant
       </div>
+      
     </div>
     <div class="success-message"
       *ngIf="(f['password']?.hasError('auth') || f['email']?.hasError('auth')) && dataState === 'password';">

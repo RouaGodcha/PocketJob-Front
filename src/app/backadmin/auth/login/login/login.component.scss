@@ -1,98 +1,114 @@
-@import "./../../../../../scss/components/extend"; // Importation de vos extensions personnalisées
+@import "./../../../../../scss/components/extend";
 
-/* General Body Styling */
+/* Variables */
+$primary-color: #262a88;
+$accent-color: #007bff;
+$background-gradient: linear-gradient(135deg, #262a88 0%, #4349b8 100%);
+$error-color: #e63946;
+$font-title: 'Poppins', sans-serif;
+$font-body: 'Roboto', sans-serif;
+
 body {
-  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  height: 100%;
-  background:  #262a88 ; // Dégradé du fond
+  height: 100vh;
+  font-family: $font-body;
+  background: $background-gradient;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  perspective: 1000px;
 }
-
-/* Image Styling */
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; // Utilisation de toute la hauteur de la vue
+  flex-wrap: wrap;
   width: 100%;
-  background-color: transparent; // Le fond du conteneur est transparent pour l'effet de fond dégradé
+  height: 100%;
+  padding: 2rem;
 
   .form-signin {
-
-
-
-    background: rgba(255, 255, 255, 0.9); // Formulaire avec un fond semi-transparent
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
     max-width: 420px;
+    width: 100%;
+    animation: zoomIn 1s ease-in-out;
+    transform-style: preserve-3d;
     text-align: center;
-    animation: fadeIn 1s ease-in-out; // Animation pour faire apparaître le formulaire
+    transition: transform 0.3s ease;
 
-    /* Image de profil */
+    &:hover {
+      transform: rotateY(3deg) scale(1.01);
+    }
+
+    .admin-title {
+      font-family: $font-title;
+      font-size: 2.2rem;
+      color: $primary-color;
+      text-shadow: 2px 2px 4px rgba(38, 42, 136, 0.4);
+      margin-bottom: 2rem;
+      animation: slideFromTop 1s ease-out;
+    }
     .img-fluid {
-      height: 100%;
       width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
       object-fit: cover;
-      border-radius: 10px;
-      transition: transform 0.3s ease;
-      transform: scale(1); // Transformation initiale de l'image pour ne pas faire apparaître un effet de zoom
-    
-    
+      transition: transform 0.5s ease;
+
       &:hover {
-        transform: scale(1.1); // Effet zoom sur l'image au survol
+        transform: scale(1.05) rotateZ(1deg);
       }
     }
-    
 
-    /* Champs de formulaire */
     .form-bloc {
       margin-bottom: 1.5rem;
       text-align: left;
 
       label {
         display: block;
-        font-weight: bold;
+        font-weight: 600;
+        color: #333;
         margin-bottom: 0.5rem;
       }
 
       .login-form-input {
         width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        padding: 0.9rem;
         font-size: 1rem;
-        transition: border-color 0.3s ease-in-out;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
 
         &:focus {
-          border-color: #007bff;
+          border-color: $accent-color;
           outline: none;
-          box-shadow: 0 0 10px rgba(0, 123, 255, 0.3); // Effet focus sur les champs
+          box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
         }
       }
 
       .error {
-        color: #dc3545;
+        color: $error-color;
         font-size: 0.875rem;
-        margin-top: 0.25rem;
-        display: block;
+        margin-top: 0.3rem;
+        font-style: italic;
       }
     }
 
-    /* Alertes d'erreur */
     .alert {
       padding: 0.75rem;
-      border-radius: 5px;
-      font-size: 0.875rem;
-      text-align: center;
+      border-radius: 10px;
       margin-bottom: 1rem;
-      animation: slideIn 0.5s ease-in-out; // Animation pour l'apparition des alertes
+      animation: shake 0.4s ease-in-out;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.9rem;
 
       &.alert-danger {
         background-color: #f8d7da;
@@ -102,101 +118,76 @@ body {
     }
 
     a {
-      color: #007bff;
-      text-decoration: none;
-      font-size: 0.875rem;
+      color: $accent-color;
+      font-weight: 500;
+      font-size: 0.9rem;
 
       &:hover {
-        text-decoration: underline; // Soulignement au survol
+        text-decoration: underline;
       }
     }
 
-    /* Boutons de soumission */
     .form-buttons {
-      text-align: center;
       margin-top: 1.5rem;
 
       .connect-btn {
-        background-color: #007bff;
+        background-color: $accent-color;
         color: white;
         border: none;
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
-        border-radius: 5px;
-        cursor: pointer;
+        width: 100%;
+        padding: 0.9rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 10px;
         transition: background-color 0.3s, transform 0.2s ease-in-out;
 
         &:hover {
-          background-color: #0056b3;
-          transform: scale(1.05); // Effet agrandi sur le bouton
+          background-color: darken($accent-color, 10%);
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
       }
     }
   }
 }
 
-/* Animation pour l'apparition du formulaire */
-@keyframes fadeIn {
-  from {
+/* Animations */
+@keyframes zoomIn {
+  0% {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: scale(0.8) translateY(-50px);
   }
-  to {
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Animation pour l'apparition des alertes */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
 }
 
-
+/* Responsive */
 @media (max-width: 768px) {
-  body {
-    padding: 1rem;
-    align-items: flex-start; // Décale vers le haut si besoin
-  }
-
-  .login-container {
-    padding-top: 2rem;
-    align-items: flex-start;
-    height: auto; // Permet au conteneur de s'ajuster à la hauteur du contenu
-    flex-direction: column;
-
-    .form-signin {
-      padding: 1.5rem;
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: none; // Moins d’ombre sur mobile pour plus de simplicité
-
-      .form-bloc {
-        .login-form-input {
-          font-size: 0.95rem;
-          padding: 0.6rem;
-        }
-      }
-
-      .form-buttons {
-        .connect-btn {
-          width: 100%;
-          font-size: 1rem;
-          padding: 0.75rem;
-        }
-      }
-
-      .img-fluid {
-        display: none; // On cache l'image si elle prend trop de place sur mobile
-      }
+  .form-signin {
+    padding: 1.5rem;
+    .admin-title {
+      font-size: 1.7rem;
     }
   }
 }
-

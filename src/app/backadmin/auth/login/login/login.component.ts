@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.initLoginForm();
     this.titleService.setTitle(
-      'backUser');
+      'PocketJob');
   }
   login(): void {
     console.log(this.loginForm.value); // Affiche les valeurs du formulaire pour le débogage

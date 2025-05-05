@@ -21,7 +21,7 @@ export class GuestGuard implements CanActivate {
       if (token === null || token === undefined || helper.isTokenExpired(token)) {
         return true
       } else {
-        this.router.navigate(['admin/dashboard']);
+        this.router.navigate(['/dashboard']);
         return false
       }
     } catch (err) {

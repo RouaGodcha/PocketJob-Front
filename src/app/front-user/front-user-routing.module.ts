@@ -9,7 +9,6 @@ import { OffresEmploiComponent } from './offres-emploi/offres-emploi.component';
 import { ReservationComponent } from './auth/register/home-register/reservation/reservation.component';
 import { OffreDetailsComponent } from './offres-emploi/pages/offre-details/offre-details.component';
 import { DashboardCandidatComponent } from './User/dashboard-candidat/dashboard-candidat.component';
-import { CvComponent } from './User/cv/cv.component';
 import { MessagesComponent } from './User/messages/messages.component';
 import { UserLayoutComponent } from './User/user-layout/user-layout.component';
 import { AuthComponent } from './employer/auth/auth.component';
@@ -22,6 +21,7 @@ import { InviteComponent } from './User/invite/invite.component';
 const routes: Routes = [
   {
     path: 'home',
+    
     component : FrontLayoutComponent,
     children: [
       {path:'',component : HomeComponent},
@@ -61,7 +61,6 @@ const routes: Routes = [
     component : UserLayoutComponent,
     children: [
       { path: 'dashboardcandidat', component: DashboardCandidatComponent }, // accueil candidat
-       { path: 'cv', component: CvComponent },
       { path:'offres-details', component:OffresComponent},
       { path:'vos-emploi', component:VosEmploiComponent},
       {path:'news', component:NewsComponent},

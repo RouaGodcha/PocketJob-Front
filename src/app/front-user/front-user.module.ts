@@ -17,7 +17,6 @@ import { ReservationComponent } from './auth/register/home-register/reservation/
 import { BackadminRoutingModule } from '../backadmin/backadmin-routing.module';
 import { OffreDetailsComponent } from './offres-emploi/pages/offre-details/offre-details.component';
 import { DashboardCandidatComponent } from './User/dashboard-candidat/dashboard-candidat.component';
-import { CvComponent } from './User/cv/cv.component';
 import { MessagesComponent } from './User/messages/messages.component';
 import { NavbarCandidatComponent } from './User/navbar-candidat/navbar-candidat.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -81,7 +80,7 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
     ReservationComponent,
     OffreDetailsComponent,
     DashboardCandidatComponent,
-    CvComponent,
+
     MessagesComponent,
     NavbarCandidatComponent,
     UserLayoutComponent,

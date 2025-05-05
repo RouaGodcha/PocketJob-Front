@@ -1,34 +1,28 @@
 <header>
-    <a class="logo" routerLink="/dashboard">
-      <img src="../../../assets/img/" alt="pocketjob-logo">
-    </a>
-    <div class="row-header">
-      <div class="search-area">
-        <!-- <button class="notif-blc"></button> -->
-        <div class="search-blc">
-          <input type="search" class="form-control" placeholder="Chercher">
+  <a class="logo" routerLink="/dashboard">
+    <img src="/logo-pocketJob.png" alt="pocketjob-logo">
+  </a>
+  <div class="row-header">
+    <div class="search-area">
+      <div class="search-blc">
+        <input type="search" class="form-control" placeholder="Chercher">
+      </div>
+    </div><!--.search-area-->
+    <div class="dropdown-blc">
+      <div class="connected-status-area">
+        <span>Connecté</span>
+      </div>
+      <div class="dropdown">
+        <button class="user-icon" (click)="toggleDropdownList()"></button>
+        <div class="dropdown-list" [ngClass]="statusToggleDropdownList ? 'active' : ''">
+          <button class="logout-btn" (click)="logout()">
+            <span class="logout-text">Déconnexion</span>
+          </button>
+          <button class="config-btn" (click)="openSetting()">
+            <span class="config-text">Configurations</span>
+          </button>
         </div>
-      </div><!--.search-area-->
-      <div class="dropdown-blc">
-        <div class="connected-status-area">
-          <span>Connecté</span>
-        </div>
-        <div class="dropdown">
-          <button class="user-icon" (click)="toggleDropdownList()"></button>
-          <div class="dropdown-list" [ngClass]="statusToggleDropdownList ? 'active' : ''">
-            <button class="logout-btn" (click)="logout()"  >
-              <span class="logout-text">
-               Déconnexion 
-              </span>
-            </button>
-            <button class="config-btn" (click)="openSetting()">
-              <span class="config-text">
-                Configurations
-              </span>
-            </button>
-          </div>
-        </div><!--.dropdown-->
-      </div><!--.dropdown-blc-->
-    </div><!--.row-header-->
-  </header>
-  
+      </div><!--.dropdown-->
+    </div><!--.dropdown-blc-->
+  </div><!--.row-header-->
+</header>

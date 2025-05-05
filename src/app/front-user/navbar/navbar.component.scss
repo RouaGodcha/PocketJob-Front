@@ -11,28 +11,27 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 80px; // Augmentée pour accueillir le logo
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: white;
-  padding: 1rem 2rem;
+  padding: 0 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: all 0.3s ease-in-out;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #04328C;
-  cursor: pointer;
-}
+
 
 .logo img {
-  height: 40px;
-  margin-right: 10px;
+  height: 80px; // ⬅️ Augmente ici la hauteur du logo
+  max-width: 300px; // ⬅️ Facultatif : limite la largeur pour qu'elle reste propre
+ 
+  object-fit: contain;
+  margin-top: 5px; // Centrage vertical plus doux
+  margin-bottom: 5px;
+  transition: transform 0.3s ease;
   cursor: pointer;
 }
 
@@ -165,6 +164,9 @@
 
 /* Extra responsiveness for very small screens */
 @media screen and (max-width: 480px) {
+  .logo img {
+    height: 70px; // Taille adaptée pour mobile
+  }
   .logo {
     font-size: 1.2rem;
   }

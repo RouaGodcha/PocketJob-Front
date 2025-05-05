@@ -106,7 +106,6 @@ import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
     NavbarComponent,
     UserComponent,
     UpdateUserComponent,
-
     AddUserComponent,
     PostesComponent,
     AddPostesComponent,

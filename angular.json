@@ -33,8 +33,10 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets/pcketjob.png",
               {
                 "glob": "**/*",
+               
                 "input": "public"
               }
             ],

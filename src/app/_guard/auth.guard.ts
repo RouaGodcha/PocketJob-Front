@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     try {
       if (token === null || helper.isTokenExpired(token)) {
         this.localstorageService.clear();
-        this.router.navigate(['admin/loginadmin'])
+        this.router.navigate(['/dashboard']);
         return false
       }
       return true;
