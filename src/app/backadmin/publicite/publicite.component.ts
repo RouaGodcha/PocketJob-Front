@@ -118,11 +118,11 @@ export class PubliciteComponent implements OnInit {
   }
 
   openPages(id: number) {
-    this.router.navigate(['/dashboard/publicites/pages', id]);
+    this.router.navigate(['/admin/publicites/pages', id]);
   }
 
   modifierPublicite(publicite: any) {
-    this.router.navigate(['/dashboard/publicites/update-publicites', publicite.id]);
+    this.router.navigate(['/admin/publicites/update-publicites', publicite.id]);
   }
 
   updatePubliciteStatus(id: number, event: any) {

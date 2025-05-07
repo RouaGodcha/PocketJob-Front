@@ -284,7 +284,7 @@ getDiplomasList() {
    * Redirection vers la page de modification ( )
    */
   UpdateOffre(id: number): void {
-    this.router.navigate(['/dashboard/offre-emploi/modules/edit-offre', id]);
+    this.router.navigate(['/admin/offre-emploi/modules/edit-offre', id]);
   }
  /**
    * Suppression d’un module

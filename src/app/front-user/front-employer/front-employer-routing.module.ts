@@ -15,44 +15,21 @@ import { ProfileEmployerComponent } from './profile-employer/profile-employer.co
 
 const routes: Routes = [
   {
-    path: 'Frontemployer',
+    path: '',
     component: EmployerLayoutComponent,
-    //canActivate: [AuthGuard],
     children: [
-     {path: 'dashboardEmployer',
-      // canActivate: [AuthEmployeurGuard],
-      component: DashboardEmployerComponent,},
-      { path:'ajout-offre',
-        component : AjoutOffreComponent,
-        //canActivate: [AuthEmployeurGuard]
-      },
-      {
-        path:'candidats-employer',component : CandidatsEmployerComponent
-      },
-      {
-        path: 'rendez-vous-employer', component: RendezVousEmployerComponent
-      },
-      {
-        path:  'messagerie-employer', component: MessagerieEmployerComponent
-      },
-      {
-        path: 'messagerie-employer/conversations-employer/:id', component: MessagerieEmployerComponent
-      },
-      {
-        path:"notifications-employer", component: NotificationsEmployerComponent
-      },
-      {
-        path:'employer-profile', component: ProfileEmployerComponent
-      },
-      {
-        path: 'register-employer',
-        //canActivate: [GuestEmployerGuard],
-        component: AuthComponent
-      }
-    ],
-
-  },
-  
+      { path: '', redirectTo: 'dashboardEmployer', pathMatch: 'full' },
+      { path: 'dashboardEmployer', component: DashboardEmployerComponent },
+      { path: 'ajout-offre', component: AjoutOffreComponent },
+      { path: 'candidats-employer', component: CandidatsEmployerComponent },
+      { path: 'rendez-vous-employer', component: RendezVousEmployerComponent },
+      { path: 'messagerie-employer', component: MessagerieEmployerComponent },
+      { path: 'messagerie-employer/conversations-employer/:id', component: ConversationsEmployerComponent },
+      { path: 'notifications-employer', component: NotificationsEmployerComponent },
+      { path: 'employer-profile', component: ProfileEmployerComponent },
+      { path: 'register-employer', component: AuthComponent }
+    ]
+  }
 ];
 
 

@@ -13,6 +13,8 @@ import { AuthService } from '../../../_services/auth.service';
   styleUrl: './reset.component.scss'
 })
 export class ResetComponent  {
+  isMobile: boolean = false;
+
 resetPasswordForm!: UntypedFormGroup;
 data: any;
 dataId: any;
@@ -31,6 +33,7 @@ ngOnInit(): void {
   this.initResetPasswordForm();
   this.titleService.setTitle(
     'backadmin');
+    this.isMobile = window.innerWidth < 768;
 }
 resetPassword(): void {
   const body = this.resetPasswordForm.value;

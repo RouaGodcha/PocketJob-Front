@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from "@auth0/angular-jwt";
 
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Observable, Subject, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import {jwtDecode} from "jwt-decode";
@@ -16,7 +16,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   
   helper = new JwtHelperService();
-  url = `${environment.apiUrl}`;
+  url = `${environment.apiUrl}/backoffice`;
 
 
   private isAuthenticated = false;
@@ -27,15 +27,21 @@ export class AuthService {
     private router: Router,
     private localstorageService: LocalStorageService
   ) { }
-  login(formData: any): Observable<HttpResponse<any>> {
-    return this.http.post(`${this.url}/login`, formData, {
-      observe: 'response',
-      withCredentials: true // S'assurer que les cookies sont envoyés
-    }).pipe(
-      catchError(this.handleError)
-    );
+  
+  login(credentials: any): Observable<any> {
+    return this.http.post<{ token: string; user: any }>(`${this.url}/login`, credentials, {
+       observe: 'response',
+       });
+  }
+  isLoggedIn(): boolean {
+    const token = this.localstorageService.getAdminToken();
+    return token != null && !this.helper.isTokenExpired(token);
   }
   
+
+  getUserRole(): string | null {
+    return localStorage.getItem('role');
+  }
   /** Inscription utilisateur */
   register(formData: any): Observable<HttpResponse<any>> {
     return this.http.post(`${this.url}/register`, formData, { observe: 'response' }).pipe(
@@ -62,16 +68,13 @@ export class AuthService {
 
   /** Déconnexion */
   logOut(): void {
-    this.http.post(`${this.url}/logout`, {}, { observe: 'response' }).subscribe(() => {
-      this.localstorageService.clear();
-      this.isAuthenticated = false;
-      this.authStatusListener.next(false);
-      this.router.navigate(['/login']);
-    });
+    this.localstorageService.clear();
+    this.router.navigate(['/admin/login']);
   }
-  /** Gère les erreurs HTTP */
-  private handleError(err: HttpErrorResponse): Observable<never> {
-    return throwError(() => err);
+  
+  /** Gère les erreurs HTTP */ 
+  private handleError(error: any) {
+    return throwError(() => error);
   }
     /** Récupère les données d'authentification */
     private getAuthData() {
@@ -87,6 +90,8 @@ export class AuthService {
     
       return this.http.get(`${this.url}/protected-endpoint`, { headers });
     }
+    
+    
     
 }
 

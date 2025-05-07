@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -16,60 +16,59 @@ import { AuthService } from '../../../../_services/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
+  isMobile: boolean = false;
 
-  loginForm!: UntypedFormGroup;
-
+  loginForm!: FormGroup;
+  errorMessage: string | null = null;
+  submitted = false;
   siteUrl = `${environment.siteUrl}`;
-
   data: any;
   dataId: any;
   role: any;
   permissions: any;
-  errorMessage: string | null = null;
-  submitted = false;
   dataDecrypted: any;
   dataState!: any;
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private titleService: Title,
     public authService: AuthService,
     private localstorageService: LocalStorageService
   ) { }
   ngOnInit(): void {
-    this.initLoginForm();
-    this.titleService.setTitle(
-      'PocketJob');
+    this.titleService.setTitle('PocketJob - Connexion Admin');
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+    this.isMobile = window.innerWidth < 768;
   }
   login(): void {
     console.log(this.loginForm.value); // Affiche les valeurs du formulaire pour le débogage
-    this.submitted = true;
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe((res: any) => {
-        if (res.body.user.role === 'admin') {
-          this.data = res.body.token;
-          this.dataId = res.body.id;
-          this.role = res.body.roles[0].name; // Récupérer le rôle de l'utilisateur
-          this.dataDecrypted = jwtDecode(this.data); // Décrypter le token pour récupérer les informations
-          this.localstorageService.setAdminToken(this.data); // Sauvegarder le token
-          this.localstorageService.setAdminRole(this.role); // Sauvegarder le rôle
-          this.localstorageService.setAdminId((parseInt(this.dataDecrypted.sub) % 10) + ''); // Sauvegarder l'ID utilisateur
-          this.router.navigate(['/dashboard']); // Rediriger vers le dashboard
-          this.errorMessage = null;
-          this.submitted = false;
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        const token = res.body.token;
+        const user = res.body.user;
+        this.localstorageService.setAdminToken(token);
+        this.localstorageService.setAdminRole(user.role);
+        //this.localstorageService.setAdminId(user.id);
+    
+        if (user.role === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
         } else {
-          window.location.href = this.siteUrl; // Rediriger ailleurs si ce n'est pas un administrateur
+          this.router.navigate(['/home/acceuil']);
         }
       },
-      (err: HttpErrorResponse) => {
-        this.errorMessage = this.errorMessage ? null : 'Une erreur s\'est produite';
-        this.submitted = false;
-        this.setErrors(err);
-      });
-    }
+      error: (err) => {
+        this.errorMessage = 'Identifiants incorrects ou erreur serveur.';
+      },
+    });
+    
   }
-  
+  forget() {
+    this.router.navigate(['forget'], { replaceUrl: true });
+  }
   
   
   private initLoginForm() {
@@ -121,8 +120,4 @@ export class LoginComponent implements OnInit {
     }
   }
   
-  forget() {
-    this.router.navigate(['forget'], { replaceUrl: true })
-  }
-
 }

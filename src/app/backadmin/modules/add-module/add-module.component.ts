@@ -21,6 +21,9 @@ export class AddModuleComponent implements OnInit {
   subjects: any[] = [];
   imageUrl: any;
   diplomaId: any;
+  selectedImage: File | null = null;
+  selectedCV: File | null = null;
+  cvFileName: string = '';
   loadingAdd: boolean = false;
   showSuccess = false;
   overlayStatus: boolean = false;  // Pour contrôler l'état de l'overlay
@@ -32,16 +35,16 @@ export class AddModuleComponent implements OnInit {
     private router: Router
   ) {
     this.addModuleForm = this.fb.group({
-       name: ['', Validators.required],
-      coefficient: ['', Validators.required],
-      image: ['', Validators.required],
-      job_type: ['', Validators.required],
-      description: [''],
-      contract_duration: [''],
-      salary: [''],
-      work_location: [''],
-      required_skills: [''],
       diploma_id: ['', Validators.required],
+      job_type: [''],
+      name: ['', Validators.required],
+      contract_duration: ['', Validators.required],
+      salary: ['', Validators.required],
+      required_skills: [''],
+      work_location: ['', Validators.required],
+      description: [''],
+      image: [null],
+      cv: [null]
     });
   }
 
@@ -72,31 +75,71 @@ export class AddModuleComponent implements OnInit {
     history.back(); 
     this.cancel();   
   }
-
-  uploadImage(event: any) {
-    // Tu pourras gérer l’upload ici
+  uploadImage(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+      this.imageUrl = URL.createObjectURL(file);
+      this.addModuleForm.patchValue({ image: file });
+    }
   }
 
-  removeImage() {
-    this.addModuleForm.controls['image'].setValue('');
-    this.imageUrl = '';
+  removeImage(): void {
+    this.imageUrl = null;
+    this.selectedImage = null;
+    this.addModuleForm.patchValue({ image: null });
   }
+
+
+  uploadCV(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedCV = file;
+      this.cvFileName = file.name;
+      this.addModuleForm.patchValue({ cv: file });
+    }
+  }
+
+  removeCV(): void {
+    this.selectedCV = null;
+    this.cvFileName = '';
+    this.addModuleForm.patchValue({ cv: null });
+  }
+  
 
   submitForm() {
     this.isSubmitted = true;
-    if (this.addModuleForm.valid) {
-      this.loadingAdd = true;
-      const moduleData = this.addModuleForm.value;
-      this.moduleService.addModule(moduleData).subscribe(response => {
-        // Ici, vous pouvez appeler la fonction pour rafraîchir la liste des modules
-        // Ou émettre un événement pour notifier le composant parent
-        this.loadingAdd = false;
-      }, error => {
-        this.loadingAdd = false;
-        console.error('Erreur lors de l\'ajout du module', error);
-      });
+    if (this.addModuleForm.invalid) return;
+
+    const formData = new FormData();
+    Object.keys(this.addModuleForm.controls).forEach(key => {
+      const value = this.addModuleForm.get(key)?.value;
+      if (value) formData.append(key, value);
+    });
+
+    if (this.selectedImage) {
+      formData.append('image', this.selectedImage);
     }
+
+    if (this.selectedCV) {
+      formData.append('cv', this.selectedCV);
+    }
+
+    this.loadingAdd = true;
+
+    // TODO : Remplace par ton service API
+    console.log('FormData à envoyer :');
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    // Simuler envoi
+    setTimeout(() => {
+      this.loadingAdd = false;
+      alert('Offre ajoutée avec succès 🎉');
+    }, 1500);
   }
+  
   backToList(): void {
     history.back(); // Revenir à la page précédente
     console.log('Retour à la liste');

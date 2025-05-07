@@ -20,58 +20,46 @@ import { InviteComponent } from './User/invite/invite.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    
-    component : FrontLayoutComponent,
+    path: '',
+    component: FrontLayoutComponent,
     children: [
-      {path:'',component : HomeComponent},
-      /*Page d'acceuil   */
+      { path: '', component: HomeComponent }, // http://localhost:4200/
+      { path: 'acceuil', component: HomeComponent },
+      { path: 'loginUser', component: LoginComponent },
+
       {
-         path : 'acceuil',component : HomeComponent
+        path: 'homeRegister',
+        children: [
+          { path: 'inscription', component: RegisterComponent },
+          { path: 'registerUser', component: HomeRegisterComponent },
+          { path: 'reservation', component: ReservationComponent },
+        ],
       },
 
-      /* Auth Utilisateur  */
       {
-        path:'loginUser',
-        component: LoginComponent,
+        path: 'offres',
+        children: [
+          { path: '', component: OffresEmploiComponent },
+          { path: 'details-offre/:id', component: OffreDetailsComponent },
+        ],
       },
-      {
-        path :'homeRegister',
-        children :[
-          {path:'inscription',component : RegisterComponent },
-          {path :'registerUser' , component : HomeRegisterComponent},
-          { path :'reservation', component : ReservationComponent}
-        
-         ]
-      },
-      { path: 'offres', children: [
-        { path: '', component: OffresEmploiComponent },
-        { path: 'details-offre/:id', component: OffreDetailsComponent }
-      ]},
-      {
-        path:'employer',
-        component:AuthComponent
-      }
-      
+
+      { path: 'employer', component: AuthComponent },
     ],
   },
-
   {
     path: 'mon-compte',
-    component : UserLayoutComponent,
+    component: UserLayoutComponent,
     children: [
-      { path: 'dashboardcandidat', component: DashboardCandidatComponent }, // accueil candidat
-      { path:'offres-details', component:OffresComponent},
-      { path:'vos-emploi', component:VosEmploiComponent},
-      {path:'news', component:NewsComponent},
+      { path: 'dashboardcandidat', component: DashboardCandidatComponent },
+      { path: 'offres-details', component: OffresComponent },
+      { path: 'vos-emploi', component: VosEmploiComponent },
+      { path: 'news', component: NewsComponent },
       { path: 'messages', component: MessagesComponent },
-      { path:'profil', component : ProfilComponent },
-      { path:'inviter', component: InviteComponent}
-    ]
+      { path: 'profil', component: ProfilComponent },
+      { path: 'inviter', component: InviteComponent },
+    ],
   },
-
-
-   
     ];
 
 @NgModule({

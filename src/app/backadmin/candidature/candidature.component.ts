@@ -81,7 +81,7 @@ export class CandidatureComponent implements OnInit {
   }
 
   modifier(c: any) {
-    this.router.navigate(["/dashboard/candidature/update-candidature/:id"]);
+    this.router.navigate(["/admin/candidature/update-candidature/:id"]);
   }
 
   confirmerAnnulation(c: any) {

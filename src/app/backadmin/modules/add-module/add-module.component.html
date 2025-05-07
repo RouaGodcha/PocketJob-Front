@@ -18,32 +18,32 @@
                     <div class="col-lg-4 pe-md-0">
                         <div class="card form-area bg-white part-one">
                             <div class="card-body">
-                                <!-- Diplôme -->
-                                <div class="form-style-1">
-                                    <label class="form-label">Diplôme</label>
-                                    <p-dropdown
-                                        [options]="diplomas"
-                                        formControlName="diploma_id"
-                                        [autoDisplayFirst]="false"
-                                        placeholder="Sélectionner un diplôme *"
-                                        optionLabel="name"
-                                        optionValue="id"
-                                        [showClear]="false">
-                                    </p-dropdown>
-                                    <span class="error" *ngIf="addModuleForm.controls['diploma_id'].hasError('required') && isSubmitted">
-                                        Champ est obligatoire !
-                                    </span>
-                                </div>
+                                <!-- Diplome ( CV ° ) CV -->
+                        <div class="form-style-1">
+                            <label class="form-label"> CV (PDF ou Word)</label>
+                        </div>
+                        <div class="form-style-1" *ngIf="cvFileName">
+                            <p><i class="pi pi-file"></i> {{ cvFileName }}</p>
+                            <i class="pi pi-times" (click)="removeCV()"></i>
+                        </div>
+                        
+                        <div class="form-style-1">
+                            <input
+                            id="cv"
+                            type="file"
+                            class="input-file"
+                            accept=".pdf,.doc,.docx"
+                            (change)="uploadCV($event)">
+                            <label for="cv">{{ cvFileName || 'Sélectionner un fichier' }}</label>
+                        </div>
+                        
 
-                                <!-- Type d'Emploi -->
-                                <div class="form-style-1">
-                                    <label class="form-label">Type d'emploi</label>
-                                    <p-dropdown
-                                        [options]="jobTypes"
-                                        formControlName="job_type"
-                                        placeholder="Sélectionner le type d'emploi">
-                                    </p-dropdown>
-                                </div>
+                               <!-- Type d'Emploi -->
+<div class="form-style-1">
+    <label class="form-label">Type d'emploi</label>
+    <input type="text" placeholder="Ex: Stage, Freelance..." formControlName="job_type" />
+  </div>
+  
                             </div>
                         </div>
                     </div>

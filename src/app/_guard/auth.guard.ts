@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LocalStorageService } from '../_services/localstorage.service';
+import { AuthService } from '../_services/auth.service';
 
 const helper = new JwtHelperService();
 @Injectable({
@@ -12,22 +13,18 @@ const helper = new JwtHelperService();
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
+    private authService: AuthService,
     private localstorageService: LocalStorageService
   ) { }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      
-    let token = this.localstorageService.getAdminToken();
-    try {
-      if (token === null || helper.isTokenExpired(token)) {
-        this.localstorageService.clear();
-        this.router.navigate(['/dashboard']);
-        return false
-      }
-      return true;
-    } catch (err) {
-      return false
+  canActivate(): boolean {
+    const token = this.localstorageService.getAdminToken();
+    if (!token || helper.isTokenExpired(token)) {
+      this.localstorageService.clear();
+      this.router.navigate(['/admin/login']);
+      return false;
     }
+    return true;
   }
-}
+  
+  }
+

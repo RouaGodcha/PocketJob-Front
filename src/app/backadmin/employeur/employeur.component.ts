@@ -123,18 +123,18 @@ export class EmployeurComponent  implements OnInit{
     );
   }
   EmployerDetails(id: number) {
-    this.router.navigate([`/dashboard/users/employers/details/${id}`], {
+    this.router.navigate([`/admin/users/employers/details/${id}`], {
       queryParams: { page: this.page, per_page: this.per_page },
     });
   }
 
   openPages(id: number) {
-    this.router.navigate([`/dashboard/users/employers/details/${id}`]);
+    this.router.navigate([`/admin/users/employers/details/${id}`]);
   }
 
   UpdateEmployer(employer: any) {
   this.selectedEmployerToUpdate = employer; // Store the selected employer
-  this.router.navigate([`/dashboard/users/employers/update-employer`,employer.id]);
+  this.router.navigate([`/admin/users/employers/update-employer`,employer.id]);
 
 }
 

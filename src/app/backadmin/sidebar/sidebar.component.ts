@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentFilter();
+    // this.currentFilter();
   }
 
   clickEvent(): void {

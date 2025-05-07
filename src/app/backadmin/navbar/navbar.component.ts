@@ -10,17 +10,23 @@ import { LocalStorageService } from '../../_services/localstorage.service';
 })
 export class NavbarComponent {
   statusToggleDropdownList: Boolean = false;
+  mobileMenuOpen: boolean = false;
+
   constructor(
     private router: Router,
     private localstorageService: LocalStorageService
   ) {}
   logout() {
     this.localstorageService.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/admin/login']);
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   openSetting() {
-    this.router.navigate(['/dashboard/configurations']);
+    this.router.navigate(['/admin/configurations']);
     this.toggleDropdownList();
   }
     

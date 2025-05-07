@@ -5,9 +5,9 @@ $btn-hover: #002244;
 
 .form-step {
   max-width: 700px;
-  margin: 2rem auto;
+  margin: 3rem auto;
   background: #f4f6fa;
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
  
@@ -159,6 +159,61 @@ textarea:focus {
   box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
 }
 
+  }
+  @media (max-width: 768px) {
+    .form-step {
+      padding: 3rem 2rem;
+      margin: 1rem auto;
+  
+      h1, h2 {
+        font-size: 1.6rem;
+      }
+  
+      form label {
+        font-size: 0.95rem;
+  
+        input, textarea {
+          font-size: 0.95rem;
+          padding: 0.7rem;
+        }
+      }
+  
+      .radio-group {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+  
+      .etapes {
+        gap: 0.8rem;
+  
+        span {
+          width: 30px;
+          height: 30px;
+          font-size: 0.85rem;
+        }
+      }
+  
+      .form-navigation {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+  
+        button {
+          width: 100%;
+        }
+      }
+  
+      .btn-next,
+      .btn-back,
+      .btn-submit {
+        font-size: 0.95rem;
+        padding: 0.7rem;
+      }
+  
+      .error {
+        font-size: 0.85rem;
+      }
+    }
   }
   
   @media (max-width: 600px) {

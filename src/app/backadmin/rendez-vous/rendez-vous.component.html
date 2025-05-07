@@ -16,7 +16,7 @@
     </div>
   
     <!-- Modal d'édition -->
-    <p-dialog header="Modifier" [(visible)]="displayEditModal" [modal]="true" [style]="{width: '320px'}" [closable]="false">
+    <p-dialog header="Modifier" [(visible)]="displayEditModal" [modal]="true" [style]="{width: '500px'}" [closable]="false">
       <div *ngIf="editingRdv" class="modal-form">
         <label>Entreprise</label>
         <input type="text" [(ngModel)]="editingRdv.entreprise" />

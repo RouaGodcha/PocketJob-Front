@@ -253,11 +253,67 @@ $popup-danger: #c0392b;
     transform: translateX(-4px);
   }
 }
+@media (max-width: 600px) {
+  .form-step {
+    padding: 1.5rem;
+
+    .etapes {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      span {
+        width: 34px;
+        height: 34px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .form-navigation {
+      flex-direction: column;
+      align-items: stretch;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    form label {
+      font-size: 0.95rem;
+
+      input,
+      textarea {
+        font-size: 0.95rem;
+        padding: 0.7rem;
+      }
+    }
+
+    .date-range {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  .popup {
+    padding: 1.5rem;
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+}
 
 // Responsive
 @media (max-width: 600px) {
   .form-step {
-    padding: 1.5rem;
+    padding: 2rem;
 
     .etapes {
       flex-wrap: wrap;

@@ -148,16 +148,16 @@ export class CandidatComponent implements OnInit {
   }
 
   openPages(id: any) {
-    this.router.navigate([`/dashboard/users/candidats/Viewcandidats/${id}`]);
+    this.router.navigate([`/admin/users/candidats/view-candidat/${id}`]);
   }
 
   candidatDetails(id: any) {
    
-    this.router.navigate([`/dashboard/users/candidats/Viewcandidats/${id}`]);
+    this.router.navigate([`/admin/users/candidats/view-candidat/${id}`]);
   }
 
   updateCandidat(candidat: any) {
     this.selectedCandidat = candidat;
-    this.router.navigate([`/dashboard/users/candidats/update-candidat`, candidat.id]);
+    this.router.navigate([`/admin/users/candidats/update-candidat`, candidat.id]);
   }
 }

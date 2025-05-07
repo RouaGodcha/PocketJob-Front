@@ -12,7 +12,8 @@ import { AuthService } from '../../../../_services/auth.service';
   styleUrl: './forget.component.scss'
 })
 export class ForgetComponent {
-  
+  isMobile: boolean = false;
+
   forgetPasswordForm!: UntypedFormGroup;
   data: any;
   dataId: any;
@@ -31,6 +32,7 @@ export class ForgetComponent {
     this.initLoginForm();
     this.titleService.setTitle(
       'backadmin');
+      this.isMobile = window.innerWidth < 768;
   }
   forgetPassword(): void {
     this.submitted = true

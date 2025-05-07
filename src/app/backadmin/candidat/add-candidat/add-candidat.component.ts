@@ -65,7 +65,7 @@ export class AddCandidatComponent implements OnInit {
         console.log(res);
         this.showSuccess = true;
         this.success.emit(res);
-        this.route.navigate(['dashboard/candidats']);
+        this.route.navigate(['/admin/candidats']);
       },
       error: (err) => {
         console.error("Erreur ajout candidat", err);

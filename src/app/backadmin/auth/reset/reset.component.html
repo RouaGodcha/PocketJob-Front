@@ -37,3 +37,33 @@
     </form>
   </div>
   
+  <!-- Formulaire Reset Mobile -->
+<div class="mobile-reset" *ngIf="isMobile">
+  <form [formGroup]="resetPasswordForm" class="mobile-form">
+    <h2 class="mobile-title">Réinitialiser le mot de passe</h2>
+
+    <div class="form-bloc">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="Email" class="login-form-input" />
+    </div>
+
+    <div class="form-bloc">
+      <label>Code de vérification</label>
+      <input type="text" formControlName="code" placeholder="xxxx-xxx-xxxx" class="login-form-input" />
+    </div>
+
+    <div class="form-bloc">
+      <label>Nouveau mot de passe</label>
+      <input type="password" formControlName="password" placeholder="Mot de passe" class="login-form-input" />
+    </div>
+
+    <div class="form-bloc">
+      <label>Confirmation</label>
+      <input type="password" formControlName="password_confirmation" placeholder="Confirmer" class="login-form-input" />
+    </div>
+
+    <div class="form-buttons">
+      <button class="connect-btn" (click)="resetPassword()">Envoyer</button>
+    </div>
+  </form>
+</div>

@@ -6,7 +6,7 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/admin"
+          routerLink="/admin/dashboard"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('pocketjob'); closeFilters()"
         >
@@ -18,7 +18,7 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/users/candidats"
+          routerLink="/admin/users/candidats"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('users'); closeFilters()"
         >
@@ -29,7 +29,7 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/offre-emploi/modules"
+          routerLink="/admin/offre-emploi/modules"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('offre-emploi'); closeFilters()"
         >
@@ -40,7 +40,7 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/candidature"
+          routerLink="/admin/candidature"
           [routerLinkActiveOptions]="{ exact: false }"
           (click)="showList('candidature'); closeFilters()"
         >
@@ -54,7 +54,7 @@
         <a
         class="nav-link"
         routerLinkActive="nav-link-active"
-        routerLink="/dashboard/publicites"
+        routerLink="/admin/publicites"
         [routerLinkActiveOptions]="{ exact: false }"
         (click)="showList('publicites'); closeFilters()"
       >
@@ -66,7 +66,7 @@
       <a
       class="nav-link"
       routerLinkActive="nav-link-active"
-      routerLink="/dashboard/messagerie"
+      routerLink="/admin/messagerie"
       [routerLinkActiveOptions]="{ exact: false }"
       (click)="showList('messagerie'); closeFilters()"
     >
@@ -78,7 +78,7 @@
         <a
           class="nav-link"
           routerLinkActive="nav-link-active"
-          routerLink="/dashboard/rendez-vous"
+          routerLink="/admin/rendez-vous"
           aria-label="Section Actualités"
           (click)="showList('rendez-vous'); closeFilters()"
         >
@@ -87,21 +87,17 @@
         </a>
       
 
-         <!-- Actualités -->
+         <!-- Actualités 
          <a
          class="nav-link"
          routerLinkActive="nav-link-active"
-         routerLink="/dashboard/all-news/categories"
+         routerLink="/admin/all-news/categories"
          aria-label="Section Actualités"
          (click)="showList('news'); closeFilters()"
        >
          <span class="nav-link-icon all-news"></span>
          <span class="nav-link-txt">Actualités</span>
-       </a>
-       
-
-        
-        
+       </a>-->
 
       </nav>
     </div>
@@ -123,14 +119,15 @@
             <a
               class="icon posts"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/pocketjob/postes"
+              routerLink="/admin/pocketjob/postes"
+
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Posts</a>
               <a
               class="icon news"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/pocketjob/newposte"
+              routerLink="/admin/pocketjob/newposte"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Nouveaux Posts</a>
@@ -148,7 +145,7 @@
             <a
               class="icon candidates"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/users/candidats"
+              routerLink="/admin/users/candidats"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Candidats</a>
@@ -159,7 +156,7 @@
             <a
               class="icon employers"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/users/employers"
+              routerLink="/admin/users/employers"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Employeurs</a>
@@ -177,7 +174,7 @@
             <a
               class="icon modules"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/offre-emploi/modules"
+              routerLink="/admin/offre-emploi/modules"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Modules d'emploi</a>
@@ -187,7 +184,7 @@
             <a
               class="icon qcms"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/offre-emploi/qcms"
+              routerLink="/admin/offre-emploi/qcms"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >QCMs</a>
@@ -197,7 +194,7 @@
             <a
               class="icon fiche"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/offre-emploi/fiches"
+              routerLink="/admin/offre-emploi/fiches"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Fiches de Poste</a>
@@ -210,7 +207,7 @@
 
     <!--News actualité -->
 
-      <!-- News Filter -->
+      <!-- News Filter 
     <div class="sidebar-filter-style gestion-des-modeles-filter" [ngClass]="showListNews ? 'active' : ''">
       <button class="overlay-close" (click)="overlayStatusFct()" aria-label="Fermer le filtre actualités"></button>
       <nav>
@@ -219,7 +216,7 @@
             <a
               class="icon categories-blogs"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/all-news/categories"
+              routerLink="/admin/all-news/categories"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Catégories</a>
@@ -228,14 +225,14 @@
             <a
               class="icon medias"
               routerLinkActive="nav-link-active"
-              routerLink="/dashboard/all-news/medias"
+              routerLink="/admin/all-news/medias"
               [routerLinkActiveOptions]="{ exact: false }"
               (click)="closeFilters()"
               >Médias</a>
           </li>
         </ul>
       </nav>
-    </div>
+    </div>-->
   </div>
 </div>
 

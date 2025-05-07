@@ -121,36 +121,69 @@
 @media screen and (max-width: 768px) {
   .choice-container {
     flex-direction: column;
+    align-items: center;
     padding: 2rem 1rem;
     gap: 2rem;
   }
 
   .choice-box {
-    max-width: 100%;
-    padding: 2rem 1.5rem;
+    max-width: 95%;
+    padding: 1.8rem 1.2rem;
 
     img {
-      height: 220px;
+      height: 200px;
     }
 
     h2 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
     }
 
     p {
       font-size: 1rem;
+      line-height: 1.6;
     }
 
     .btn {
+      width: 100%;
       font-size: 1rem;
+      padding: 0.9rem;
     }
   }
 }
 
+@media screen and (max-width: 480px) {
+  .choice-box {
+    padding: 1.2rem;
+
+    img {
+      height: 160px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      font-size: 0.95rem;
+      padding: 0.7rem;
+    }
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+}
+
+
 /* Très petits écrans (ex: téléphones anciens) */
 @media screen and (max-width: 480px) {
   .choice-box {
-    padding:  1rem;
+    padding:  3rem;
     overflow: visible !important;
     
     img {

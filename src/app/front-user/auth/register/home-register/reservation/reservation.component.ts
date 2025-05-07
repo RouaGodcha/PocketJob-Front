@@ -88,7 +88,7 @@ export class ReservationComponent implements OnInit {
   submit(): void {
     if (this.reservationForm.valid) {
       this.reservationService.enregistrerMission(this.reservationForm.value).subscribe({
-        next: () => this.router.navigate(['/reservation/confirmation']),
+        next: () => this.router.navigate(['/home/reservation/confirmation']),
         error: err => console.error('Erreur de soumission :', err)
       });
     }

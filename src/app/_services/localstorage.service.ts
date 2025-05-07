@@ -23,7 +23,10 @@ export class LocalStorageService {
     getAdminId() {
         return localStorage.getItem('adminId');
     }
-    clear() {
-        localStorage.clear();
-    }
+    clear(): void {
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminRole');
+        localStorage.removeItem('adminId');
+      }
+      
 }

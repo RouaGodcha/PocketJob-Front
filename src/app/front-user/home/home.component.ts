@@ -25,6 +25,7 @@ interface Offer {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  isMobile: boolean = false;
 
   searchKeyword = '';
   searchRegion = '';
@@ -34,10 +35,10 @@ export class HomeComponent implements OnInit {
   selectedOffer: Offer | null = null;
 
   fakeOffers: Offer[] = [
-    { id: 1, title: 'Serveur en restauration', company: 'Brasserie du Parc', location: 'Lyon', type: 'Temps partiel', mapUrl: 'https://www.google.com/maps/embed?...' },
+    { id: 1, title: 'Serveur en restauration', company: 'sousse', location: 'tunisie', type: 'Temps partiel', mapUrl: 'https://www.google.com/maps/embed?...' },
     { id: 2, title: 'Préparateur de commande', company: 'Amazon', location: 'Lille', type: 'Temps plein', mapUrl: 'https://www.google.com/maps/embed?...' },
-    { id: 3, title: 'Aide-soignant', company: 'Clinique Santé Plus', location: 'Paris', type: 'Intérim', mapUrl: 'https://www.google.com/maps/embed?...' },
-    { id: 4, title: 'Vendeur en boutique', company: 'Zara', location: 'Marseille', type: 'CDD', mapUrl: 'https://www.google.com/maps/embed?...' },
+    { id: 3, title: 'Aide-soignant', company: 'Clinique Santé Plus', location: 'Monastir', type: 'Intérim', mapUrl: 'https://www.google.com/maps/embed?...' },
+    { id: 4, title: 'Vendeur en boutique', company: 'Zara', location: 'Mall of Sfax', type: 'CDD', mapUrl: 'https://www.google.com/maps/embed?...' },
   ];
   
   fakePartners = [
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredOffers = this.fakeOffers;
+    this.isMobile = window.innerWidth < 768;
   }
 
   onSearch() {

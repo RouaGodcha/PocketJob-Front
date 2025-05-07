@@ -38,6 +38,6 @@ export class NavbarCandidatComponent {
   }
 
   openSetting(): void {
-    this.router.navigate(['/dashboard/settings']); // ajuste la route selon ton app
+    this.router.navigate(['/admin/dashboard/settings']); // ajuste la route selon ton app
   }
 }
