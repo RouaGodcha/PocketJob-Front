@@ -48,13 +48,14 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value); // Affiche les valeurs du formulaire pour le débogage
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        const token = res.body.token;
+        const token = res.body.access_token;
         const user = res.body.user;
+        const role = user.roles[0];
         this.localstorageService.setAdminToken(token);
-        this.localstorageService.setAdminRole(user.role);
+        this.localstorageService.setAdminRole(role);
         //this.localstorageService.setAdminId(user.id);
     
-        if (user.role === 'admin') {
+        if (role=== 'admin') {
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.router.navigate(['/home/acceuil']);

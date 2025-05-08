@@ -7,7 +7,7 @@
     <span [class.active]="currentStep === 3">3</span>
   </div>
 
-  <form [formGroup]="employerForm" (ngSubmit)="submit()">
+  <form [formGroup]="employerForm" (ngSubmit)="onSubmit()">
     
     <!-- ÉTAPE 1 : Informations Entreprise -->
     <div *ngIf="currentStep === 1">

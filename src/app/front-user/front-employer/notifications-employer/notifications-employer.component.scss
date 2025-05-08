@@ -11,7 +11,7 @@
   .notif-header h3 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: #030BA6;
+    color: #03045e;
     text-align: center;
   }
   
@@ -38,7 +38,7 @@
     }
   
     &.unread {
-      border-left-color: #6C9BD9;
+      border-left-color: #4eafff;
       background-color: #e3f2fd;
     }
   }
@@ -57,7 +57,7 @@
   }
   
   .mark-btn {
-    background: #876fcf;
+    background: #03045e;
     color: #fff;
     border: none;
     padding: 6px 12px;
@@ -67,8 +67,8 @@
     transition: background 0.3s ease;
   
     &:hover {
-      background: #c291a4;
-      color: #333;
+      background: #e7dde1;
+      color: #03045e;
     }
   }
   

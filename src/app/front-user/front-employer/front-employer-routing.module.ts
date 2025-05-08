@@ -4,8 +4,6 @@ import { EmployerLayoutComponent } from './employer-layout/employer-layout.compo
 import { AuthComponent } from '../employer/auth/auth.component';
 import { DashboardEmployerComponent } from './dashboard-employer/dashboard-employer.component';
 import { AjoutOffreComponent } from './ajout-offre/ajout-offre.component';
-import { AuthEmployeurGuard } from './guards/auth-employeur.guard';
-import { GuestEmployerGuard } from './guards/guest-employer.guard';
 import { CandidatsEmployerComponent } from './candidats-employer/candidats-employer.component';
 import { RendezVousEmployerComponent } from './rendez-vous-employer/rendez-vous-employer.component';
 import { MessagerieEmployerComponent } from './messagerie-employer/messagerie-employer.component';

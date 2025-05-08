@@ -17,6 +17,7 @@ import { VosEmploiComponent } from './User/vos-emploi/vos-emploi.component';
 import { NewsComponent } from './User/news/news.component';
 import { ProfilComponent } from './User/profil/profil.component';
 import { InviteComponent } from './User/invite/invite.component';
+import { authGuardCandidatGuard } from './User/guard/auth-guard-candidat.guard';
 
 const routes: Routes = [
   {
@@ -47,11 +48,16 @@ const routes: Routes = [
       { path: 'employer', component: AuthComponent },
     ],
   },
+
+  /* Partie de Candidat  */
   {
     path: 'mon-compte',
     component: UserLayoutComponent,
     children: [
-      { path: 'dashboardcandidat', component: DashboardCandidatComponent },
+      { path: 'dashboardcandidat',
+         component: DashboardCandidatComponent ,
+         canActivate: [authGuardCandidatGuard]
+         },
       { path: 'offres-details', component: OffresComponent },
       { path: 'vos-emploi', component: VosEmploiComponent },
       { path: 'news', component: NewsComponent },

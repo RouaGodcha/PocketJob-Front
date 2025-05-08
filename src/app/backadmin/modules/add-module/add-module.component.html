@@ -51,34 +51,30 @@
                     <div class="col-lg-8">
                         <div class="card form-area bg-white">
                             <div class="card-body">
-                                <!-- Image -->
                                 <div class="form-style-1">
                                     <label class="form-label">Image</label>
-                                </div>
-                                <div class="form-style-1" *ngIf="imageUrl">
-                                    <div class="gallerie">
-                                        <div class="gallerie__item">
-                                            <img class="img-image" [src]="imageUrl" alt="image du module">
-                                            <i class="pi pi-times" (click)="removeImage()"></i>
-                                        </div>
+                                    <div *ngIf="imageUrl" class="gallerie">
+                                      <div class="gallerie__item">
+                                        <img class="img-image img-thumbnail" [src]="imageUrl" alt="Aperçu de l'image" />
+                                        <i class="pi pi-times" (click)="removeImage()"></i>
+                                      </div>
                                     </div>
-                                </div>
-    
-                                <div class="form-style-1">
+                                  
                                     <input
-                                        id="image"
-                                        type="file"
-                                        placeholder="Image"
-                                        class="input-file image"
-                                        accept="image/png, image/jpeg"
-                                        (change)="uploadImage($event)">
-                                    <label for="image" *ngIf="addModuleForm.controls['image'].value">
-                                        {{ addModuleForm.controls['image'].value.name }}
+                                      id="image"
+                                      type="file"
+                                      class="input-file"
+                                      accept="image/*"
+                                      (change)="uploadImage($event)" />
+                                    <label for="image">
+                                      {{ addModuleForm.controls['image'].value?.name || 'Choisir une image' }}
                                     </label>
-                                    <label for="image" *ngIf="!addModuleForm.controls['image'].value">
-                                        Image
-                                    </label>
-                                </div>
+                                  
+                                    <span class="error" *ngIf="addModuleForm.get('image')?.invalid && isSubmitted">
+                                      Image est requise
+                                    </span>
+                                  </div>
+                                  
     
                                 <!-- Titre -->
                                 <div class="form-style-1">

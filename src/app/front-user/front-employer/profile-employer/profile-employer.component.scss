@@ -1,7 +1,7 @@
 // Palette PocketJob
-$lavande: #CFB6F2;
+$lavande: #e6eef5;
 $violet-fonce: #1C0B8C;
-$bleu-nuit: #281259;
+$bleu-nuit: #0B2D59;
 
 .profile-wrapper {
    padding: 2rem;
@@ -39,7 +39,7 @@ $bleu-nuit: #281259;
       background-color: #faf9ff;
 
       h4 {
-        color: $bleu-nuit;
+        color: #0B2D59;
         margin-bottom: 1rem;
         font-weight: 600;
       }
@@ -150,7 +150,7 @@ $bleu-nuit: #281259;
       text-align: center;
 
       .btn-save {
-        background-color: $bleu-nuit;
+        background-color: #4eafff;
         color: #fff;
         border: none;
         padding: 0.8rem 2rem;

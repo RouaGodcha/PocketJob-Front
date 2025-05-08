@@ -1,11 +1,20 @@
 <!-- sidebar-employeur.component.html -->
+
+
 <aside class="sidebar-employeur" [class.open]="sidebarOpen">
-  <div class="profile-section">
+  <!-- TOP LOGO / TITRE -->
+  <div class="sidebar-header">
+    <img src="/logo-pocketJob.png" alt="Logo" class="logo" />
     
-    <img src="/profile.jpg" alt="Employeur" class="avatar" />
-    <div class="name-email">
-      <h3>Employeur</h3>
-      <p>employeurpocketjob.com</p>
+  </div>
+  
+
+  <div class="profile-section" *ngFor="let emp of topEmployeurs">
+    <img  [src]="emp.image" alt="Employeur" class="avatar" />
+   
+   <div class="name-email" >
+     <span>{{ emp.nom }}</span>
+     
     </div>
   </div>
 

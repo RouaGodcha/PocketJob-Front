@@ -8,7 +8,7 @@
   
     h2 {
       text-align: center;
-      color: #6a1b9a;
+      color: #03045e;
       margin-bottom: 1.5rem;
     }
   
@@ -28,11 +28,11 @@
         padding: 1rem;
         border-radius: 12px;
         max-width: 75%;
-        background: #e0e0e0;
+        background: #ccdff0;
         align-self: flex-start;
   
         &.sent {
-          background: #d1c4e9;
+          background:  #8ecae6;
           align-self: flex-end;
         }
   
@@ -63,7 +63,7 @@
   
       button {
         padding: 0.75rem 1.5rem;
-        background: #8e24aa;
+        background:  #8ecae6;
         color: #fff;
         border: none;
         border-radius: 10px;
@@ -71,7 +71,7 @@
         cursor: pointer;
   
         &:hover {
-          background: #6a1b9a;
+          background: #6e98e1;
         }
       }
     }

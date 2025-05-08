@@ -9,7 +9,10 @@ import { Component, HostBinding } from '@angular/core';
 export class SidebarEmployerComponent {
   sidebarOpen = false;
   isLightMode = false;
-  
+   
+  topEmployeurs =[
+    {nom: 'Employeur', image: '/profile.jpg'}
+  ];
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }

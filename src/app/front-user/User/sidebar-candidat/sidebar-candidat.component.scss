@@ -1,6 +1,6 @@
 .sidebar-wrapper-modern {
   position: fixed;
-  top: 70px;
+  top: 60px;
   left: 0;
   height: calc(100vh - 70px);
   display: flex;
@@ -27,7 +27,7 @@
     }
 
     .sidebar-toggle-btn-modern {
-      left: 70px;
+      left: 80px;
     }
   }
 }
@@ -36,7 +36,7 @@
   width: 240px;
   background: #f7f7f7;
   border-right: 1px solid #ddd;
-  padding-top: 20px;
+  padding-top: 1px;
   transition: all 0.3s ease;
 
   ul {
@@ -47,7 +47,7 @@
       a {
         display: flex;
         align-items: center;
-        padding: 14px 20px;
+        padding: 12px 20px;
         font-size: 15px;
         color: #444;
         text-decoration: none;

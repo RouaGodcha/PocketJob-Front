@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../_services/auth.service';
-import { AuthUserService } from '../../_services/authuser.service';
 import { Router } from '@angular/router';
+import { AuthCandidatService } from '../serviceAuth/auth-candidat.service';
 
 @Component({
   selector: 'app-navbar-candidat',
@@ -17,11 +16,11 @@ export class NavbarCandidatComponent {
 
   statusToggleDropdownList = false;
 
-  constructor(private router: Router, private authService: AuthUserService) {}
+  constructor(private router: Router, private authCandidatService: AuthCandidatService) {}
 
   /* hethi kif todkhol b esm candidat yetsajl f navbar email mte3ou */
   ngOnInit(): void {
-    this.authService.getCandidatProfile().subscribe({
+    this.authCandidatService.getCandidatProfile().subscribe({
       next: data => this.candidat = data, // 🟢 ça met automatiquement l'email affiché
       error: () => console.warn("Erreur lors du chargement du profil.")
     });

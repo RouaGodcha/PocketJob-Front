@@ -16,7 +16,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   
   helper = new JwtHelperService();
-  url = `${environment.apiUrl}/backoffice`;
+  url = `${environment.apiUrl}`;
 
 
   private isAuthenticated = false;

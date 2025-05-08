@@ -7,6 +7,8 @@ import { LocalStorageService } from '../../../_services/localstorage.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { jwtDecode } from 'jwt-decode';
+import { AuthCandidatService } from '../../User/serviceAuth/auth-candidat.service';
+import { LocalStorageCandidatService } from '../../User/serviceAuth/local-storage-candidat.service';
 
 @Component({
   selector: 'app-login',
@@ -21,8 +23,6 @@ export class LoginComponent {
   closeModal() {
     this.close.emit();
   }
-  
-
 
   loginForm!: FormGroup;
   errorMessage: string | null = null;
@@ -30,8 +30,8 @@ export class LoginComponent {
 
   constructor (
     private fb: FormBuilder,
-    private authService: AuthService,
-    private localStorageService: LocalStorageService,
+    private AuthCandidatService: AuthCandidatService,
+    private LocalStorageCandidatService: LocalStorageCandidatService,
     private router: Router,
     private titleService: Title
    ){
@@ -42,36 +42,41 @@ export class LoginComponent {
     });
    }
 
-  login(): void {
-    this.submitted = true;
-
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (res: any) => {
-        const token = res.body.token;
-        const role = res.body.roles[0]?.name || 'user';
-
-         // Déchiffrer le token pour récupérer l'ID utilisateur
-         const decodedToken: any = jwtDecode(token);
-         const userId = decodedToken.sub;
+   login(): void {
+   console.log(this.loginForm.value); // Affiche les valeurs du formulaire pour le débogage
+   this.submitted = true;
+   if (this.loginForm.invalid) return;
  
-         // Stocker dans le localStorage
-         this.localStorageService.setAdminToken(token);
-         this.localStorageService.setAdminRole(role);
-         this.localStorageService.setAdminId(userId);
- 
-         // Rediriger selon le rôle
-         this.router.navigate([role === 'user' ? 'user/dashboard' : 'admin/dashboard']);
-       },
-       error: (err: HttpErrorResponse) => {
-         this.errorMessage = 'Échec de la connexion. Vérifiez vos informations.';
-         this.submitted = false;
-       }
-     });
+   this.AuthCandidatService.loginCandidat(this.loginForm.value).subscribe({
+    next: (res: any) => {
+      const token = res.access_token;
+      const user = res.user;
+      const role = user.roles[0];
+  
+      this.LocalStorageCandidatService.setCandidatToken(token);
+      this.LocalStorageCandidatService.setCandidatRole(role);
+      this.LocalStorageCandidatService.setCandidatId(user.id);
+  
+      // ⚠️ attend un petit peu avant de router
+      setTimeout(() => {
+        if (role === 'candidate') {
+          this.router.navigate(['/home/mon-compte/dashboardcandidat']);
+        } else if (role === 'employer') {
+          this.router.navigate(['/Frontemployer/dashboardEmployer']);
+        } else if (role === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
+        }
+      }, 100);
+      
+    },
+    error: () => {
+      this.errorMessage = 'Email ou mot de passe incorrect';
     }
+  });
+   }  
+  forget() {
+    this.router.navigate(['forget']);
+  }
   
 
 
