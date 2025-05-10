@@ -10,8 +10,9 @@ export class AjoutOffreService {
   private apiUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
-
   ajouterOffre(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+    return this.http.post(`${this.apiUrl}/offres`, data);
   }
+  
+  
 }

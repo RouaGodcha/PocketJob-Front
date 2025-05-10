@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AjoutOffreService } from '../_services/ajout-offre.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ajout-offre',
@@ -39,28 +40,23 @@ export class AjoutOffreComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.offreForm.valid) {
-      this.ajoutOffreService.ajouterOffre(this.offreForm.value).subscribe({
-        next: () => {
-          const message = this.mode === 'admin'
-            ? "Offre ajoutée par l'administrateur."
-            : "Offre ajoutée avec succès !";
-          alert(message);
-
-          // Redirection différente selon le rôle
-          this.router.navigate(
-            this.mode === 'admin'
-              ? ['/dashboard/offre-emploi']
-              : ['/candidats']
-          );
-        },
-        error: (err) => {
-          console.error(err);
-          alert("Erreur lors de l'ajout de l'offre !");
-        }
-      });
-    } else {
-      this.offreForm.markAllAsTouched();
-    }
+    this.ajoutOffreService.ajouterOffre(this.offreForm.value).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: '✅ Offre ajoutée avec succès',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this.router.navigate(['/Frontemployer/dashboardEmployer']);
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: err.error.message || "Erreur lors de l'ajout"
+        });
+      }
+    });
   }
 }

@@ -15,16 +15,21 @@ export class OffreService {
   getOffres(): Observable<any> {
     return this.http.get(`${this.apiUrl}/offres`);
   }
-  
   getOffreById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/offres/${id}`);
   }
-  
-  postuler(offreId: number, candidatId: number, remuneration: number): Observable<any> {
+  /*postuler(offreId: number, candidatId: number, remuneration: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/postulations`, {
       offre_id: offreId,
       candidat_id: candidatId,
       remuneration_proposee: remuneration
     });
-  }
+  }*/
+    postuler(offreId: number, candidatId: number, remuneration: number): Observable<any> {
+      return this.http.post(`${this.apiUrl}/postuler`, {
+        offre_id: offreId,
+        candidat_id: candidatId,
+        remuneration_proposee: remuneration
+      });
+    }
 }

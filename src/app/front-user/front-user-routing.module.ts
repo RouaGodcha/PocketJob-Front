@@ -56,7 +56,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboardcandidat',
          component: DashboardCandidatComponent ,
-         canActivate: [authGuardCandidatGuard]
+         //canActivate: [authGuardCandidatGuard]
          },
       { path: 'offres-details', component: OffresComponent },
       { path: 'vos-emploi', component: VosEmploiComponent },
