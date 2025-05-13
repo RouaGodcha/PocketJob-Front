@@ -1,184 +1,181 @@
 @import "../../../../scss/components/extend";
 
-/* 🔥 Background centré avec dégradé */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-  padding: 20px;
-}
 
-/* 📌 Conteneur */
-.container {
-  background-color: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
-  max-width: 700px;
-  width: 100%;
-  animation: fadeIn 0.5s ease-in-out;
-  box-sizing: border-box;
-}
-
-/* En-tête */
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-
-  .btn-back {
-    font-size: 1.2rem;
-    color: #000000;
-    cursor: pointer;
-  }
-
-  .title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #000000;
+/* ✅ Style général du formulaire modal */
+:host ::ng-deep .p-dialog {
+  .p-dialog-header {
     font-family: 'Poppins', sans-serif;
-    margin: 0;
-    flex: 1;
-    text-align: center;
-  }
-
-  .btn-close {
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    color: #333;
-    cursor: pointer;
-
-    &:hover {
-      color: #ff4d4f;
-    }
-  }
-}
-
-/* Champs */
-.form-style-1 {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-
-  input {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #dcdcdc;
-    font-size: 14px;
-    color: #333;
-
-    &:focus {
-      border-color: #007bff;
-      outline: none;
-    }
-  }
-
-  .input-file {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    width: 100%;
-  }
-
-  .label-file {
+    font-size: 1.4rem;
     font-weight: 600;
-    margin-bottom: 6px;
+    color: #1a1a1a;
+    background: #f5f8fc;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #dee2e6;
   }
 
-  .error {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
-  }
-}
-
-/* Boutons */
-.add-partner-modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-
-  .btn-annuler {
-    background-color: #f8f9fa;
-    color: #343a40;
-    border: 1px solid #ced4da;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #e2e6ea;
-    }
-  }
-
-  .btn-ajouter {
-    background-color: #04328c;
-    color: #ffffff;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.3s;
-
-    &:hover {
-      background-color: #022b70;
-      transform: scale(1.05);
-    }
+  .p-dialog-content {
+    background-color: #fefefe;
+    padding: 2rem;
   }
 }
 
-/* Responsive mobile */
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 20px;
+
+::ng-deep .p-dialog {
+  border-radius: 18px !important;
+  overflow: hidden;
+
+  .p-dialog-header {
+    background-color: #f5f8fa;
+    padding: 1.5rem 2rem;
+
+    .p-dialog-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #04328c;
+    }
+
+    .p-dialog-header-icon {
+      color: #333;
+      font-size: 20px;
+    }
   }
 
-  .modal-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .p-dialog-content {
+    padding: 2rem;
 
-    .title {
-      font-size: 18px;
-      text-align: left;
-      width: 100%;
+    form {
+      .card {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        border-radius: 16px;
+        border: none;
+        margin-bottom: 20px;
+
+        .card-body {
+          padding: 1.5rem;
+        }
+
+        .card-footer {
+          padding: 1.5rem;
+          border-top: 1px solid #f0f0f0;
+          display: flex;
+          justify-content: flex-end;
+          gap: 1rem;
+        }
+      }
+
+      .form-style-1 {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        label {
+          font-weight: 600;
+          margin-bottom: 6px;
+          color: #333;
+        }
+
+        input,
+        textarea {
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          padding: 10px 12px;
+          font-size: 14px;
+          transition: all 0.3s ease;
+
+          &:focus {
+            border-color: #04328c;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(4, 50, 140, 0.1);
+          }
+        }
+
+        .input-file {
+          border: 2px dashed #aaa;
+          padding: 12px;
+          background-color: #f9f9f9;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #f0f8ff;
+            border-color: #04328c;
+          }
+        }
+
+        .error {
+          font-size: 12px;
+          color: #dc3545;
+          margin-top: 4px;
+        }
+
+        small {
+          font-size: 13px;
+          color: #333;
+          margin-top: 4px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          &::before {
+            content: '📄';
+          }
+        }
+      }
+
+      .btn-primary.submit {
+        background-color: #04328c !important;
+        color: #fff !important;
+        padding: 10px 24px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        font-size: 15px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #022b70 !important;
+        }
+      }
+
+      .btn-secondary {
+        background-color: #eee !important;
+        color: #333 !important;
+        padding: 10px 24px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 500;
+      }
     }
 
-    .btn-close {
-      align-self: flex-end;
+    .success-msg {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #c3e6cb;
+      border-radius: 6px;
+      font-weight: 500;
+      text-align: center;
     }
-  }
-
-  .add-partner-modal-buttons {
-    flex-direction: column;
-    align-items: stretch;
-
-    .btn-annuler,
-    .btn-ajouter {
-      width: 100%;
-    }
+    
   }
 }
 
-/* ✨ Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (max-width: 768px) {
+  ::ng-deep .p-dialog {
+    .p-dialog-content {
+      padding: 1rem;
+
+      form {
+        .card-body,
+        .card-footer {
+          padding: 1rem;
+        }
+
+        .btn-primary.submit,
+        .btn-secondary {
+          width: 100%;
+        }
+      }
+    }
   }
 }

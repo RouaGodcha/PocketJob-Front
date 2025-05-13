@@ -1,24 +1,13 @@
-<div class="modal" tabindex="-1" [ngClass]="{ 'show': addEmployer }">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Icône de fermeture dans l'en-tête -->
-      <div class="modal-header">
-        <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
-        <h1> Employeur / Entreprise</h1>
-        <button type="button" class="btn-close" (click)="closeModal()"></button>
-      </div>
+<p-dialog
+  header="Ajouter un employeur"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+  [draggable]="false"
+  (onHide)="close()"
+>
 
-      <div *ngIf="overlayStatus" class="overlay">
-        <button class="overlay-close" (click)="overlayStatusFct()"></button>
-      </div>
-
-      <div *ngIf="success" class="table-area">
-        <div class="success-msg">{{ successMsg }}</div>
-      </div>
-
-      <div class="modal-body">
-        <div class="table-area" *ngIf="!success">
-          <form [formGroup]="employerForm" (ngSubmit)="submitForm()">
+     <form [formGroup]="employerForm" (ngSubmit)="submitForm()">
             <div class="row">
               <!-- Image + Statut -->
               <div class="col-lg-4 pe-md-0">
@@ -38,11 +27,19 @@
                     </div>
 
                     <!-- Statut -->
-                    <div class="form-style-1">
-                      <label class="form-label">Statut</label>
-                      <p-dropdown [options]="allStatus" formControlName="status" optionLabel="name" optionValue="value" placeholder="Sélectionner un statut"></p-dropdown>
-                      <span class="error" *ngIf="employerForm.get('status')?.invalid && isSubmitted">Statut est requis</span>
-                    </div>
+<div class="form-style-1">
+  <label class="form-label">Statut</label>
+  <p-dropdown
+    [options]="allStatus"
+    formControlName="status"
+    optionLabel="name"
+    optionValue="value"
+    placeholder="Sélectionner un statut">
+  </p-dropdown>
+  <span class="error" *ngIf="employerForm.get('status')?.invalid && isSubmitted">
+    Statut requis
+  </span>
+</div>
                   </div>
                 </div>
               </div>
@@ -51,11 +48,21 @@
               <div class="col-lg-8 text-input-blc">
                 <div class="card form-area bg-white">
                   <div class="card-body">
+
+                                        <!-- Nom -->
                     <div class="form-style-1">
                       <label class="form-label">Nom</label>
-                      <input type="text" placeholder="Nom_Employeur/Entreprise *" formControlName="lastname">
+                      <input type="text" placeholder="Nom de l'entreprise *" formControlName="lastname" />
                       <span class="error" *ngIf="employerForm.get('lastname')?.invalid && isSubmitted">Nom est requis</span>
+                   
                     </div>
+
+                    <!-- Prénom ou Nom Contact -->
+                  <div class="form-style-1">
+                    <label class="form-label">Contact</label>
+                    <input type="text" placeholder="Personne de contact" formControlName="firstname" />
+                  </div>
+                    
 
                     <!-- Domaine -->
                     <div class="form-style-1">
@@ -74,24 +81,38 @@
                         <option value="informatique">Informatique</option>
                         <option value="restauration">Restauration</option>
                         <option value="sante">Santé</option>
+                        <option value="autre">autre</option>
                       </select>
                       <span class="error" *ngIf="employerForm.get('typeProfessionnel')?.invalid && isSubmitted">Type est requis</span>
                     </div>
-
-                     <!-- Diplôme -->
+                    
                     <div class="form-style-1">
-                      <label class="form-label-">Diplôme *</label>
-                      <input type="file" (change)="onFileChange($event)" class="input-file" />
-                      <div class="alert-danger" *ngIf="!selectedFile && employerForm.get('diplome')?.touched">
-                        Diplôme requis
-                      </div>
+                      <label class="form-label">E-mail</label>
+                      <input type="email" placeholder="E-mail *" formControlName="email" />
+                      <span class="error" *ngIf="employerForm.get('email')?.invalid && isSubmitted">Email est requis</span>
                     </div>
+                    
+
+                   <!-- Diplôme Upload -->
+                  <div class="form-style-1">
+                    <label class="form-label">Diplôme (PDF)</label>
+                    <input type="file" accept=".pdf" (change)="onFileChange($event)" />
+                    <div class="error" *ngIf="!selectedFile && isSubmitted">Le fichier est requis</div>
+                    <small *ngIf="selectedFile">📄 {{ selectedFile.name }}</small>
+ </div>
+
 
                     <!-- Adresse -->
                     <div class="form-style-1">
                       <label class="form-label">Adresse</label>
                       <input type="text" placeholder="Adresse de l'entreprise *" formControlName="adresse">
                       <span class="error" *ngIf="employerForm.get('adresse')?.invalid && isSubmitted">Adresse est requise</span>
+                    </div>
+                    
+                    <div class="form-style-1">
+                      <label class="form-label">Téléphone</label>
+                      <input type="text" placeholder="+216..." formControlName="phone" />
+                      <span class="error" *ngIf="employerForm.get('phone')?.invalid && isSubmitted">Téléphone requis</span>
                     </div>
 
                     <!-- Description -->
@@ -101,6 +122,14 @@
                       <span class="error" *ngIf="employerForm.get('description')?.invalid && isSubmitted">Description est requise</span>
                     </div>
 
+                     <!-- qualification -->
+                     <div class="form-style-1">
+                      <label class="form-label">Qualification</label>
+                      <textarea placeholder="qualification de l'entreprise" formControlName="qualification"></textarea>
+                      <span class="error" *ngIf="employerForm.get('qualification')?.invalid && isSubmitted">Qualification est requise</span>
+                    </div>
+ 
+
                     <button [disabled]="loading" type="submit" class="btn btn-primary submit">
                       <i *ngIf="loading" class="pi pi-spin pi-spinner"></i> Ajouter
                     </button>
@@ -109,8 +138,4 @@
               </div>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+      </p-dialog>

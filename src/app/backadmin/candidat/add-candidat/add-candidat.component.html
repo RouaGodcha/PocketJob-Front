@@ -1,58 +1,100 @@
-<div class="container add-candidat-form" (onHide)="cancel()">
-  <div class="modal-header">
-    <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
-
-    <h1 class="title">Ajout d'un candidat</h1>
-
-    <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+<p-dialog
+  header="Ajouter un candidat"
+  [(visible)]="show"
+  [style]="{width: '60vw'}"
+  [modal]="true"
+  [draggable]="false"
+  (onHide)="closeModal()"
+>
+  <div class="table-area" *ngIf="showSuccess">
+    <div class="success-msg">
+      Le candidat a été ajouté avec succès.
+    </div>
   </div>
 
-  <form [formGroup]="addCandidatForm" (ngSubmit)="onSubmit()" *ngIf="!showSuccess" class="form-area">
-    <!-- Nom -->
-    <div class="form-style-1">
-      <input type="text" placeholder="Nom *" formControlName="firstname" />
-      <div class="error" *ngIf="addCandidatForm.get('firstname')?.invalid && addCandidatForm.get('firstname')?.touched">
-        Nom est obligatoire et doit contenir au moins 2 caractères
-      </div>
-    </div>
-
-    <!-- Prénom -->
-    <div class="form-style-1">
-      <input type="text" placeholder="Prénom *" formControlName="lastname" />
-      <div class="error" *ngIf="addCandidatForm.get('lastname')?.invalid && addCandidatForm.get('lastname')?.touched">
-        Prénom est obligatoire
-      </div>
-    </div>
-
-    <!-- Diplôme -->
-    <div class="form-style-1">
-      <label class="label-file">Diplôme *</label>
-      <input type="file" (change)="onFileChange($event)" class="input-file" />
-      <div class="error" *ngIf="!selectedFile && addCandidatForm.get('diplome')?.touched">
-        Diplôme est obligatoire
-      </div>
-    </div>
-
-    <!-- Email -->
-    <div class="form-style-1">
-      <input type="email" placeholder="E-mail *" formControlName="email" />
-      <div class="error" *ngIf="addCandidatForm.get('email')?.invalid && addCandidatForm.get('email')?.touched">
-        Email invalide ou manquant
-      </div>
-    </div>
-
-    <!-- Téléphone -->
-    <div class="form-style-1">
-      <input type="text" placeholder="Numéro de téléphone *" formControlName="phone" />
-      <div class="error" *ngIf="addCandidatForm.get('phone')?.invalid && addCandidatForm.get('phone')?.touched">
-        Numéro de téléphone est obligatoire
-      </div>
-    </div>
-
-    <!-- Boutons -->
-    <div class="add-partner-modal-buttons">
-      <button type="button" class="btn-annuler" (click)="closeModal()">Annuler</button>
-      <button type="submit" class="btn-ajouter" routerLink="/dashboard/offre-emploi/modules" >Ajouter</button>
-    </div>
-  </form>
+  <div class="table-area" *ngIf="!showSuccess">
+    <form [formGroup]="addCandidatForm">
+      <div class="row">
+        <div class="col-lg-4 pe-md-0">
+          <div class="card form-area bg-white">
+            <div class="card-body">
+              <div class="form-style-1">
+                <label class="form-label">Diplome(CV)</label>
+                <input type="file" class="input-file" (change)="onFileChange($event)" accept=".pdf,.doc,.docx">
+                <div class="error" *ngIf="!selectedFile && fileTouched">Fichier requis</div>
+                <small *ngIf="selectedFile">📄 {{ selectedFile.name }}</small>
+              </div>
+            </div>
+               <!-- Statut -->
+<div class="form-style-1">
+  <label class="form-label">Statut</label>
+  <p-dropdown
+    [options]="allStatus"
+    formControlName="status"
+    optionLabel="name"
+    optionValue="value"
+    placeholder="Sélectionner un statut">
+  </p-dropdown>
+  <span class="error" *ngIf="addCandidatForm.get('status')?.invalid && isSubmitted">
+    Statut requis
+  </span>
 </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8 text-input-blc">
+          <div class="card form-area bg-white">
+            <div class="card-body">
+              <div class="form-style-1">
+                <label class="form-label">Prénom</label>
+                <input type="text" placeholder="Prénom *" formControlName="firstname">
+                <div class="error" *ngIf="isInvalid('firstname')">Prénom requis (min 2 caractères)</div>
+              </div>
+
+              <div class="form-style-1">
+                <label class="form-label">Nom</label>
+                <input type="text" placeholder="Nom *" formControlName="lastname">
+                <div class="error" *ngIf="isInvalid('lastname')">Nom requis</div>
+              </div>
+
+              <div class="form-style-1">
+                <label class="form-label">Email</label>
+                <input type="email" placeholder="Email *" formControlName="email">
+                <div class="error" *ngIf="addCandidatForm.get('email')?.errors?.['backend']">
+                  {{ addCandidatForm.get('email')?.errors?.['backend'] }}
+                </div>
+                  </div>
+
+             
+
+
+              <div class="form-style-1">
+                <label class="form-label">Téléphone</label>
+                <input type="text" placeholder="Téléphone *" formControlName="phone">
+                <div class="error" *ngIf="isInvalid('phone')">Téléphone requis</div>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card form-area bg-white">
+            <div class="card-footer bg-white">
+              <p-button [disabled]="addCandidatForm.invalid || !selectedFile"
+                        [icon]="'pi pi-check'"
+                        label="Ajouter"
+                        styleClass="btn btn-primary submit"
+                        (onClick)="submitForm()"
+>
+              </p-button>
+              <p-button label="Annuler" styleClass="btn btn-secondary ms-2" (onClick)="cancel()"></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-dialog>

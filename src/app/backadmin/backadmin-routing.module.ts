@@ -57,14 +57,12 @@ const routes: Routes = [
   {
     path:'',
     component: AdminLayoutComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'admin' }, // vérifie que le rôle contient bien 'admin'
+ 
     children: [
-      //{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard',
-         component: DashboardComponent ,
-         //canActivate: [AuthGuard, RoleGuard],
-         //data: { role: 'admin' },
-      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard',component: DashboardComponent , },
      
       {
         path: 'users',

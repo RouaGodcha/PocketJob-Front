@@ -10,18 +10,18 @@ export class JwtInterceptor implements HttpInterceptor {
     private localstorageService: LocalStorageService
   ) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.localstorageService.getAdminToken();
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = localStorage.getItem('AdminToken'); // ou EmployerToken selon ton contexte
+
     if (token) {
-      request = request.clone({
+      req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
     }
-    
-  
-    return next.handle(request);
+
+    return next.handle(req);
   }
   
 }

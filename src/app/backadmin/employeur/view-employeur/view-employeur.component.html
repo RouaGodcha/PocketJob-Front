@@ -7,6 +7,7 @@
           <span *ngIf="employer?.name">{{ employer.name }}</span>
           <span *ngIf="!employer?.name">Employeur non trouvé</span>
         </h1>
+        
       </div>
     </div>
   
@@ -52,8 +53,15 @@
   
           <div *ngIf="employer?.image" class="form-style-1">
             <label class="form-label">Image</label>
-            <img [src]="employer?.image" alt="Image de l'employeur" class="img-thumbnail">
+            <img 
+            [src]="'http://127.0.0.1:8000/storage/' + employer?.image" 
+            alt="Image de l'employeur" 
+            class="img-thumbnail"
+            onerror="this.src='assets/img/image-placeholder.png'"
+          >
+          
           </div>
+          
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ export interface Employer {
     description?: string;            // Description (Ajoutée)
     document?: { name: string };     // Diplôme (ou autre document)
     adresse?: string;                // Adresse
-    qualification?: { name: string }; // Qualification
+    qualification?: string;// Qualification
     creator?: { firstname: string; lastname: string }; // Créé par
     status?: string;                 // Statut
     created_at?: string;             // Date de création

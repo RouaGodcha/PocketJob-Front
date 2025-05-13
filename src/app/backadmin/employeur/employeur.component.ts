@@ -1,50 +1,41 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { debounceTime, Subject, takeUntil } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { EmployerService } from '../_services/employer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
+import { LazyLoadEvent } from 'primeng/api';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { TableLazyLoadEvent } from 'primeng/table';
 
 @Component({
   selector: 'app-employeur',
-  standalone: false,
   templateUrl: './employeur.component.html',
-  styleUrl: './employeur.component.scss'
+  standalone:false,
+  styleUrls: ['./employeur.component.scss']
 })
-export class EmployeurComponent  implements OnInit{
-  @Input() show: boolean = false; // Ajoutez cette ligne
-
+export class EmployeurComponent implements OnInit {
+  showAddEmployer : boolean = false;
+  updateEmployer: boolean = false;
+  selectedEmployerToUpdate: any;
   employer: any[] = [];
+  page: number = 1;
+  per_page: number = 10;
+  total: number = 0;
+  loading: boolean = false;
+  filter: string = '';
+  searchSubject = new Subject<string>();
+  destroy$ = new Subject<void>();
+  setPaginator: boolean = false;
+  first: number = 0;
 
-  employerToDelete: any;
-  showDelete = false;
-  isModalOpen = false;
-  loading = false;
-
-  public showingAddEmployer: boolean = false;
-  public showingUpdateEmployer: boolean = false;
-  public selectedEmployerToUpdate: any;
-  
-
-
-  filterStatus: string = '';
-  filterName: string = '';
-  filterResponsable: string = '';
-  filterDomaine: string = '';
-  filterEmail: string = '';
-
-  // Pagination & Recherche
-  first = 0;
-  total = 0;
-  per_page = 10;
-  page = 1;
-  setPaginator = false;
-  filter = '';
-  allStatus: any[] = [];
-
-  //diplomas: any = [];
-  private destroy$ = new Subject<void>();
-  private searchSubject = new Subject<string>();
+  allStatus: any[] = [
+    { name: 'ACTIVE', value: 'ACTIVE' },
+    { name: 'PENDING', value: 'PENDING' },
+    { name: 'DISABLED', value: 'DISABLED' },
+    { name: 'BLOQUÉ', value: 'BLOQUE' },
+    { name: 'SUSPENDU', value: 'SUSPENDU' },
+    { name: 'SUPPRIMÉ', value: 'SUPPRIME' }
+  ];
 
   constructor(
     private employerService: EmployerService,
@@ -52,94 +43,110 @@ export class EmployeurComponent  implements OnInit{
     private translate: TranslateService,
     private route: ActivatedRoute
   ) {}
-  ngOnInit() {
-    // Fake employer data
-    this.employer = [
-      {
-        id: 1,
-        name: 'Entreprise A',
-        domaine: { name: 'Informatique' },
-        type: 'Startup',
-        document: { name: 'Bac +5' },
-        adresse: 'Tunis, Rue 1',
-        qualification: { name: 'Développeur' },
-        creator: { firstname: 'Ahmed', lastname: 'Ali' },
-        email: 'contact@entrepriseA.com',
-        phone: '12345678',
-        status: 'ACTIVE',
-        created_at: '2025-04-28T10:00:00'
-      },
-      {
-        id: 2,
-        name: 'Entreprise B',
-        domaine: { name: 'Marketing' },
-        type: 'PME',
-        document: { name: 'Bac +3' },
-        adresse: 'Sfax, Rue 2',
-        qualification: { name: 'Chef de projet' },
-        creator: { firstname: 'Sofia', lastname: 'Mouhli' },
-        email: 'contact@entrepriseB.com',
-        phone: '87654321',
-        status: 'PENDING',
-        created_at: '2025-04-25T15:30:00'
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.page = +params['page'] || 1;
+      this.per_page = 9999; // afficher un maximum
+      if (params['page']) {
+        this.first = (this.page - 1) * this.per_page;
+        this.setPaginator = true;
       }
-      // Add more data as needed for testing
-    ];
-  
-    // Total records for pagination
-    this.total = this.employer.length;
-  
-    this.allStatus = [
-      { name: 'ACTIVE', value: 'ACTIVE' },
-      { name: 'PENDING', value: 'PENDING' },
-      { name: 'DISABLED', value: 'DISABLED' },
-      { name: 'BLOQUÉ', value: 'BLOQUE' },
-      { name: 'SUSPENDU', value: 'SUSPENDU' },
-      { name: 'SUPPRIMÉ', value: 'SUPPRIME' }
-    ];
-  
-    // Mocked search logic
-    this.searchSubject.pipe(debounceTime(300), takeUntil(this.destroy$)).subscribe((query: string) => {
-      this.filter = query;
       this.getEmployerList();
     });
-  }
 
-
-  getEmployerList() {
-    this.loading = false; // No loading animation needed for mock data
-    // Filter logic for fake data
-    if (this.filter) {
-      this.employer = this.employer.filter(emp => emp.name.toLowerCase().includes(this.filter.toLowerCase()));
-    }
-    this.total = this.employer.length; // Update total based on filtered results
-  }
-  // pour modifer le status 
-  updateEmployerStatus(id: number, event: any) {
-    const formData = { status: event.value };
-    this.employerService.changeStatus(id, formData).subscribe(
-      () => this.getEmployerList(),
-      (err : any ) => console.error(err)
-    );
-  }
-  EmployerDetails(id: number) {
-    this.router.navigate([`/admin/users/employers/details/${id}`], {
-      queryParams: { page: this.page, per_page: this.per_page },
-    });
-  }
-
-  openPages(id: number) {
-    this.router.navigate([`/admin/users/employers/details/${id}`]);
+    this.searchSubject
+      .pipe(debounceTime(500), takeUntil(this.destroy$))
+      .subscribe((query) => {
+        this.performSearch(query);
+      });
   }
 
   UpdateEmployer(employer: any) {
-  this.selectedEmployerToUpdate = employer; // Store the selected employer
-  this.router.navigate([`/admin/users/employers/update-employer`,employer.id]);
+    this.selectedEmployerToUpdate = employer;
+    this.router.navigate([`/admin/users/employers/update-employer`, employer.id]);
+  }
 
-}
+  getEmployerList() {
+    const data = { page: 1, per_page: 9999, filter: this.filter };
+    this.employerService.getEmployerList(data).subscribe((res: any) => {
+      console.log('📦 Liste reçue :', res); // ← AJOUTE CECI
+      this.employer = res;
+      this.total = res.length;
+    });
+  }
+  
+  openUpdateEmployerModal(employer: any) {
+    this.selectedEmployerToUpdate = employer;
+    this.updateEmployer = true;
+  }
+  
+
+  lazyLoad(event: TableLazyLoadEvent) {
+    if (this.setPaginator) {
+      event.first = (this.page - 1) * this.per_page;
+      this.setPaginator = false;
+    }
+    this.page = Math.floor((event.first ?? 0) / (event.rows ?? this.per_page)) + 1;
+    this.per_page = event.rows ?? this.per_page;
+    this.getEmployerList();
+  }
+
+  performSearch(query: string) {
+    this.filter = query ?? '';
+    this.page = 1;
+    this.getEmployerList();
+  }
+
+  search(event: any) {
+    const query = event.target.value;
+    this.searchSubject.next(query);
+  }
+
+  openAddEmployerModal() {
+    this.showAddEmployer  = true;
+  }
 
 
-deleteEmployer(employer: any) {
+  // Ferme la modale sans ajout
+  closeAddEmployer() {
+    this.showAddEmployer  = false;
+  }
+
+   // Ferme après ajout
+   onEmployerAdded(newEmployer: any) {
+    //this.employer.unshift(newEmployer); // insérer directement en haut de la liste
+    //this.total++;
+    //this.showAddEmployer  = false;
+    this.page = 1;
+    this.first = 0;
+    this.setPaginator = true;
+    this.getEmployerList();
+  }
+
+  editChatGroup(id: any) {
+    this.updateEmployer = true;
+    this.selectedEmployerToUpdate = id;
+  }
+
+  closeEditGroup() {
+    this.updateEmployer = false;
+    this.selectedEmployerToUpdate = '';
+  }
+
+  employerUpdated() {
+    this.updateEmployer = false;
+    this.selectedEmployerToUpdate = '';
+    this.getEmployerList();
+  }
+
+  updateEmployerStatus(id: number, event: any) {
+    const formData = { status: event.value };
+    this.employerService.changeStatus(id, formData).subscribe(() => {
+      this.getEmployerList();
+    });
+  }
+  deleteEmployer(employer: any) {
     Swal.fire({
       text: 'Voulez-vous supprimer ce employeur ?',
       icon: 'warning',
@@ -153,63 +160,37 @@ deleteEmployer(employer: any) {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.employerService.deletEmployer(employer.id).subscribe(() => {
-          Swal.fire({
-            text: 'Employeur supprimé avec succès',
-            icon: 'success',
-            customClass: {
-              confirmButton: 'btn-primary',
-            },
-          }).then(() => {
-            this.getEmployerList();
+        this.employerService.deleteEmployer(employer.id).subscribe(() => {
+          Swal.fire('Succès', 'Employeur supprimé avec succès', 'success').then(() => {
+            this.getEmployerList(); // 🔁 recharge la liste après suppression
           });
         });
       }
     });
   }
+  
+  restoreEmployer(id: number) {
+    this.employerService.restoreEmployer(id).subscribe(() => {
+      this.getEmployerList();
+    });
+  }
 
-  lazyLoad(event : any){
-    if (this.setPaginator) {
-      event.first = (this.page - 1) * this.per_page;
-      this.setPaginator = false;
+  confirmPermanentDelete(id: number) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer définitivement cet employeur ?')) {
+      this.employerService.permanentDeleteEmployer(id).subscribe(() => {
+        this.getEmployerList();
+      });
     }
-    this.page = event.first / event.rows + 1;
-    this.per_page = event.rows;
-    this.getEmployerList();
   }
-  search(event : any){
-    const query = event.target.value;
-    this.searchSubject.next(query);
+
+  EmployerDetails(id: number) {
+    this.router.navigate([`/admin/users/employers/details/${id}`], {
+      queryParams: { page: this.page, per_page: this.per_page },
+    });
   }
-  //pour bien nettoyer l’abonnement de recherche.
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
- // Appliquer les filtres
-  applyFilters() {
-    this.filter = `${this.filterStatus} ${this.filterName} ${this.filterResponsable} ${this.filterDomaine} ${this.filterEmail}`;
-    this.page = 1; // reset à la première page
-    this.getEmployerList();
-  }
-  //// Restaurer un employeur supprimé
-  restoreEmployer(id: number) {
-    this.employerService.restoreEmployer(id).subscribe(
-      () => this.getEmployerList(),
-      (error) => console.error('Erreur lors de la restauration', error)
-    );
-  }
-  //// Suppression définitive
-  confirmPermanentDelete(id: number) {
-    if (confirm("Êtes-vous sûr de vouloir supprimer définitivement cet employeur ?")) {
-      this.employerService.permanentDeleteEmployer(id).subscribe(
-        () => this.getEmployerList(),
-        (error) => console.error('Erreur de suppression définitive', error)
-      );
-    }
-  }
-  
-  
-  
 }

@@ -12,12 +12,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { JwtInterceptor } from './_services/jwt.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    CommonModule,
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
@@ -40,11 +42,7 @@ import { AppComponent } from './app.component';
     
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

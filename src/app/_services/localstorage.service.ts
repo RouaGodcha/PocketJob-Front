@@ -5,28 +5,28 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
     constructor() {
     }
-    setAdminToken(adminToken: string) {
-        localStorage.setItem('adminToken', adminToken);
+    setAdminToken(token: string) {
+        localStorage.setItem('AdminToken', token);
     }
     getAdminToken() {
-        return localStorage.getItem('adminToken');
+        return localStorage.getItem('AdminToken');
     }
-    setAdminRole(adminRole: string) {
-        localStorage.setItem('adminRole', adminRole);
+    setAdminRole(role: string) {
+        localStorage.setItem('AdminRole', role);
     }
     getAdminRole() {
-        return localStorage.getItem('adminRole');
+        return localStorage.getItem('AdminRole');
     }
-    setAdminId(adminId: string) {
-        localStorage.setItem('adminId', adminId);
+    setAdminId(Id: string) {
+        localStorage.setItem('AdminId', Id);
     }
     getAdminId() {
-        return localStorage.getItem('adminId');
+        return localStorage.getItem('AdminId');
     }
     clear(): void {
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('adminRole');
-        localStorage.removeItem('adminId');
+        localStorage.removeItem('AdminToken');
+        localStorage.removeItem('AdminRole');
+        localStorage.removeItem('AdminId');
       }
       
 }

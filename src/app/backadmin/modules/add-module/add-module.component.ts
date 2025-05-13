@@ -110,28 +110,37 @@ export class AddModuleComponent implements OnInit {
   submitForm() {
     this.isSubmitted = true;
     if (this.addModuleForm.invalid) return;
-
+  
     const formData = new FormData();
     Object.keys(this.addModuleForm.controls).forEach(key => {
       const value = this.addModuleForm.get(key)?.value;
       if (value) formData.append(key, value);
     });
-
+  
     if (this.selectedImage) {
       formData.append('image', this.selectedImage);
     }
-
+  
     if (this.selectedCV) {
       formData.append('cv', this.selectedCV);
     }
-
+  
     this.loadingAdd = true;
-
-    // TODO : Remplace par ton service API
-    console.log('FormData à envoyer :');
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
+  
+    this.moduleService.addModule(formData).subscribe({
+      next: (res) => {
+        if (res.body?.result === 'success') {
+          Swal.fire('Succès', 'Offre ajoutée avec succès 🎉', 'success');
+          this.router.navigate(['/admin/offre-emploi/modules']);
+        }
+        this.loadingAdd = false;
+      },
+      error: (err) => {
+        console.error('Erreur lors de l’ajout', err);
+        this.loadingAdd = false;
+      }
+    });
+    
 
     // Simuler envoi
     setTimeout(() => {

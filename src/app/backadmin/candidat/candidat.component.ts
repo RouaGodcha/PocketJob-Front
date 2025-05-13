@@ -1,36 +1,38 @@
+// ✅ TypeScript - candidat.component.ts
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CandidatService } from '../_services/candidat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil, debounceTime } from 'rxjs';
 import Swal from 'sweetalert2';
+import { LazyLoadEvent } from 'primeng/api';
+import { TableLazyLoadEvent } from 'primeng/table';
 
 @Component({
   selector: 'app-candidat',
-  standalone:false,
+  standalone: false,
   templateUrl: './candidat.component.html',
   styleUrls: ['./candidat.component.scss'],
 })
 export class CandidatComponent implements OnInit {
-  @Input() show: boolean = false;
-  candidats: any[] = [];
-  candidatsToDelete: any;
-  showDelete = false;
-  isModalOpen = false;
-  loading = false;
-  first = 0;
-  total = 0;
-  per_page = 10;
-  page = 1;
-  setPaginator = false;
-  filter = '';
-  diplomas: any = [];
+  addCandidat: boolean = false;
+  updateCandidatVisible: boolean = false;
+  selectedCandidatToUpdate: any;
+  candidats: any[] = []; // ✅ Correction ici
+  page: number = 1;
+  per_page: number = 10;
+  total: number = 0;
+  orderBy: any;
+  orderByType: any;
+  filter: string = '';
+  loading: boolean = false;
+  diplomas: any;
+  searchSubject = new Subject<string>();
+  destroy$ = new Subject<void>();
+  setPaginator: boolean = false;
+  first: number = 0;
+
   allStatus: any[] = [];
-  private destroy$ = new Subject<void>();
-  private searchSubject = new Subject<string>();
-  isFakeData = true;
-  selectedCandidat: any = null;
-  modalVisible: boolean = false;
 
   constructor(
     private candidatService: CandidatService,
@@ -56,20 +58,48 @@ export class CandidatComponent implements OnInit {
       this.getCandidatsList();
     });
 
-    this.getDiplomesList();
-
     this.searchSubject
-      .pipe(debounceTime(300), takeUntil(this.destroy$))
+      .pipe(debounceTime(1000), takeUntil(this.destroy$))
       .subscribe((query) => this.performSearch(query));
   }
 
-  lazyLoad(event: any) {
+  lazyLoad(event: TableLazyLoadEvent) {
     if (this.setPaginator) {
       event.first = (this.page - 1) * this.per_page;
       this.setPaginator = false;
     }
-    this.page = event.first / event.rows + 1;
-    this.per_page = event.rows;
+    this.page = (event.first || 0) / (event.rows || 10) + 1;
+    this.per_page = event.rows || 10;
+    this.orderBy = event.sortField;
+    this.orderByType = event.sortOrder === 1 ? 'ASC' : 'DESC';
+    this.getCandidatsList();
+  }
+
+  getCandidatsList() {
+    const data = {
+      search: this.filter,
+      paginate: 1,
+      per_page: this.per_page,
+      page: this.page,
+    };
+    this.loading = true;
+    this.candidatService.getCandidatsList(data).subscribe({
+      next: (res: any) => {
+        this.candidats = res.body.candidats;
+        this.total = res.body.total;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Erreur chargement candidats', err);
+        this.loading = false;
+      }
+    });
+  }
+  
+
+  performSearch(query: string) {
+    this.filter = query ?? '';
+    this.page = 1;
     this.getCandidatsList();
   }
 
@@ -78,44 +108,29 @@ export class CandidatComponent implements OnInit {
     this.searchSubject.next(query);
   }
 
-  performSearch(query: string) {
-    this.filter = query || '';
-    this.page = 1;
-    this.getCandidatsList();
+  addChatCandidat() {
+    this.addCandidat = true;
   }
 
-  getCandidatsList() {
-    if (this.isFakeData) {
-      this.loading = true;
-      const fakeCandidats = [
-        { id: 1, firstname: 'Ahmed', lastname: 'Ali', email: 'ahmed.ali@example.com', diplome: 'Baccalauréat', phone: '1234567890', status: 'ACTIVE', created_at: new Date('2023-01-15') },
-        { id: 2, firstname: 'Sara', lastname: 'Ben Ali', email: 'sara.benali@example.com', diplome: 'Master Informatique', phone: '9876543210', status: 'PENDING', created_at: new Date('2023-02-20') },
-        { id: 3, firstname: 'Khaled', lastname: 'Brahim', email: 'khaled.brahim@example.com', diplome: 'Licence', phone: '5647382910', status: 'DISABLED', created_at: new Date('2023-03-10') },
-      ];
-      setTimeout(() => {
-        this.candidats = fakeCandidats;
-        this.total = fakeCandidats.length;
-        this.loading = false;
-      }, 1500);
-    } else {
-      this.candidatService.getCandidatsList(this.page, this.per_page, this.filter).subscribe((data: any) => {
-        this.candidats = data.candidats;
-        this.total = data.total;
-        this.loading = false;
-      });
-    }
+  CandidatAdded() {
+  this.addCandidat = false;
+  this.getCandidatsList(); // recharge automatiquement la liste
+}
+
+
+  closeAddCandidat() {
+    this.addCandidat = false;
   }
 
-  getDiplomesList() {
-    this.candidatService.getDiplomasList().subscribe((data: any) => {
-      this.diplomas = data;
+  candidatDetails(id: any) {
+    this.router.navigate([`/admin/users/candidats/view-candidat/${id}`], {
+      queryParams: { page: this.page, per_page: this.per_page },
     });
   }
 
-  updateCandidatsStatus(id: number, event: any) {
-    this.candidatService.changeStatus(id, event.value).subscribe(() => {
-      this.getCandidatsList();
-    });
+  updateCandidat(candidat: any) {
+    this.updateCandidatVisible = true;
+    this.selectedCandidatToUpdate = candidat;
   }
 
   deleteCandidat(candidat: any) {
@@ -147,17 +162,12 @@ export class CandidatComponent implements OnInit {
     });
   }
 
-  openPages(id: any) {
-    this.router.navigate([`/admin/users/candidats/view-candidat/${id}`]);
+  updateCandidatStatus(id: number, status: boolean) {
+    this.candidatService.updateStatus(id, status).subscribe();
   }
 
-  candidatDetails(id: any) {
-   
-    this.router.navigate([`/admin/users/candidats/view-candidat/${id}`]);
-  }
-
-  updateCandidat(candidat: any) {
-    this.selectedCandidat = candidat;
-    this.router.navigate([`/admin/users/candidats/update-candidat`, candidat.id]);
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
@@ -8,50 +8,97 @@ import { Candidat } from '../candidat/candidat.model';
   providedIn: 'root',
 })
 export class CandidatService {
-  private apiUrl = `${environment.apiUrl}`;
+  private apiUrl = `${environment.apiUrl}/backoffice`;
 
   constructor(private http: HttpClient) {}
 
   // Get the list of candidates
-  public getCandidatsList(page: number, perPage: number, filter: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/candidats?page=${page}&per_page=${perPage}&filter=${filter}`);
+  public getCandidatsList(payload: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.apiUrl}/candidates`, payload, {
+      observe: 'response',
+    });
   }
-
+  
   // Get candidate details by ID
   getCandidateById(id: number): Observable<Candidat> {
-    return this.http.get<Candidat>(`${this.apiUrl}/candidats/${id}`);
+    return this.http.get<Candidat>(`${this.apiUrl}/candidates/${id}`);
   }
 
   // Add a new candidate
-  public addCandidat(candidat: any, file?: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('firstname', candidat.firstname);
-    formData.append('lastname', candidat.lastname);
-    formData.append('email', candidat.email);
-    formData.append('phone', candidat.phone);
-    if (file) {
-      formData.append('diplome', file, file.name);
+  public addCandidat(payload: any): Observable<any> {
+   // ✅ Correct
+return this.http.post(`${this.apiUrl}/candidates`, payload, {
+  observe: 'response',
+});
+
     }
-    return this.http.post(`${this.apiUrl}/candidats`, formData);
+
+
+    public showCandidat(id: any): Observable<HttpResponse<any>> {
+      return this.http.get(`${this.apiUrl}/candidates/${id}`, {
+        observe: 'response',
+      });
+    }
+  // Update candidate data
+  public updateCandidat(id: any, data: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.apiUrl}/candidates/${id}/update`, data, {
+      observe: 'response',
+    });
   }
 
-  // Update candidate data
-  public updateCandidat(payload: any, id: any): Observable<HttpResponse<any>> | any {
-    return this.http.post(`${this.apiUrl}/candidats/update/${id}`, payload, { observe: 'response' });
-  }
 
   // Delete a candidate
   public deletCandidat(id: any): Observable<HttpResponse<any>> | any {
-    return this.http.delete(`${this.apiUrl}/candidats/delete/${id}`, { observe: 'response' });
+    return this.http.delete(`${this.apiUrl}/candidates/delete/${id}`, {
+       observe: 'response',
+       });
   }
 
+  public getCandidatMembers(group: any, data: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.apiUrl}/candidates/${group}/members`, data, {
+      observe: 'response',
+    });
+  }
+  public deleteCandidatMember(
+    group: any,
+    user: any
+  ): Observable<HttpResponse<any>> {
+    return this.http.delete(
+      `${this.apiUrl}/candidates/${group}/members/delete?user_id=${user}`,
+      { observe: 'response' }
+    );
+  }
+
+
+  public joinGroupMember(id: any, payload: any): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.apiUrl}/candidates/${id}/join/status`, payload, {
+      observe: 'response',
+    });
+  }
+
+  getUsersToJoinCandidat(group: any) {
+    return this.http.post(`${this.apiUrl}/candidates/${group}/members/list`, {
+      observe: 'response',
+    });
+  }
   // Change candidate status
-  public changeStatus(id: number, payload: any): Observable<HttpResponse<any>> | any {
-    return this.http.post(`${this.apiUrl}/candidats/change_status/${id}`, payload, { observe: 'response' });
+  public updateStatus(id: number, is_private: boolean) {
+    const body = {
+      is_private: is_private,
+    };
+    return this.http.post(`${this.apiUrl}/candidates/${id}/is_private`, body, {
+      observe: 'response',
+    });
   }
-
   // Get the list of diplomas
   public getDiplomasList(): Observable<any> {
     return this.http.get(`${this.apiUrl}/diplomas`);
   }
+
+  
+
+  public restoreCandidat(id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/candidates/restore/${id}`, {});
+  }
+  
 }

@@ -19,19 +19,19 @@ export class ViewEmployeurComponent {
   ) {}
 
   ngOnInit() {
-    const employerId = this.route.snapshot.paramMap.get('id'); // Récupération de l'ID depuis l'URL
+    const employerId = this.route.snapshot.paramMap.get('id');
     if (employerId) {
       this.employerService.getEmployerById(employerId).subscribe(
-        (data) => {
-          this.employer = data;  // Stocke les données de l'employeur
+        (res) => {
+          this.employer = res; // ✅ Utilise directement la réponse
         },
         (error) => {
-          console.error('Erreur lors du chargement des détails de l\'employeur', error);
+          console.error("Erreur lors du chargement de l'employeur", error);
         }
       );
     }
   }
-
+  
   backToList(): void {
     history.back(); // Revenir à la page précédente
     console.log('Retour à la liste');

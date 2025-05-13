@@ -1,96 +1,136 @@
-<div class="modal" tabindex="-1" [ngClass]="{ 'show': updateEmployer }">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Icône de fermeture dans l'en-tête -->
-      <div class="modal-header">
-        <a class="btn-back" pButton pRipple icon="pi pi-arrow-left" (click)="backToList()"></a>
-        <h1>Modifier un Employeur</h1>
-        <button type="button" class="btn-close" (click)="closeModal()"></button>
-      </div>
-
-      <div *ngIf="overlayStatus" class="overlay">
-        <button class="overlay-close" (click)="overlayStatusFct()"></button>
-      </div>
-
-      <div *ngIf="success" class="table-area">
-        <div class="success-msg">{{ successMsg }}</div>
-      </div>
-
-      <div class="modal-body">
-        <div class="table-area" *ngIf="!success">
-          <form [formGroup]="employerForm" (ngSubmit)="submitForm()">
-            <div class="row">
-              <!-- Image + Statut -->
-              <div class="col-lg-4 pe-md-0">
-                <div class="card form-area bg-white">
-                  <div class="card-body">
-                    <div class="form-style-1">
-                      <label class="form-label">Image</label>
-                      <div *ngIf="imageUrl" class="gallerie">
-                        <div class="gallerie__item">
-                          <img class="img-image img-thumbnail" [src]="imageUrl" alt="Image de l'employeur">
-                          <i class="pi pi-times" (click)="removeFile()"></i>
-                        </div>
-                      </div>
-                      <input id="image" type="file" class="input-file image" accept="image/*" (change)="uploadFile($event)">
-                      <label for="image">{{ employerForm.controls['image'].value?.name || 'Choisir une image' }}</label>
-                      <span class="error" *ngIf="employerForm.get('image')?.invalid && isSubmitted">Image est requise</span>
-                    </div>
-                  </div>
+<p-dialog
+  header="Modifier un employeur"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+  [draggable]="false"
+  (onHide)="close()"
+>
+  <form [formGroup]="employerForm" (ngSubmit)="submitForm()">
+    <div class="row">
+      <!-- Colonne gauche -->
+      <div class="col-lg-4 pe-md-0">
+        <div class="card form-area bg-white">
+          <div class="card-body">
+            <!-- Image -->
+            <div class="form-style-1">
+              <label class="form-label">Image</label>
+              <div *ngIf="imageUrl" class="gallerie">
+                <div class="gallerie__item">
+                  <img class="img-image img-thumbnail" [src]="imageUrl" alt="Image">
+                  <i class="pi pi-times" (click)="removeFile()"></i>
                 </div>
               </div>
-
-              <!-- Infos -->
-              <div class="col-lg-8 text-input-blc">
-                <div class="card form-area bg-white">
-                  <div class="card-body">
-                    <div class="form-style-1">
-                      <label class="form-label">Nom</label>
-                      <input type="text" placeholder="Nom de l'employeur *" formControlName="lastname">
-                      <span class="error" *ngIf="employerForm.get('lastname')?.invalid && isSubmitted">Nom est requis</span>
-                    </div>
-
-                    <div class="form-style-1">
-                      <label class="form-label">Domaine</label>
-                      <input type="text" placeholder="Domaine d'activité *" formControlName="domaine">
-                      <span class="error" *ngIf="employerForm.get('domaine')?.invalid && isSubmitted">Domaine est requis</span>
-                    </div>
-
-                    <div class="form-style-1">
-                      <label class="form-label">Type Professionnel</label>
-                      <select formControlName="typeProfessionnel">
-                        <option value="industrie">Industrie</option>
-                        <option value="commerce">Commerce</option>
-                        <option value="services">Services</option>
-                        <option value="informatique">Informatique</option>
-                        <option value="restauration">Restauration</option>
-                        <option value="sante">Santé</option>
-                      </select>
-                      <span class="error" *ngIf="employerForm.get('typeProfessionnel')?.invalid && isSubmitted">Type professionnel est requis</span>
-                    </div>
-
-                    <div class="form-style-1">
-                      <label class="form-label">Adresse</label>
-                      <input type="text" placeholder="Adresse de l'entreprise *" formControlName="adresse">
-                      <span class="error" *ngIf="employerForm.get('adresse')?.invalid && isSubmitted">Adresse est requise</span>
-                    </div>
-
-                    <div class="form-style-1">
-                      <label class="form-label">Description</label>
-                      <textarea placeholder="Description de l'entreprise" formControlName="description"></textarea>
-                      <span class="error" *ngIf="employerForm.get('description')?.invalid && isSubmitted">Description est requise</span>
-                    </div>
-
-                    <button [disabled]="loading" type="submit" class="btn btn-primary submit">
-                      <i *ngIf="loading" class="pi pi-spin pi-spinner"></i> Modifier
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <input id="image" type="file" class="input-file image" accept="image/*" (change)="uploadFile($event)">
+              <label for="image">
+                {{ employerForm.controls['image'].value?.name || 'Choisir une image' }}
+              </label>
+              <span class="error" *ngIf="employerForm.get('image')?.invalid && isSubmitted">Image requise</span>
             </div>
-          </form>
+
+            <!-- Statut -->
+            <div class="form-style-1">
+              <label class="form-label">Statut</label>
+              <p-dropdown
+                [options]="allStatus"
+                formControlName="status"
+                optionLabel="name"
+                optionValue="value"
+                placeholder="Sélectionner un statut"
+              ></p-dropdown>
+              <span class="error" *ngIf="employerForm.get('status')?.invalid && isSubmitted">Statut requis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne droite -->
+      <div class="col-lg-8 text-input-blc">
+        <div class="card form-area bg-white">
+          <div class="card-body">
+            <!-- Nom -->
+            <div class="form-style-1">
+              <label class="form-label">Nom</label>
+              <input type="text" formControlName="lastname" placeholder="Nom de l'entreprise *" />
+              <span class="error" *ngIf="employerForm.get('lastname')?.invalid && isSubmitted">Nom requis</span>
+            </div>
+
+            <!-- Contact -->
+            <div class="form-style-1">
+              <label class="form-label">Contact</label>
+              <input type="text" formControlName="firstname" placeholder="Personne de contact" />
+            </div>
+
+            <!-- Domaine -->
+            <div class="form-style-1">
+              <label class="form-label">Domaine</label>
+              <input type="text" formControlName="domaine" placeholder="Domaine d'activité *" />
+              <span class="error" *ngIf="employerForm.get('domaine')?.invalid && isSubmitted">Domaine requis</span>
+            </div>
+
+            <!-- Type professionnel -->
+            <div class="form-style-1">
+              <label class="form-label">Type Professionnel</label>
+              <select formControlName="typeProfessionnel">
+                <option value="industrie">Industrie</option>
+                <option value="commerce">Commerce</option>
+                <option value="services">Services</option>
+                <option value="informatique">Informatique</option>
+                <option value="restauration">Restauration</option>
+                <option value="sante">Santé</option>
+              </select>
+              <span class="error" *ngIf="employerForm.get('typeProfessionnel')?.invalid && isSubmitted">Type requis</span>
+            </div>
+
+            <!-- Email -->
+            <div class="form-style-1">
+              <label class="form-label">E-mail</label>
+              <input type="email" formControlName="email" placeholder="E-mail *" />
+              <span class="error" *ngIf="employerForm.get('email')?.invalid && isSubmitted">Email requis</span>
+            </div>
+
+            <!-- Diplôme -->
+            <div class="form-style-1">
+              <label class="form-label">Diplôme (PDF)</label>
+              <input type="file" accept=".pdf" (change)="onFileChange($event)" />
+              <small *ngIf="selectedFile">📄 {{ selectedFile.name }}</small>
+            </div>
+
+            <!-- Adresse -->
+            <div class="form-style-1">
+              <label class="form-label">Adresse</label>
+              <input type="text" formControlName="adresse" placeholder="Adresse de l'entreprise *" />
+              <span class="error" *ngIf="employerForm.get('adresse')?.invalid && isSubmitted">Adresse requise</span>
+            </div>
+
+            <!-- Téléphone -->
+            <div class="form-style-1">
+              <label class="form-label">Téléphone</label>
+              <input type="text" formControlName="phone" placeholder="+216..." />
+              <span class="error" *ngIf="employerForm.get('phone')?.invalid && isSubmitted">Téléphone requis</span>
+            </div>
+
+            <!-- Description -->
+            <div class="form-style-1">
+              <label class="form-label">Description</label>
+              <textarea formControlName="description" placeholder="Description de l'entreprise"></textarea>
+              <span class="error" *ngIf="employerForm.get('description')?.invalid && isSubmitted">Description requise</span>
+            </div>
+
+            <!-- Qualification -->
+            <div class="form-style-1">
+              <label class="form-label">Qualification</label>
+              <textarea formControlName="qualification" placeholder="Qualification de l'entreprise"></textarea>
+              <span class="error" *ngIf="employerForm.get('qualification')?.invalid && isSubmitted">Qualification requise</span>
+            </div>
+
+            <!-- Bouton soumettre -->
+            <button [disabled]="loading" type="submit" class="btn btn-primary submit">
+              <i *ngIf="loading" class="pi pi-spin pi-spinner"></i> Modifier
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </form>
+</p-dialog>

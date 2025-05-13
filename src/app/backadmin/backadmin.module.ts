@@ -144,6 +144,8 @@ import { UserComponent } from './user/user.component';
     MessagerieComponent,
     ViewEmployeurComponent,
     RendezVousComponent,
+    AddEmployerComponent,
+    AddCandidatComponent,
   ],
   imports: [
     CommonModule,
@@ -184,6 +186,7 @@ import { UserComponent } from './user/user.component';
     ToastModule,
     PanelModule,
     ColorPickerModule,
+    
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

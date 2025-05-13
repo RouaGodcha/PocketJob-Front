@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ModulesService {
   // URL de base pour toutes les requêtes vers le backend Laravel
-  private apiUrl = `${environment.apiUrl}`;
+  private apiUrl = `${environment.apiUrl}/backoffice`;
 
   constructor(private http: HttpClient) {}
 

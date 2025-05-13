@@ -48,7 +48,7 @@ export class ModulesComponent implements OnInit {
       { id: 2, name: this.translate.instant('PENDING'), value: 'PENDING' },
       { id: 3, name: this.translate.instant('DISABLED'), value: 'DISABLED' },
     ];
-
+  
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 1;
       this.per_page = +params['per_page'] || 10;
@@ -56,17 +56,17 @@ export class ModulesComponent implements OnInit {
         this.first = (this.page - 1) * this.per_page;
         this.setPaginator = true;
       }
-      this.getSubjectsList();
+      this.getSubjectsList(); // Récupération réelle
     });
-
+  
     this.getDiplomasList();
-    this.loadModules();  // Chargement des modules simulés
   }
+  
   // Utilisation de données factices pour les modules
   loadModules() {
-    this.loading = true;
+    /*this.loading = true;
     
-    // Simulating job offer modules with fake data
+    Simulating job offer modules with fake data
     this.modules = [
       { 
         id: 1, 
@@ -156,6 +156,7 @@ export class ModulesComponent implements OnInit {
     
     this.loading = false;
     this.total = this.modules.length;  // Total based on the fake data length
+    */
 }
 
 

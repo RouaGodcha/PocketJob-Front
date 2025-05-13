@@ -5,25 +5,34 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-candidat',
-  standalone: false,
+  standalone:false,
   templateUrl: './add-candidat.component.html',
-  styleUrl: './add-candidat.component.scss'
+  styleUrls: ['./add-candidat.component.scss']
 })
 export class AddCandidatComponent implements OnInit {
 
-  @Input() show = false;
-  @Output() close = new EventEmitter();
-  @Output() success = new EventEmitter();
+  @Input() show: boolean = false;
+  @Output() success: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  addCandidatForm!: FormGroup ;
-  showSuccess = false;
-  selectedFile: File | undefined;
-  overlayStatus: boolean = false;  // Pour contrôler l'état de l'overlay
+  addCandidatForm!: FormGroup;
+  selectedFile: File | null = null;
+  fileTouched: boolean = false;
+  showSuccess: boolean = false;
+  isSubmitted: boolean = false;
+  loading: boolean = false;
+  imageUrl: string | null = null;
+  allStatus: any[] = [
+    { name: 'ACTIVE', value: 'ACTIVE' },
+    { name: 'En ATTENTE', value: 'EN ATTENTE' },
+    { name: 'BLOQUÉ', value: 'BLOQUE' }
+  ];
 
   constructor(
-    private fb: FormBuilder ,
+    private fb: FormBuilder,
     private candidatService: CandidatService,
-    private route: Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -32,72 +41,72 @@ export class AddCandidatComponent implements OnInit {
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
-      diplome: [null, [Validators.required]]
+      status: ['', [Validators.required]]
     });
+  }
+  
+  isInvalid(control: string): boolean {
+    const c = this.addCandidatForm.get(control);
+    return !!(c && c.invalid && (c.dirty || c.touched || this.isSubmitted));
   }
 
   onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      this.addCandidatForm.get('diplome')?.setValue(file);
-    } else {
-      this.selectedFile = undefined;
-      this.addCandidatForm.get('diplome')?.setValue(null);
-    }
+    this.selectedFile = event.target.files[0] || null;
+    this.fileTouched = true;
   }
 
-  onSubmit() {
-    if (this.addCandidatForm.invalid || !this.selectedFile) {
-      this.addCandidatForm.markAllAsTouched();
-      return;
-    }
+  removeFile() {
+    this.selectedFile = null;
+    this.fileTouched = true;
+  }
 
-    const data = {
-      firstname: this.addCandidatForm.get('firstname')?.value,
-      lastname: this.addCandidatForm.get('lastname')?.value,
-      email: this.addCandidatForm.get('email')?.value,
-      phone: this.addCandidatForm.get('phone')?.value
-    };
-
-    this.candidatService.addCandidat(data, this.selectedFile).subscribe({
-      next: (res) => {
-        console.log(res);
+  submitForm() {
+    this.isSubmitted = true;
+    this.fileTouched = true;
+  
+    if (this.addCandidatForm.invalid || !this.selectedFile) return;
+  
+    const formData = new FormData();
+    formData.append('firstname', this.addCandidatForm.get('firstname')?.value);
+    formData.append('lastname', this.addCandidatForm.get('lastname')?.value);
+    formData.append('email', this.addCandidatForm.get('email')?.value);
+    formData.append('phone', this.addCandidatForm.get('phone')?.value);
+    formData.append('status', this.addCandidatForm.get('status')?.value);
+    formData.append('diplome', this.selectedFile!);
+  
+    this.loading = true;
+  
+    this.candidatService.addCandidat(formData).subscribe({
+      next: () => {
+        this.loading = false;
         this.showSuccess = true;
-        this.success.emit(res);
-        this.route.navigate(['/admin/candidats']);
+        this.success.emit(true);
+        setTimeout(() => this.cancel(), 2000);
       },
       error: (err) => {
-        console.error("Erreur ajout candidat", err);
+        this.loading = false;
+        console.error('❌ Erreur serveur:', err);
+        if (err.error?.errors) {
+          Object.keys(err.error.errors).forEach(field => {
+            this.addCandidatForm.get(field)?.setErrors({ backend: err.error.errors[field][0] });
+          });
+        }
       }
     });
   }
-
-  // Fonction pour basculer l'état de l'overlay (cacher ou afficher)
-  overlayStatusFct() {
-    this.overlayStatus = !this.overlayStatus; // Change l'état de l'overlay
-  }
-
-  // Exemple de fonction pour fermer l'overlay
-  closeOverlay() {
-    this.overlayStatus = false; // Ferme l'overlay
-  }
-
-
-  attemptAddCandidat(event : any){}
+  
   cancel() {
     this.showSuccess = false;
+    this.isSubmitted = false;
+    this.fileTouched = false;
     this.addCandidatForm.reset();
-    this.close.emit();  // Emit close event to hide modal if needed
+    this.selectedFile = null;
+    this.show = false;
+    this.showChange.emit(false);
+    this.close.emit(true);
   }
-  
 
   closeModal() {
-    history.back(); 
-    this.cancel();   
-  }
-  backToList(): void {
-    history.back(); // Revenir à la page précédente
-    console.log('Retour à la liste');
+    this.cancel();
   }
 }

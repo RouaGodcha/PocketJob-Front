@@ -7,14 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmployerService {
-  private apiUrl = `${environment.apiUrl}`;
+  private apiUrl = `${environment.apiUrl}/backoffice`;
 
   constructor(
     private http : HttpClient
   ) { }
    // ✅ Changer le statut d’un employeur
   public changeStatus(id: number, payload: any): Observable<HttpResponse<any>> | any {
-    return this.http.post(`${this.apiUrl}/employer/change_status/${id}`, payload, { observe: 'response' })
+    return this.http.post(`${this.apiUrl}/employers/change_status/${id}`, payload, { observe: 'response' })
   }
 
 
@@ -31,9 +31,18 @@ export class EmployerService {
 }
 
 // ✅ Ajouter un employeur
-public addEmployer(payload: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/employers`, payload);
+public addEmployer(payload: FormData): Observable<any> {
+  return this.http.post(`${this.apiUrl}/employers`, payload, {
+    reportProgress: true,
+    observe: 'body'
+  });
 }
+
+public getAllEmployers(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/employers`);
+}
+
+
 
 getEmployerById(id: string) : Observable<any>{
   return this.http.get<any>(`${this.apiUrl}/employers/${id}`);
@@ -55,8 +64,29 @@ public restoreEmployer(id: number): Observable<any> {
   return this.http.put(`${this.apiUrl}/employers/restore/${id}`, {});
 }
 
-public deletEmployer(id: any): Observable<HttpResponse<any>> | any {
-  return this.http.delete(`${this.apiUrl}/employers/delete/${id}`, { observe: 'response' });
+// ✅ Corrigé : utilise bien la route REST standard Laravel
+public deleteEmployer(id: number): Observable<HttpResponse<any>> {
+  return this.http.delete(`${this.apiUrl}/employers/${id}`, { observe: 'response' });
 }
-  
+
+
+updateEmployerStatus(id: number, is_private: boolean) {
+  const body = {
+    is_private: is_private,
+  };
+  return this.http.post(`${this.apiUrl}/employers/${id}/is_private`, body, {
+    observe: 'response',
+  });
+}
+
+// ✅ Liste des diplômes
+public getDiplomasList(): Observable<HttpResponse<any>> {
+  return this.http.get(`${this.apiUrl}/diplomas`, { observe: 'response' });
+}
+
+// ✅ Liste des sujets
+public getSubjectsList(): Observable<HttpResponse<any>> {
+  return this.http.get(`${this.apiUrl}/subjects`, { observe: 'response' });
+}
+
 }

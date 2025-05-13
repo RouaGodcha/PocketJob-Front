@@ -5,25 +5,26 @@
         <h1 class="big-title">Liste des Candidats</h1>
       </div>
       <div class="btns-group two-btns">
-        <a
-          class="btn-primary"
-          routerLink="/admin/users/candidats/add-candidat"
-          pButton
-          pRipple
-          icon="pi pi-plus"
-        >
-          Ajouter
-        </a>
+        <button
+        class="btn-primary"
+        pButton
+        pRipple
+        label="Ajouter"
+        icon="pi pi-plus"
+        (click)="addChatCandidat()"
+      ></button>
       </div>
     </div>
   </div>
 
-  <div class="table-area">
+  <div class="table-area groups-table">
     <div class="card">
       <div class="card-body">
         <p-table
           [value]="candidats"
+          responsiveLayout="stack"
           [first]="first"
+          [breakpoint]="'960px'"
           [paginator]="true"
           [lazy]="true"
           [rows]="per_page"
@@ -47,56 +48,67 @@
 
           <ng-template pTemplate="header">
             <tr>
-              <th>Référence</th>
-              <th>Nom</th>
-              <th>Email</th>
-              <th>Diplôme</th>
+              <th  class="reference-col" pSortableColumn="id">
+                Référence
+                <p-sortIcon field="id" class="sort-icon">
+
+                </p-sortIcon>
+              </th>
+              <th class="name-col" pSortableColumn="title">
+                Nom <p-sortIcon field="name" class="sort-icon">
+                </p-sortIcon>
+              </th>
+              <th pSortableColumn="email">
+                Email
+                <p-sortIcon field="email" class="sort-icon"></p-sortIcon>
+             </th>
+              <th pSortableColumn="diploma">
+                Diplôme
+                <p-sortIcon field="diploma" class="sort-icon"></p-sortIcon>
+              </th>
               <th>Téléphone</th>
-              <th>Status</th>
-              <th>Date d'inscription</th>
+              <th pSortableColumn="status">
+                Status
+                <p-sortIcon field="status" class="sort-icon"></p-sortIcon>
+              </th>
+              <th pSortableColumn="date">
+                Date d'inscription
+                <p-sortIcon field="date" class="sort-icon"></p-sortIcon>
+              </th>
               <th class="text-center">Actions</th>
             </tr>
           </ng-template>
 
-          <ng-template pTemplate="body" let-candidat>
+          <ng-template pTemplate="body" 
+          let-candidat 
+          let-rowIndex="rowIndex"
+          sortMode="multiple">
             <tr>
-              <td>#{{ candidat.id }}</td>
+              <td>
+                <span class="badge-ref">{{ rowIndex + 1 }}</span>
+              </td>
               <td>{{ candidat.firstname }} {{ candidat.lastname }}</td>
               <td>{{ candidat.email }}</td>
-              <td>{{ candidat.diplome }}</td>
+              <td>{{ candidat.diplome?.name }}</td>
               <td>{{ candidat.phone }}</td>
               <td>
-                <p-dropdown
-                  [options]="allStatus"
-                  [ngModel]="candidat.status"
-                  (onChange)="updateCandidatsStatus(candidat.id, $event)"
-                  [class]="'status-' + candidat.status"
-                  optionLabel="name"
-                  optionValue="value"
-                  placeholder="Statut"
-                ></p-dropdown>
+                <app-switch-button
+                [Id]="candidat.id"
+                [default]="candidat.is_private"
+                (checked)="updateCandidatStatus(candidat.id, true)"
+                (unchecked)="updateCandidatStatus(candidat.id, false)"
+              ></app-switch-button>
               </td>
               <td>{{ candidat.created_at | date: 'dd/MM/yyyy' }}</td>
               <td class="text-center">
                 <button
                   pButton
-                  icon="pi pi-folder"
-                  pTooltip="Pages"
-                  tooltipPosition="left"
-                  class="btn-icon btn-icon--outlin-primary"
-                  (click)="openPages(candidat.id)"
-                ></button>
-
-                <button
-                type="button"
-                  pButton
                   icon="pi pi-eye"
-                  pTooltip="Détails"
+                  pTooltip="details"
                   tooltipPosition="left"
                   class="btn-icon btn-icon--outlin-primary"
                   (click)="candidatDetails(candidat.id)"
                 ></button>
-
                 <button
                 type="button"
                 pButton
@@ -106,11 +118,9 @@
                 class="btn-icon btn-icon--outlin-primary"
                 (click)="updateCandidat(candidat)"
               ></button>
-              
-
                 <button
                   type="button"
-                  pTooltip="Supprimer un candidat"
+                  pTooltip="Supprimer"
                   tooltipPosition="left"
                   pButton
                   class="btn-icon btn-icon--outlin-primary"
@@ -136,3 +146,9 @@
     </div>
   </div>
 </div>
+
+<app-add-candidat
+  [(show)]="addCandidat"
+  (success)="CandidatAdded()"
+  (close)="closeAddCandidat()"
+></app-add-candidat>

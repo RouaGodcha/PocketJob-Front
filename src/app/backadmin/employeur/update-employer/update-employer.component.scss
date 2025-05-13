@@ -1,121 +1,164 @@
 @import "../../../../scss/components/extend";
 
-/* ✅ Centrage modal sur toute la page */
-.list-orders-item-area.add-chapter {
+//* ✅ Style général du formulaire modal */
+:host ::ng-deep .p-dialog {
+  .p-dialog-header {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    background: #f5f8fc;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .p-dialog-content {
+    background-color: #fefefe;
+    padding: 2rem;
+  }
+}
+
+/* ✅ ZONE PRINCIPALE */
+.row {
   display: flex;
-  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card.form-area {
+  background-color: #ffffff;
+  border-radius: 12px;
   padding: 20px;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
 
-  .table-area {
-    background-color: #fff;  /* Fond blanc */
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+/* ✅ STYLE DES CHAMPS */
+.form-style-1 {
+  margin-bottom: 1.4rem;
+
+  label.form-label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: block;
+    color: #333;
+  }
+
+  input,
+  select,
+  textarea {
     width: 100%;
-    max-width: 900px;
+    padding: 0.65rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fdfdfd;
+    font-size: 14px;
 
-    .big-title-blc {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
+    &:focus {
+      outline: none;
+      border-color: #04328c;
+      box-shadow: 0 0 0 2px rgba(4, 50, 140, 0.15);
     }
 
-    .big-title {
-      font-size: 20px;
-      font-weight: 600;
-      text-align: center;
-      flex: 1;
+    &::placeholder {
+      font-style: italic;
+      color: #999;
+    }
+  }
+
+  .error {
+    color: #d93025;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+/* ✅ Image Preview + Remove Icon */
+.gallerie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  &__item {
+    position: relative;
+
+    .img-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
 
-    .btn-back {
-      font-size: 1.2rem;
-      color: #000;
+    .pi-times {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #fff;
+      border: 1px solid #aaa;
+      border-radius: 50%;
+      font-size: 12px;
+      color: #d93025;
       cursor: pointer;
-    }
-
-    .card {
-      margin-bottom: 20px;
-      border: none;
-    }
-
-    .card-body {
-      padding: 15px;
-    }
-
-    .form-style-1 {
-      margin-bottom: 1rem;
-      position: relative;
-
-      .form-label {
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 0.5rem;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 0.5rem;
-        border-radius: 8px;
-        border: 1px solid $color-light-gray;
-        font-size: 14px;
-        background-color: $color-lightest-gray;
-
-        &:focus {
-          border-color: $color-primary;
-          outline: none;
-        }
-      }
-
-      .error {
-        color: $color-error;
-        font-size: 12px;
-        margin-top: 0.25rem;
-      }
-
-      input::placeholder,
-      textarea::placeholder {
-        font-style: italic;
-      }
-    }
-
-    /* ✅ Bouton de soumission */
-    .btn-primary.submit {
-      max-width: 123px !important;
-      padding: 10px 20px;
-      background-color: #04328c;
-      border: none;
-      color: white;
-      border-radius: 6px;
-      font-weight: 500;
-      transition: background-color 0.3s ease;
-      float: right;
+      padding: 4px;
 
       &:hover {
-        background-color: #022b70;
-        transform: scale(1.05);
-      }
-
-      &:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
-      }
-
-      .pi {
-        margin-right: 5px;
+        background-color: #d93025;
+        color: white;
       }
     }
+  }
+}
+/* ✅ BOUTON DE SOUMISSION */
+.btn-primary.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  background-color: #04328c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  float: right;
+  transition: all 0.3s ease;
 
-    /* 🧾 Champs formulaire */
-    .part-one {
-      .form-style-1 {
-        label {
-          margin-bottom: 10px;
-        }
-      }
-    }
+  &:hover {
+    background-color: #022b70;
+    transform: scale(1.03);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .pi {
+    margin-right: 6px;
+  }
+}
+
+/* ✅ FICHIER PDF */
+input[type="file"] {
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+/* ✅ RESPONSIVE */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .btn-primary.submit {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .card.form-area {
+    padding: 15px;
   }
 }
